@@ -22,7 +22,7 @@ namespace FortGames.Infrastructure
         {
             base.OnModelCreating(builder); //base = origine, + quello che gli diciamo
             //builder.Entity<GameGenre>(entity => entity.HasKey(e => new { e.GenreId, e.GameId })); //fluent API
-            builder.SeedData();
+            builder.Seed();
         }
     }
 }
