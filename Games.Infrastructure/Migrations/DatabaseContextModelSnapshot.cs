@@ -22,6 +22,51 @@ namespace Games.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenresId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("GameGenre");
+                });
+
+            modelBuilder.Entity("GameMode", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "ModesId");
+
+                    b.HasIndex("ModesId");
+
+                    b.ToTable("GameMode");
+                });
+
+            modelBuilder.Entity("GamePlatform", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlatformsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "PlatformsId");
+
+                    b.HasIndex("PlatformsId");
+
+                    b.ToTable("GamePlatform");
+                });
+
             modelBuilder.Entity("Games.Infrastructure.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -97,20 +142,42 @@ namespace Games.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4f6ac48f-d53f-478d-b0f3-d3970b279302",
+                            Id = "6238eb03-7fba-4b55-9baa-d2c9093f814c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "776d8343-ecdd-4a20-9c05-5d58c8e96b7a",
+                            ConcurrencyStamp = "a1eb0f3a-ba32-45f2-b7cd-84c668388cbc",
                             Email = "admin@fortgames.net",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@FORTGAMES.NET",
                             NormalizedUserName = "ADMIN@FORTGAMES.NET",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG7NlAWP++L8glFCmyUZ/q7uQwJSZ36iwvR4gY2mp+8mM4hbJvAK2dX4lBegKIgUPQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDDk+ti1nowv4+a8saN18zIOmAuWoMW3Akn9dFCRbGUS8slLkBPknWtYi5FbyeMJWQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3f4b9976-4e9a-468a-a3cc-ee6faad4f8bc",
+                            SecurityStamp = "7dfc144a-ce38-406c-895f-0541046865ba",
                             TwoFactorEnabled = false,
                             UserName = "admin@fortgames.net"
                         });
+                });
+
+            modelBuilder.Entity("Games.Infrastructure.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("Games.Infrastructure.Entities.Game", b =>
@@ -121,9 +188,14 @@ namespace Games.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Release")
                         .HasColumnType("datetime2");
@@ -134,22 +206,9 @@ namespace Games.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("Games.Infrastructure.Entities.GameGenre", b =>
-                {
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenreId", "GameId");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("GameGenres");
                 });
 
             modelBuilder.Entity("Games.Infrastructure.Entities.Genre", b =>
@@ -171,6 +230,42 @@ namespace Games.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("Games.Infrastructure.Entities.Mode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Modes");
+                });
+
+            modelBuilder.Entity("Games.Infrastructure.Entities.Platform", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Platforms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -202,22 +297,22 @@ namespace Games.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7b53ad59-d1cb-4f07-be19-bfa21f22bf15",
-                            ConcurrencyStamp = "c118a860-fd85-4878-add6-f81f2a9f1de8",
+                            Id = "6c03eeb6-53fc-4017-aa91-4a989d193853",
+                            ConcurrencyStamp = "175f3500-fd04-44e9-8df3-68cf3766063a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "63e0ada9-0a28-485e-b13c-5f3dbf3687ff",
-                            ConcurrencyStamp = "8ab9514e-bd25-41a5-b7a0-384738e4c674",
+                            Id = "80ab7f0a-e527-4db5-8337-02a87c3143db",
+                            ConcurrencyStamp = "4c655fcd-e50f-47ff-81d4-a0f0bf6de548",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "eba2b324-5f56-40d8-b44a-5adcd7d5a8b6",
-                            ConcurrencyStamp = "fa05840e-8796-4638-8b8a-de97197c3f5c",
+                            Id = "3163ca41-8445-4877-a788-bf2496b2656b",
+                            ConcurrencyStamp = "51ee56e2-8ce8-4f38-8aae-091564576397",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         });
@@ -312,8 +407,8 @@ namespace Games.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4f6ac48f-d53f-478d-b0f3-d3970b279302",
-                            RoleId = "7b53ad59-d1cb-4f07-be19-bfa21f22bf15"
+                            UserId = "6238eb03-7fba-4b55-9baa-d2c9093f814c",
+                            RoleId = "6c03eeb6-53fc-4017-aa91-4a989d193853"
                         });
                 });
 
@@ -336,23 +431,60 @@ namespace Games.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Games.Infrastructure.Entities.GameGenre", b =>
+            modelBuilder.Entity("GameGenre", b =>
                 {
-                    b.HasOne("Games.Infrastructure.Entities.Game", "Game")
-                        .WithMany("GameGenre")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Games.Infrastructure.Entities.Genre", "Genre")
+                    b.HasOne("Games.Infrastructure.Entities.Game", null)
                         .WithMany()
-                        .HasForeignKey("GenreId")
+                        .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.HasOne("Games.Infrastructure.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("Genre");
+            modelBuilder.Entity("GameMode", b =>
+                {
+                    b.HasOne("Games.Infrastructure.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Games.Infrastructure.Entities.Mode", null)
+                        .WithMany()
+                        .HasForeignKey("ModesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GamePlatform", b =>
+                {
+                    b.HasOne("Games.Infrastructure.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Games.Infrastructure.Entities.Platform", null)
+                        .WithMany()
+                        .HasForeignKey("PlatformsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Games.Infrastructure.Entities.Game", b =>
+                {
+                    b.HasOne("Games.Infrastructure.Entities.Company", "Company")
+                        .WithMany("Games")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -406,9 +538,9 @@ namespace Games.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Games.Infrastructure.Entities.Game", b =>
+            modelBuilder.Entity("Games.Infrastructure.Entities.Company", b =>
                 {
-                    b.Navigation("GameGenre");
+                    b.Navigation("Games");
                 });
 #pragma warning restore 612, 618
         }

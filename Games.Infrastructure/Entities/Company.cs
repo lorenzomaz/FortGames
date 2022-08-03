@@ -1,16 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Games.Infrastructure.Entities
+﻿namespace Games.Infrastructure.Entities
 {
-    public class Genre
+    public class Company
     {
         public int Id { get; set; }
-
-        [StringLength(100)]
         public string Name { get; set; }
-
-        [StringLength(1000)]
         public string Description { get; set; }
+        public string Website { get; set; }
         public ICollection<Game> Games { get; set; }
     }
 }
