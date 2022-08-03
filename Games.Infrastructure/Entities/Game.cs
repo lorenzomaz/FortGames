@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.ComponentModel.DataAnnotations;
 namespace Games.Infrastructure.Entities
 {
     public class Game
@@ -14,10 +8,12 @@ namespace Games.Infrastructure.Entities
         [StringLength(100)]
         public string Title { get; set; }
         public DateTime Release { get; set; }
-
-        [StringLength(1000)]
         public string Description { get; set; }
-
-        public ICollection<GameGenre> GameGenre { get; set; }
+        public int Rating { get; set; }
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
+        public ICollection<Mode> Modes { get; set; }
+        public ICollection<Platform> Platforms { get; set; }
+        public ICollection<Genre> Genres { get; set; }
     }
 }
