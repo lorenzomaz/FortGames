@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Infrastructure", "Gam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Shared", "Games.Shared\Games.Shared.csproj", "{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Games.Web", "Games.Web\Games.Web.esproj", "{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,12 @@ Global
 		{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
