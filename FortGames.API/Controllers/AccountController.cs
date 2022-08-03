@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FortGames.Domain.Entities;
 using FortGames.Domain.Models;
-using FortGames.Infrastructure.Extensions;
+using FortGames.Shared.Extensions;
 using FortGames.Shared.Constats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -86,6 +86,7 @@ namespace FortGames.API.Controllers
             {
                 return Unauthorized("Access Blocked");
             }
+
             if (!await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 await _userManager.AccessFailedAsync(user);

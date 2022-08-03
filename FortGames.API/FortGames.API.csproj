@@ -13,7 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <ProjectReference Include="..\FortGames.Infrastructure\FortGames.Infrastructure.csproj" />
+=======
+    <ProjectReference Include="..\FortGames.Services\FortGames.Services.csproj" />
+>>>>>>> 5212fabfa878095dd3b1a8ae74a2baa6fb708fc1
   </ItemGroup>
 
 </Project>
