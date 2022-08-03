@@ -133,7 +133,7 @@ namespace FortGames.API.Controllers
             return Ok(_mapper.Map<UserModel>(user));
         }
 
-        //[Authorize(Roles = Identity.Roles.Admin)]
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
