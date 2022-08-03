@@ -19,7 +19,7 @@ namespace FortGames.Services
             _databaseContext = databaseContext;
         }
 
-        #region Add
+        #region Post
         public async Task<Company> AddCompany(Company company)
         {
             var result = await _databaseContext.Companies.AddAsync(company);
@@ -64,24 +64,32 @@ namespace FortGames.Services
             return await _databaseContext.SaveChangesAsync();
         }
 
-        public Task<Game> DeleteGame(Game game)
+        public async Task<int> DeleteGame(int id)
         {
-            throw new NotImplementedException();
+            var game = await _databaseContext.Games.FindAsync(id);
+            _databaseContext.Games.Remove(game);
+            return await _databaseContext.SaveChangesAsync();
         }
 
-        public Task<Genre> DeleteGenre(Genre genre)
+        public async Task<int> DeleteGenre(int id)
         {
-            throw new NotImplementedException();
+            var genre = await _databaseContext.Genres.FindAsync(id);
+            _databaseContext.Genres.Remove(genre);
+            return await _databaseContext.SaveChangesAsync();
         }
 
-        public Task<Mode> DeleteMode(Mode mode)
+        public async Task<int> DeleteMode(int id)
         {
-            throw new NotImplementedException();
+            var mode = await _databaseContext.Modes.FindAsync(id);
+            _databaseContext.Modes.Remove(mode);
+            return await _databaseContext.SaveChangesAsync();
         }
 
-        public Task<Platform> DeletePlatform(Platform platform)
+        public async Task<int> DeletePlatform(int id)
         {
-            throw new NotImplementedException();
+            var platform = await _databaseContext.Platforms.FindAsync(id);
+            _databaseContext.Platforms.Remove(platform);
+            return await _databaseContext.SaveChangesAsync();
         }
         #endregion
 
@@ -93,7 +101,7 @@ namespace FortGames.Services
 
         public async Task<Game> GetGame(int id)
         {
-            return await _databaseContext.Games.FirstOrDefaultAsync(g => g.Id == id);
+            return await _databaseContext.Games.FindAsync(id);
         }
 
         public async Task<IEnumerable<Game>> GetGames()

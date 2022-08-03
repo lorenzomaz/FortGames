@@ -18,9 +18,9 @@ namespace FortGames.Services.Abstracts
         Task<Game> AddGame(Game game);
 
         Task<int> DeleteCompany(int id);
-        Task<Genre> DeleteGenre(Genre genre);
-        Task<Mode> DeleteMode(Mode mode);
-        Task<Platform> DeletePlatform(Platform platform);
-        Task<Game> DeleteGame(Game game);
+        Task<int> DeleteGenre(int id);
+        Task<int> DeleteMode(int id);
+        Task<int> DeletePlatform(int id);
+        Task<int> DeleteGame(int id);
     }
 }

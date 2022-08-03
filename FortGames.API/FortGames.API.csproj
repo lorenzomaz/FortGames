@@ -19,11 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FortGames.Infrastructure\FortGames.Infrastructure.csproj" />
+    <ProjectReference Include="..\FortGames.Services\FortGames.Services.csproj" />
   </ItemGroup>
 
 </Project>

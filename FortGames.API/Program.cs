@@ -1,4 +1,6 @@
 using FortGames.Infrastructure;
+using FortGames.Services;
+using FortGames.Services.Abstracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace FortGames.API
@@ -12,6 +14,7 @@ namespace FortGames.API
             // Add services to the container.
             builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped<IFortGamesService, FortGamesService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
