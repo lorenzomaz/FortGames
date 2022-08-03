@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace FortGames.Infrastructure.Entities
+
+namespace FortGames.Domain.Entities
 {
     public class Game
     {

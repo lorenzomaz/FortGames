@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FortGames.Domain\FortGames.Domain.csproj" />
     <ProjectReference Include="..\FortGames.Shared\FortGames.Shared.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using FortGames.Infrastructure.Entities;
+﻿using FortGames.Domain.Entities;
 using FortGames.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
