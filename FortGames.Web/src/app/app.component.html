@@ -1,1 +1,21 @@
-<router-outlet></router-outlet>
+<app-toolbar [drawer]="drawer"></app-toolbar>
+<mat-drawer-container class="sidenav-container" autosize>
+  <mat-drawer #drawer class="sidenav text-center" mode="over" [disableClose]="false">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item py-2">
+        <a class="nav-link" routerLink="/" (click)="drawer.close()">Home</a>
+      </li>
+      <li class="nav-item py-2">
+        <a class="nav-link" routerLink="/anagrafica" (click)="drawer.close()">Anagrafica</a>
+      </li>
+      <li class="nav-item py-2" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/users" (click)="drawer.close()">Users</a>
+      </li>
+    </ul>
+  </mat-drawer>
+  <div class="sidenav-content">
+     <div class="container">
+       <router-outlet></router-outlet>
+     </div>
+  </div>
+</mat-drawer-container>

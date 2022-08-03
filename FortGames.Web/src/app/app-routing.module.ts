@@ -6,6 +6,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: '404', component: NotFoundComponent },
+  { path: 'login', loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule) },
+  { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
