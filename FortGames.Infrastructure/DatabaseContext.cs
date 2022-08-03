@@ -1,9 +1,9 @@
-﻿using Games.Infrastructure.Entities;
-using Games.Infrastructure.Extensions;
+﻿using FortGames.Infrastructure.Entities;
+using FortGames.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Games.Infrastructure
+namespace FortGames.Infrastructure
 {
     public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {

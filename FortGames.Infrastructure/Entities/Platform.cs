@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Games.Infrastructure.Entities
+namespace FortGames.Infrastructure.Entities
 {
     public class Platform
     {

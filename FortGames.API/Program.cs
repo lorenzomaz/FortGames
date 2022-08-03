@@ -1,4 +1,4 @@
-using Games.Infrastructure;
+using FortGames.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace FortGames.API

@@ -1,9 +1,9 @@
-﻿using Games.Infrastructure.Entities;
-using Games.Shared.Constats;
+﻿using FortGames.Infrastructure.Entities;
+using FortGames.Shared.Constats;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Games.Infrastructure.Extensions
+namespace FortGames.Infrastructure.Extensions
 {
     public static class ApplicationData
     {

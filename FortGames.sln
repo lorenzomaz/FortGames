@@ -5,13 +5,13 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FortGames.API", "FortGames.API\FortGames.API.csproj", "{138A3019-8B11-4BE0-96B5-83AD33CEC250}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Services", "Games.Services\Games.Services.csproj", "{742B0CAC-1632-40E0-8366-DE777C3FF261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FortGames.Services", "FortGames.Services\FortGames.Services.csproj", "{742B0CAC-1632-40E0-8366-DE777C3FF261}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Infrastructure", "Games.Infrastructure\Games.Infrastructure.csproj", "{F40C9BBC-0378-49E6-8340-2C49AFC50FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FortGames.Infrastructure", "FortGames.Infrastructure\FortGames.Infrastructure.csproj", "{F40C9BBC-0378-49E6-8340-2C49AFC50FD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Games.Shared", "Games.Shared\Games.Shared.csproj", "{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FortGames.Shared", "FortGames.Shared\FortGames.Shared.csproj", "{37C7DB04-C28B-49A1-8EC8-BB76A1AE64B1}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Games.Web", "Games.Web\Games.Web.esproj", "{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FortGames.Web", "FortGames.Web\FortGames.Web.esproj", "{8B15A566-CACA-45E0-81BB-DDBEFD2FE6CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

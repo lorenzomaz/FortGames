@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Games.Services.Models
+namespace FortGames.Services.Models
 {
     public class GameModel
     {

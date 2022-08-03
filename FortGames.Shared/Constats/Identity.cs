@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Games.Shared.Constats
+namespace FortGames.Shared.Constats
 {
     public static class Identity
     {

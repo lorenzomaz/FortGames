@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Games.Infrastructure.Entities
+namespace FortGames.Infrastructure.Entities
 {
     public class ApplicationUser : IdentityUser
     {

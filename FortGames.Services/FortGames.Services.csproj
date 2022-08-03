@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Games.Infrastructure\Games.Infrastructure.csproj" />
+    <ProjectReference Include="..\FortGames.Infrastructure\FortGames.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

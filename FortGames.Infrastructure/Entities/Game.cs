@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Games.Infrastructure.Entities
+namespace FortGames.Infrastructure.Entities
 {
     public class Game
     {
         public int Id { get; set; }
+        public byte[] Logo { get; set; }
 
         [StringLength(100)]
         public string Title { get; set; }
