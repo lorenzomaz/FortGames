@@ -3,7 +3,7 @@ using FortGames.Shared.Constats;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FortGames.Infrastructure.Extensions
+namespace FortGames.Domain.Extensions
 {
     public static class ApplicationData
     {
@@ -13,7 +13,8 @@ namespace FortGames.Infrastructure.Extensions
             var roleId = Guid.NewGuid().ToString();
             var adminId = Guid.NewGuid().ToString();
             var passwordHasher = new PasswordHasher<ApplicationUser>();
-            var roleName = Identity.Roles.Admin;
+            //var roleName = Identity.Roles.Admin;
+            var roleName = "Admin";
             var userName = "admin@fortgames.net";
             var password = "lorenzo.123";
 
