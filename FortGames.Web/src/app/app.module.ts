@@ -11,7 +11,6 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LogoutComponent } from './features/logout/logout.component';
-import { RegisterComponent } from './features/register/register.component';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
