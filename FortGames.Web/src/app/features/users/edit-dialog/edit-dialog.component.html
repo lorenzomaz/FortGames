@@ -1,0 +1,61 @@
+<form [formGroup]="editUserForm" novalidate>
+  <div class="row">
+    <div class="col-4">
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Pippo" formControlName="userName">
+          <mat-icon matSuffix color="text-disable">description</mat-icon>
+          <mat-hint>Write a Username</mat-hint>
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="Gianfranco" formControlName="firstName">
+          <mat-icon matSuffix color="text-disable">description</mat-icon>
+          <mat-hint>Write the first name</mat-hint>
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="col-4">
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Fini" formControlName="lastName">
+          <mat-icon matSuffix color="text-disable">description</mat-icon>
+          <mat-hint>Write it's last name</mat-hint>
+        </mat-form-field>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="example@fortgames.net" formControlName="email">
+          <mat-icon matSuffix color="text-disable">description</mat-icon>
+          <mat-hint>Write it's email</mat-hint>
+        </mat-form-field>
+      </p>
+    </div>
+    <!-- <div class="col-6">
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Password</mat-label>
+          <input type="string" matInput placeholder="Placeholder123" formControlName="password">
+          <mat-icon matSuffix class="text-success">attach_money</mat-icon>
+          <mat-hint>Write the new password</mat-hint>
+        </mat-form-field>
+      </p>
+    </div> -->
+  </div>
+  <div class="row">
+
+    <div class="col-12 "><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
+
+  </div>
+</form>

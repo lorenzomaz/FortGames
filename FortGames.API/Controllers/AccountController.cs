@@ -141,5 +141,53 @@ namespace FortGames.API.Controllers
             var users = await _userManager.Users.Where(u => u.Id != userId).ToListAsync();
             return Ok(_mapper.Map<IEnumerable<UserModel>>(users));
         }
+
+        [Authorize(Roles = Identity.Roles.Admin)]
+        [HttpDelete("users/{email}")]
+        public async Task<IActionResult> Delete(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return Problem();
+            }
+            else
+            {
+                var self = await _userManager.GetUserAsync(User);
+                if (self.Email == user.Email)
+                {
+                    return BadRequest("You cannot delete yourself");
+                }
+                await _userManager.DeleteAsync(user!);
+
+                return NoContent();
+            }
+        }
+
+        [Authorize(Roles = Identity.Roles.Admin)]
+        [HttpPut("edit")]
+        public async Task<IActionResult> Edit(UserModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                return Problem();
+            }
+            else
+            {
+                var self = await _userManager.GetUserAsync(User);
+                if (self.Email == user.Email)
+                {
+                    return BadRequest("You cannot edit yourself");
+                }
+                
+                _mapper.Map(model, user);
+                await _userManager.UpdateAsync(user!);
+
+                return NoContent();
+            }
+        }
     }
 }

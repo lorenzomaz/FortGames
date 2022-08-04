@@ -5,9 +5,6 @@
       <li class="nav-item py-2">
         <a class="nav-link" routerLink="/" (click)="drawer.close()">Home</a>
       </li>
-      <li class="nav-item py-2">
-        <a class="nav-link" routerLink="/anagrafica" (click)="drawer.close()">Anagrafica</a>
-      </li>
       <li class="nav-item py-2" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/users" (click)="drawer.close()">Users</a>
       </li>

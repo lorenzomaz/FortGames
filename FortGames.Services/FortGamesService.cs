@@ -1,22 +1,22 @@
-﻿using FortGames.Domain.Entities;
+﻿using AutoMapper;
+using FortGames.Domain.Entities;
 using FortGames.Infrastructure;
 using FortGames.Services.Abstracts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FortGames.Services
 {
     public class FortGamesService : IFortGamesService
     {
         private readonly DatabaseContext _databaseContext;
+        private IMapper _mapper;
+        private readonly IDbContextFactory<DatabaseContext> _dbContextFactory;
 
-        public FortGamesService(DatabaseContext databaseContext)
+        public FortGamesService(DatabaseContext databaseContext, IMapper mapper, IDbContextFactory<DatabaseContext> dbContextFactory)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
+            _dbContextFactory = dbContextFactory;
         }
 
         #region Post

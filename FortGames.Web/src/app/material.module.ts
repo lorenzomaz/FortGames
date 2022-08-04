@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
+
 const modules = [
   MatCardModule,
   MatFormFieldModule,
@@ -41,6 +42,6 @@ const modules = [
       provide: MatDialogRef,
       useValue: {}
     }
- ],
+  ],
 })
 export class MaterialModule { }
