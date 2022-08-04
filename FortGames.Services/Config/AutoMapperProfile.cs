@@ -9,6 +9,8 @@ namespace FortGames.Services.Config
         public AutoMapperProfile()
         {
             CreateMap<RegisterModel, ApplicationUser>();
+            CreateMap<ApplicationUser, UserModel>().ReverseMap();
+
             CreateMap<ApplicationUser, UserModel>();
 
             CreateMap<Game, GameModel>()

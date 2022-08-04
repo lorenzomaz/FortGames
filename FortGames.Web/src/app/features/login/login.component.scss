@@ -4,4 +4,18 @@
   .mat-card-header {
     justify-content: center;
   }
+
+  .mat-input-element:focus {
+    outline: none !important;
+    border-color: #7b1fa2;
+    box-shadow: 0 0 20px #7b1fa2;
+  }
+
+}
+
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: whitesmoke!important;
+  font-size: 1.2rem;
+  font-weight: 500;
 }

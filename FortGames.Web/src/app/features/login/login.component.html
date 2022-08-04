@@ -14,13 +14,13 @@
           <mat-error>Password is REQUIRED</mat-error>
         </mat-form-field>
         <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
-        <button mat-raised-button class="mt-2" color="primary" [disabled]="!loginForm.valid || loading">
-          <span *ngIf="!loading">Login</span>
+        <div class="row"><button mat-raised-button type="button" class="mt-2" color="accent" routerLink="/register">Register</button></div>
+        <div class="row"><button mat-raised-button class="mt-2" color="primary" [disabled]="!loginForm.valid || loading">
+          <span *ngIf="!loading">Sign In</span>
           <mat-icon *ngIf="loading">
             <mat-spinner diameter="20"></mat-spinner>
           </mat-icon>
-        </button>
-        <button mat-raised-button type="button" class="mt-2" color="accent" routerLink="/register">Register</button>
+        </button></div>
       </form>
     </mat-card-content>
   </mat-card>
