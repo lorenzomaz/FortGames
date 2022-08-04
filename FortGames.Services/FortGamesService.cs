@@ -106,7 +106,7 @@ namespace FortGames.Services
 
         public async Task<IEnumerable<Game>> GetGames()
         {
-            return await _databaseContext.Games.ToListAsync();
+            return await _databaseContext.Games.Include(g => g.Company).ToListAsync();
         }
 
         public async Task<IEnumerable<Genre>> GetGenres()
