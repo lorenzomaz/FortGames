@@ -1,4 +1,5 @@
 ﻿using FortGames.Domain.Entities;
+using FortGames.Domain.Models;
 using Microsoft.AspNetCore.JsonPatch;
 
 namespace FortGames.Services.Abstracts
@@ -9,7 +10,7 @@ namespace FortGames.Services.Abstracts
         Task<IEnumerable<Genre>> GetGenres();
         Task<IEnumerable<Mode>> GetModes();
         Task<IEnumerable<Platform>> GetPlatforms();
-        Task<IEnumerable<Game>> GetGames();
+        Task<IEnumerable<GameModel>> GetGames();
         Task<Game> GetGame(int id);
 
         Task<Company> AddCompany(Company company);
@@ -23,6 +24,12 @@ namespace FortGames.Services.Abstracts
         Task<Mode> EditMode(int id, JsonPatchDocument mode);
         Task<Platform> EditPlatform(int id, JsonPatchDocument platform);
         Task<Game> EditGame(int id, JsonPatchDocument game);
+
+        Task<Company> UpdateCompany(CompanyModel model);
+        Task<Genre> UpdateGenre(GenreModel model);
+        Task<Mode> UpdateMode(ModeModel model);
+        Task<Platform> UpdatePlatform(PlatformModel model);
+        Task<Game> UpdateGame(GameModel model);
 
         Task<int> DeleteCompany(int id);
         Task<int> DeleteGenre(int id);

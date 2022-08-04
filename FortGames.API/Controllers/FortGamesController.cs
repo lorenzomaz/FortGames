@@ -1,5 +1,8 @@
 ﻿using FortGames.Domain.Entities;
+using FortGames.Domain.Models;
 using FortGames.Services.Abstracts;
+using FortGames.Shared.Constats;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -94,30 +97,35 @@ namespace FortGames.API.Controller
         #endregion
 
         #region Delete
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("company/{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
             return Ok(await _fortGamesService.DeleteCompany(id));
         }
 
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("genre/{id}")]
         public async Task<IActionResult> DeleteGenre(int id)
         {
             return Ok(await _fortGamesService.DeleteGenre(id));
         }
 
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("mode/{id}")]
         public async Task<IActionResult> DeleteMode(int id)
         {
             return Ok(await _fortGamesService.DeleteMode(id));
         }
 
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("platform/{id}")]
         public async Task<IActionResult> DeletePlatform(int id)
         {
             return Ok(await _fortGamesService.DeletePlatform(id));
         }
 
+        [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("game/{id}")]
         public async Task<IActionResult> DeleteGame(int id)
         {
@@ -155,6 +163,40 @@ namespace FortGames.API.Controller
         {
             return Ok(await _fortGamesService.EditGame(id, game));
         }
+
+        #endregion
+
+        #region Put
+        [HttpPut("companies")]
+        public async Task<IActionResult> UpdateCompany([FromBody] CompanyModel model)
+        {
+            return Ok(await _fortGamesService.UpdateCompany(model));
+        }
+
+        [HttpPut("genres")]
+        public async Task<IActionResult> UpdateGenre([FromBody] GenreModel model)
+        {
+            return Ok(await _fortGamesService.UpdateGenre(model));
+        }
+
+        [HttpPut("modes")]
+        public async Task<IActionResult> UpdateModes([FromBody] ModeModel model)
+        {
+            return Ok(await _fortGamesService.UpdateMode(model));
+        }
+
+        [HttpPut("platforms")]
+        public async Task<IActionResult> UpdatePlatforms([FromBody] PlatformModel model)
+        {
+            return Ok(await _fortGamesService.UpdatePlatform(model));
+        }
+
+        [HttpPut("games")]
+        public async Task<IActionResult> UpdateGame([FromBody] GameModel model)
+        {
+            return Ok(await _fortGamesService.UpdateGame(model));
+        }
+
         #endregion
     }
 }

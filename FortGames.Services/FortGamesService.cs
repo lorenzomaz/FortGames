@@ -1,23 +1,24 @@
-﻿using FortGames.Domain.Entities;
+﻿using AutoMapper;
+using FortGames.Domain.Entities;
+using FortGames.Domain.Models;
 using FortGames.Infrastructure;
 using FortGames.Services.Abstracts;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FortGames.Services
 {
     public class FortGamesService : IFortGamesService
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IMapper _mapper;
+        private readonly IDbContextFactory<DatabaseContext> _dbContextFactory;
 
-        public FortGamesService(DatabaseContext databaseContext)
+        public FortGamesService(DatabaseContext databaseContext, IMapper mapper, IDbContextFactory<DatabaseContext> dbContextFactory)
         {
             _databaseContext = databaseContext;
+            _mapper = mapper;
+            _dbContextFactory = dbContextFactory;
         }
 
         #region Post
@@ -105,9 +106,10 @@ namespace FortGames.Services
             return await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).FirstOrDefaultAsync(g => g.Id == id);
         }
 
-        public async Task<IEnumerable<Game>> GetGames()
+        public async Task<IEnumerable<GameModel>> GetGames()
         {
-            return await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).ToListAsync();
+            var games = await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).ToListAsync();
+            return _mapper.Map<IEnumerable<GameModel>>(games);
         }
 
         public async Task<IEnumerable<Genre>> GetGenres()
@@ -130,7 +132,7 @@ namespace FortGames.Services
         public async Task<Company> EditCompany(int id, JsonPatchDocument company)
         {
             var result = await _databaseContext.Companies.FindAsync(id);
-            if( result != null)
+            if (result != null)
             {
                 company.ApplyTo(result);
                 await _databaseContext.SaveChangesAsync();
@@ -183,5 +185,83 @@ namespace FortGames.Services
         }
 
         #endregion
+
+        #region Put
+        public async Task<Company> UpdateCompany(CompanyModel model)
+        {
+            var company = await _databaseContext.Companies.FirstOrDefaultAsync(c => c.Id == model.Id);
+
+            _mapper.Map(model, company);
+            _databaseContext.Companies.Update(company);
+
+            await _databaseContext.SaveChangesAsync();
+            return company;
+        }
+
+        public async Task<Genre> UpdateGenre(GenreModel model)
+        {
+            var genre = await _databaseContext.Genres.FirstOrDefaultAsync(g => g.Id == model.Id);
+
+            _mapper.Map(model, genre);
+            _databaseContext.Genres.Update(genre);
+
+            await _databaseContext.SaveChangesAsync();
+            return genre;
+        }
+
+        public async Task<Mode> UpdateMode(ModeModel model)
+        {
+            var mode = await _databaseContext.Modes.FirstOrDefaultAsync(m => m.Id == model.Id);
+
+            _mapper.Map(model, mode);
+            _databaseContext.Modes.Update(mode);
+
+            await _databaseContext.SaveChangesAsync();
+            return mode;
+        }
+
+        public async Task<Platform> UpdatePlatform(PlatformModel model)
+        {
+            var platform = await _databaseContext.Platforms.FirstOrDefaultAsync(p => p.Id == model.Id);
+
+            _mapper.Map(model, platform);
+            _databaseContext.Platforms.Update(platform);
+
+            await _databaseContext.SaveChangesAsync();
+            return platform;
+        }
+
+        public async Task<Game> UpdateGame(GameModel model)
+        {
+            await ClearGameRelationships(model.Id);
+
+            var game = await _databaseContext.Games.FirstOrDefaultAsync(g => g.Id == model.Id);
+
+            _mapper.Map(model, game);
+            _databaseContext.Games.Update(game);
+
+            await _databaseContext.SaveChangesAsync();
+            return game;
+        }
+
+        #endregion
+
+        private async Task<int> ClearGameRelationships(int id)
+        {
+            using var context = await _dbContextFactory.CreateDbContextAsync();
+
+            var game = await context.Games
+                
+                .Include(g => g.Genres)
+                .Include(g => g.Modes)
+                .Include(g => g.Platforms)
+                .FirstOrDefaultAsync(g => g.Id == id);
+
+            game.Genres.Clear();
+            game.Modes.Clear();
+            game.Platforms.Clear();
+
+            return await context.SaveChangesAsync();
+        }
     }
 }
