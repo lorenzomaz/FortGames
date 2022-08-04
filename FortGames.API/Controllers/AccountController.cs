@@ -126,7 +126,7 @@ namespace FortGames.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("{userName}")]
         public async Task<IActionResult> GetUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
@@ -142,5 +142,4 @@ namespace FortGames.API.Controllers
             return Ok(_mapper.Map<IEnumerable<UserModel>>(users));
         }
     }
-
 }
