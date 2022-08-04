@@ -48,15 +48,15 @@ namespace FortGames.API.Controller
         [HttpGet("games/{id}")]
         public async Task<IActionResult> GetGame(int id)
         {
-            var games = await _fortGamesService.GetGame(id);
-            return Ok(games);
+            var game = await _fortGamesService.GetGame(id);
+            return Ok(game);
         }
 
         [HttpGet("games")]
         public async Task<IActionResult> GetGames()
         {
-            var game = await _fortGamesService.GetGames();
-            return Ok(game);
+            var games = await _fortGamesService.GetGames();
+            return Ok(games);
         }
         #endregion
 
@@ -93,32 +93,32 @@ namespace FortGames.API.Controller
         #endregion
 
         #region Delete
-        [HttpDelete("companies/{id}")]
+        [HttpDelete("company/{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {
             return Ok(await _fortGamesService.DeleteCompany(id));
         }
 
-        [HttpDelete("genres/{id}")]
+        [HttpDelete("genre/{id}")]
         public async Task<IActionResult> DeleteGenre(int id)
         {
             return Ok(await _fortGamesService.DeleteGenre(id));
         }
 
-        [HttpDelete("modes/{id}")]
+        [HttpDelete("mode/{id}")]
         public async Task<IActionResult> DeleteMode(int id)
         {
             return Ok(await _fortGamesService.DeleteMode(id));
         }
 
-        [HttpDelete("platforms/{id}")]
+        [HttpDelete("platform/{id}")]
         public async Task<IActionResult> DeletePlatform(int id)
         {
             return Ok(await _fortGamesService.DeletePlatform(id));
         }
 
-        [HttpDelete("games/{id}")]
-        public async Task<IActionResult> DeleteGames(int id)
+        [HttpDelete("game/{id}")]
+        public async Task<IActionResult> DeleteGame(int id)
         {
             return Ok(await _fortGamesService.DeleteGame(id));
         }
