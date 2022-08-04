@@ -1,6 +1,7 @@
 ﻿using FortGames.Domain.Entities;
 using FortGames.Services.Abstracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FortGames.API.Controller
@@ -121,6 +122,38 @@ namespace FortGames.API.Controller
         public async Task<IActionResult> DeleteGame(int id)
         {
             return Ok(await _fortGamesService.DeleteGame(id));
+        }
+        #endregion
+
+        #region Patch
+        [HttpPatch("company/{id}")]
+        public async Task<IActionResult> EditCompany(int id,[FromBody] JsonPatchDocument company)
+        {
+            return Ok(await _fortGamesService.EditCompany(id, company));
+        }
+
+        [HttpPatch("genre/{id}")]
+        public async Task<IActionResult> EditGenre(int id, [FromBody] JsonPatchDocument genre)
+        {
+            return Ok(await _fortGamesService.EditGenre(id, genre));
+        }
+
+        [HttpPatch("mode/{id}")]
+        public async Task<IActionResult> EditMode(int id, [FromBody] JsonPatchDocument mode)
+        {
+            return Ok(await _fortGamesService.EditMode(id, mode));
+        }
+
+        [HttpPatch("platform/{id}")]
+        public async Task<IActionResult> EditPlatform(int id, [FromBody] JsonPatchDocument platform)
+        {
+            return Ok(await _fortGamesService.EditPlatform(id, platform));
+        }
+
+        [HttpPatch("game/{id}")]
+        public async Task<IActionResult> EditGame(int id, [FromBody] JsonPatchDocument game)
+        {
+            return Ok(await _fortGamesService.EditGame(id, game));
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using FortGames.Domain.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace FortGames.Services.Abstracts
 {
@@ -16,6 +17,12 @@ namespace FortGames.Services.Abstracts
         Task<Mode> AddMode(Mode mode);
         Task<Platform> AddPlatform(Platform platform);
         Task<Game> AddGame(Game game);
+
+        Task<Company> EditCompany(int id, JsonPatchDocument company);
+        Task<Genre> EditGenre(int id, JsonPatchDocument genre);
+        Task<Mode> EditMode(int id, JsonPatchDocument mode);
+        Task<Platform> EditPlatform(int id, JsonPatchDocument platform);
+        Task<Game> EditGame(int id, JsonPatchDocument game);
 
         Task<int> DeleteCompany(int id);
         Task<int> DeleteGenre(int id);

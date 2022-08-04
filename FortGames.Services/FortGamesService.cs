@@ -1,6 +1,7 @@
 ﻿using FortGames.Domain.Entities;
 using FortGames.Infrastructure;
 using FortGames.Services.Abstracts;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -101,12 +102,12 @@ namespace FortGames.Services
 
         public async Task<Game> GetGame(int id)
         {
-            return await _databaseContext.Games.FindAsync(id);
+            return await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).FirstOrDefaultAsync(g => g.Id == id);
         }
 
         public async Task<IEnumerable<Game>> GetGames()
         {
-            return await _databaseContext.Games.Include(g => g.Company).ToListAsync();
+            return await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).ToListAsync();
         }
 
         public async Task<IEnumerable<Genre>> GetGenres()
@@ -123,6 +124,64 @@ namespace FortGames.Services
         {
             return await _databaseContext.Platforms.ToListAsync();
         }
+        #endregion
+
+        #region Patch
+        public async Task<Company> EditCompany(int id, JsonPatchDocument company)
+        {
+            var result = await _databaseContext.Companies.FindAsync(id);
+            if( result != null)
+            {
+                company.ApplyTo(result);
+                await _databaseContext.SaveChangesAsync();
+            }
+            return result;
+        }
+
+        public async Task<Genre> EditGenre(int id, JsonPatchDocument genre)
+        {
+            var result = await _databaseContext.Genres.FindAsync(id);
+            if (result != null)
+            {
+                genre.ApplyTo(result);
+                await _databaseContext.SaveChangesAsync();
+            }
+            return result;
+        }
+
+        public async Task<Mode> EditMode(int id, JsonPatchDocument mode)
+        {
+            var result = await _databaseContext.Modes.FindAsync(id);
+            if (result != null)
+            {
+                mode.ApplyTo(result);
+                await _databaseContext.SaveChangesAsync();
+            }
+            return result;
+        }
+
+        public async Task<Platform> EditPlatform(int id, JsonPatchDocument platform)
+        {
+            var result = await _databaseContext.Platforms.FindAsync(id);
+            if (result != null)
+            {
+                platform.ApplyTo(result);
+                await _databaseContext.SaveChangesAsync();
+            }
+            return result;
+        }
+
+        public async Task<Game> EditGame(int id, JsonPatchDocument game)
+        {
+            var result = await _databaseContext.Games.FindAsync(id);
+            if (result != null)
+            {
+                game.ApplyTo(result);
+                await _databaseContext.SaveChangesAsync();
+            }
+            return result;
+        }
+
         #endregion
     }
 }
