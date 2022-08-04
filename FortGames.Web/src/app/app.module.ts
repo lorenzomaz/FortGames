@@ -20,8 +20,7 @@ import { environment } from 'src/environments/environment';
     HomeComponent,
     NotFoundComponent,
     ToolbarComponent,
-    LogoutComponent,
-    RegisterComponent
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

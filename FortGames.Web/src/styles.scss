@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root{
+  --toolbar-height: 64px;
+}
+
+.mat-drawer-backdrop.mat-drawer-shown{
+  background-color: rgb(131 134 169 / 60%);
+}
