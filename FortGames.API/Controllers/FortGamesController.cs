@@ -28,11 +28,25 @@ namespace FortGames.API.Controller
             return Ok(companies);
         }
 
+        [HttpGet("companies/{id}")]
+        public async Task<IActionResult> GetCompanyRelatedGames(int id)
+        {
+            var companies = await _fortGamesService.GetCompanyRelatedGames(id);
+            return Ok(companies);
+        }
+
         [HttpGet("genres")]
         public async Task<IActionResult> GetGenres()
         {
             var genres = await _fortGamesService.GetGenres();
             return Ok(genres);
+        }
+
+        [HttpGet("genres/{id}")]
+        public async Task<IActionResult> GetGenreRelatedGames(int id)
+        {
+            var genre = await _fortGamesService.GetGenreRelatedGames(id);
+            return Ok(genre);
         }
 
         [HttpGet("modes")]
@@ -42,11 +56,25 @@ namespace FortGames.API.Controller
             return Ok(modes);
         }
 
+        [HttpGet("modes/{id}")]
+        public async Task<IActionResult> GetModeRelatedGames(int id)
+        {
+            var mode = await _fortGamesService.GetModeRelatedGames(id);
+            return Ok(mode);
+        }
+
         [HttpGet("platforms")]
         public async Task<IActionResult> GetPlatforms()
         {
             var platforms = await _fortGamesService.GetPlatforms();
             return Ok(platforms);
+        }
+
+        [HttpGet("platforms/{id}")]
+        public async Task<IActionResult> GetPlatformRelatedGames(int id)
+        {
+            var platform = await _fortGamesService.GetPlatformRelatedGames(id);
+            return Ok(platform);
         }
 
         [HttpGet("games/{id}")]

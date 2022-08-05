@@ -3,6 +3,7 @@ using FortGames.Domain.Entities;
 using FortGames.Domain.Models;
 using FortGames.Infrastructure;
 using FortGames.Services.Abstracts;
+using FortGames.Shared.Extensions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +32,12 @@ namespace FortGames.Services
 
         public async Task<Game> AddGame(Game game)
         {
+            _databaseContext.Genres.AttachRange(game.Genres);
+            _databaseContext.Modes.AttachRange(game.Modes);
+            _databaseContext.Platforms.AttachRange(game.Platforms);
+
             var result = await _databaseContext.Games.AddAsync(game);
+
             await _databaseContext.SaveChangesAsync();
             return result.Entity;
         }
@@ -96,9 +102,16 @@ namespace FortGames.Services
         #endregion
 
         #region Get
-        public async Task<IEnumerable<Company>> GetCompanies()
+        public async Task<IEnumerable<CompanyModel>> GetCompanies()
         {
-            return await _databaseContext.Companies.ToListAsync();
+            var companies = await _databaseContext.Companies.ToListAsync();
+            return _mapper.Map<IEnumerable<CompanyModel>>(companies);
+        }
+
+        public async Task<IEnumerable<GameModel>> GetCompanyRelatedGames(int id)
+        {
+            var company = await _databaseContext.Companies.Include(g => g.Games).FirstOrDefaultAsync(c => c.Id == id);
+            return _mapper.Map<IEnumerable<GameModel>>(company.Games);
         }
 
         public async Task<Game> GetGame(int id)
@@ -112,19 +125,40 @@ namespace FortGames.Services
             return _mapper.Map<IEnumerable<GameModel>>(games);
         }
 
-        public async Task<IEnumerable<Genre>> GetGenres()
+        public async Task<IEnumerable<GenreModel>> GetGenres()
         {
-            return await _databaseContext.Genres.ToListAsync();
+            var genres = await _databaseContext.Genres.ToListAsync();
+            return _mapper.Map<IEnumerable<GenreModel>>(genres);
         }
 
-        public async Task<IEnumerable<Mode>> GetModes()
+        public async Task<IEnumerable<GameModel>> GetGenreRelatedGames(int id)
         {
-            return await _databaseContext.Modes.ToListAsync();
+            var genre = await _databaseContext.Genres.Include(g => g.Games).ThenInclude(g => g.Company).FirstOrDefaultAsync(g => g.Id == id);
+            return _mapper.Map<IEnumerable<GameModel>>(genre.Games);
         }
 
-        public async Task<IEnumerable<Platform>> GetPlatforms()
+        public async Task<IEnumerable<ModeModel>> GetModes()
         {
-            return await _databaseContext.Platforms.ToListAsync();
+            var modes = await _databaseContext.Modes.ToListAsync();
+            return _mapper.Map<IEnumerable<ModeModel>>(modes);
+        }
+
+        public async Task<IEnumerable<GameModel>> GetModeRelatedGames(int id)
+        {
+            var mode = await _databaseContext.Modes.Include(m => m.Games).ThenInclude(m => m.Company).FirstOrDefaultAsync(m => m.Id == id);
+            return _mapper.Map<IEnumerable<GameModel>>(mode.Games);
+        }
+
+        public async Task<IEnumerable<PlatformModel>> GetPlatforms()
+        {
+            var platforms = await _databaseContext.Platforms.ToListAsync();
+            return _mapper.Map<IEnumerable<PlatformModel>>(platforms);
+        }
+
+        public async Task<IEnumerable<GameModel>> GetPlatformRelatedGames(int id)
+        {
+            var platform = await _databaseContext.Platforms.Include(p => p.Games).ThenInclude(p => p.Company).FirstOrDefaultAsync(p => p.Id == id);
+            return _mapper.Map<IEnumerable<GameModel>>(platform.Games);
         }
         #endregion
 
@@ -233,11 +267,32 @@ namespace FortGames.Services
 
         public async Task<Game> UpdateGame(GameModel model)
         {
-            await ClearGameRelationships(model.Id);
+            //await ClearGameRelationships(model.Id);
 
-            var game = await _databaseContext.Games.FirstOrDefaultAsync(g => g.Id == model.Id);
+            var game = await _databaseContext.Games
+                .Include(g => g.Genres)
+                .Include(g => g.Modes)
+                .Include(g => g.Platforms)
+                .FirstOrDefaultAsync(g => g.Id == model.Id);
+
+            var currentGenres = game.Genres.ToList();
+            var currentModes = game.Modes.ToList();
+            var currentPlatforms = game.Platforms.ToList();
+
+            var genres = _mapper.Map<IEnumerable<Genre>>(model.Genres);
+            var modes = _mapper.Map<IEnumerable<Mode>>(model.Modes);
+            var platforms = _mapper.Map<IEnumerable<Platform>>(model.Platforms);
 
             _mapper.Map(model, game);
+
+            currentGenres.UpdateManyToMany(genres, g => g.Id);
+            currentModes.UpdateManyToMany(modes, m => m.Id);
+            currentPlatforms.UpdateManyToMany(platforms, p => p.Id);
+
+            game.Genres = currentGenres;
+            game.Modes = currentModes;
+            game.Platforms = currentPlatforms;
+
             _databaseContext.Games.Update(game);
 
             await _databaseContext.SaveChangesAsync();
@@ -251,7 +306,7 @@ namespace FortGames.Services
             using var context = await _dbContextFactory.CreateDbContextAsync();
 
             var game = await context.Games
-                
+
                 .Include(g => g.Genres)
                 .Include(g => g.Modes)
                 .Include(g => g.Platforms)

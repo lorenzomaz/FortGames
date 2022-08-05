@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   games: Array<Game> = new Array<Game>();
 
-  constructor(private gamesService: GamesService) { }
+  constructor(private gamesService: GamesService, private httpParams: HttpParams) { }
 
   ngOnInit(): void {
     this.getGames();
@@ -19,10 +20,18 @@ export class HomeComponent implements OnInit {
 
   getGames() {
     this.gamesService.getGames().subscribe({
-      next: (r) => {
+      next: (r: Game[]) => {
         this.games = r;
       }
     })
   }
+
+  // getGame(game: Game) {
+  //   this.gamesService.getGame(game.id).subscribe({
+  //     next: () => {
+  //       this.getGames();
+  //     }
+  //   })
+  // }
 
 }
