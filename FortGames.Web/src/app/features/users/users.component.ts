@@ -61,7 +61,7 @@ export class UsersComponent implements OnInit {
             error: (error: Error) => console.log(error)
           })
         }
-    })
+      })
   }
 
   editUser(user: User) {
@@ -71,7 +71,10 @@ export class UsersComponent implements OnInit {
       result => {
         if (result) {
           this.userService.editUser(result).subscribe({
-            next: () => this.getUsers()
+            next: () => {
+              this.getUsers()
+            },
+            error: (error: Error) => console.log(error)
           })
         }
       }

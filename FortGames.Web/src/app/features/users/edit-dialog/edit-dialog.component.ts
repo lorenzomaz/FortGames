@@ -29,8 +29,9 @@ export class EditDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    // console.log(this.editUserForm.getRawValue())
     if (this.editUserForm.valid) {
-      this.dialogRef.close(this.editUserForm.value);
+      this.dialogRef.close(this.editUserForm.getRawValue());
     }
   }
 }
