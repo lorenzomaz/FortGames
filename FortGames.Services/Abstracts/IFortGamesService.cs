@@ -6,10 +6,15 @@ namespace FortGames.Services.Abstracts
 {
     public interface IFortGamesService
     {
-        Task<IEnumerable<Company>> GetCompanies();
-        Task<IEnumerable<Genre>> GetGenres();
-        Task<IEnumerable<Mode>> GetModes();
-        Task<IEnumerable<Platform>> GetPlatforms();
+        // TODO: di cambiare Task<Model> e Service
+        Task<IEnumerable<CompanyModel>> GetCompanies();
+        Task<IEnumerable<GameModel>> GetCompanyRelatedGames(int id);
+        Task<IEnumerable<GenreModel>> GetGenres();
+        Task<IEnumerable<GameModel>> GetGenreRelatedGames(int id);
+        Task<IEnumerable<ModeModel>> GetModes();
+        Task<IEnumerable<GameModel>> GetModeRelatedGames(int id);
+        Task<IEnumerable<PlatformModel>> GetPlatforms();
+        Task<IEnumerable<GameModel>>GetPlatformRelatedGames(int id);
         Task<IEnumerable<GameModel>> GetGames();
         Task<Game> GetGame(int id);
 
