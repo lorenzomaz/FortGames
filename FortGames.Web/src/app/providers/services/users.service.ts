@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/interfaces/users.interface';
+import { ResetPassword } from 'src/app/models/interfaces/reset-password.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,8 @@ export class UsersService {
 
   editUser(user: User): Observable<User> {
     return this.http.put<User>(`${environment.baseUrlApi}/account/users`, user);
+  }
+  resetPassword(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.baseUrlApi}/account/users/reset`, user);
   }
 }

@@ -183,5 +183,31 @@ namespace FortGames.API.Controllers
                 return NoContent();
             }
         }
+
+        [Authorize(Roles = Identity.Roles.Admin)]
+        [HttpPost("users/reset")]
+        public async Task<IActionResult> ResetPassword(ResetUserPasswordModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return NoContent();
+        }
     }
 }

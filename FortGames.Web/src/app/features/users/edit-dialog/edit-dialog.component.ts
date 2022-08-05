@@ -16,11 +16,11 @@ export class EditDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: User
   ) {
     this.editUserForm = new FormGroup({
+      id: new FormControl(null, [Validators.required]),
       userName: new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       email: new FormControl({value: null, disabled: true}, [Validators.required]),
-      // password: new FormControl(null, [Validators.required])
     })
   }
 

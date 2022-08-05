@@ -7,8 +7,10 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { EditDialogComponent } from 'src/app/features/users/edit-dialog/edit-dialog.component';
+import { ResetPassword } from 'src/app/models/interfaces/reset-password.interface';
 import { User } from 'src/app/models/interfaces/users.interface';
 import { UsersService } from 'src/app/providers/services/users.service';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @Component({
   selector: 'app-users',
@@ -71,6 +73,23 @@ export class UsersComponent implements OnInit {
       result => {
         if (result) {
           this.userService.editUser(result).subscribe({
+            next: () => {
+              this.getUsers()
+            },
+            error: (error: Error) => console.log(error)
+          })
+        }
+      }
+    )
+  }
+
+  resetPassword(user: User) {
+    this.dialog.open(ResetPasswordComponent, {
+      data: { id: user.id, userName: user.userName, email: user.email, password: null, confirmPassword: null }
+    }).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.userService.resetPassword(result).subscribe({
             next: () => {
               this.getUsers()
             },

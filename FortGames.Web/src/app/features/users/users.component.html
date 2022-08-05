@@ -1,4 +1,8 @@
 <div class="container py-5">
+
+  <h1>Hi Admin, here you can see, edit and delete Users</h1>
+  <h2>Have fun!</h2>
+
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
     class="mat-elevation-z8 w-100">
 
@@ -31,6 +35,9 @@
         </button>
         <button mat-icon-button (click)="removeUser(element)">
           <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button mat-icon-button (click)="resetPassword(element)">
+          <mat-icon>lock_reset</mat-icon>
         </button>
       </td>
     </ng-container>
