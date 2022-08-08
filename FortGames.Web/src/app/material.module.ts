@@ -12,7 +12,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const modules = [
   MatCardModule,
@@ -26,7 +33,15 @@ const modules = [
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatDialogModule
+  MatDialogModule,
+  MatStepperModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatRadioModule,
+  MatExpansionModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule
 ];
 
 @NgModule({

@@ -16,7 +16,7 @@ export class GamesService {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/games`);
   }
   getGame(id: number): Observable<Game> {
-    return this.http.get<Game>(`${environment.baseUrlApi}/fortgames/games/` + { id });
+    return this.http.get<Game>(`${environment.baseUrlApi}/fortgames/games/${id}`);
   }
 
   addGame(game: Game): Observable<Game> {
@@ -28,7 +28,7 @@ export class GamesService {
   }
 
   deleteGame(id: number): Observable<Game> {
-    return this.http.delete<Game>(`${environment.baseUrlApi}/fortgames/game/` + { id });
+    return this.http.delete<Game>(`${environment.baseUrlApi}/fortgames/game/${id}`);
   }
   //#endregion
 

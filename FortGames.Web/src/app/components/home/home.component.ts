@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+// import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
 
   games: Array<Game> = new Array<Game>();
 
-  constructor(private gamesService: GamesService, private httpParams: HttpParams) { }
+  constructor(private gamesService: GamesService) { }
 
   ngOnInit(): void {
     this.getGames();

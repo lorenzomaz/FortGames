@@ -7,7 +7,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { EditDialogComponent } from 'src/app/features/users/edit-dialog/edit-dialog.component';
-import { ResetPassword } from 'src/app/models/interfaces/reset-password.interface';
 import { User } from 'src/app/models/interfaces/users.interface';
 import { UsersService } from 'src/app/providers/services/users.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
