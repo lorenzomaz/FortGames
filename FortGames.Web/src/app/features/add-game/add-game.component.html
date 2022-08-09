@@ -13,29 +13,29 @@
             </mat-form-field>
 
             <mat-form-field>
-              <textarea matInput placeholder="The King of Videogames..." formControlName="description"></textarea>
+              <input matInput placeholder="The King of Videogames..." formControlName="description">
             </mat-form-field>
 
             <mat-form-field>
-              <!-- <mat-form-field appearance="fill">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
+              <mat-label>Release date</mat-label>
+
+                <!-- <input matInput [matDatepicker]="picker" formControlName="release">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field> -->
-              <input matInput placeholder="ex: 20/05/1996" formControlName="secondCtrl" type="date" formControlName="release">
+                <mat-datepicker #picker></mat-datepicker> -->
+              <input matInput placeholder="ex: 20/05/1996" type="date" formControlName="release">
             </mat-form-field>
 
             <div>
+              <mat-label>Rating</mat-label>
               <h3>From 1 to 10</h3>
-              <mat-slider class="mt-2 w-100" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0"
+              <mat-slider class="w-100" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0"
                 max="10" aria-label="units" formControlName="rating">
               </mat-slider>
             </div>
 
             <mat-form-field>
-              <mat-label>Favorite food</mat-label>
+              <mat-label>Company</mat-label>
               <mat-select formControlName="companyId">
                 <mat-option *ngFor="let company of companies" [value]="company.id">
                   {{company.name}}
@@ -90,6 +90,9 @@
 
           </form>
         </mat-step>
+
+        <!-- Feeling lucky? Try to replace mat-select for platforms with the chips -->
+
         <!-- <mat-step [stepControl]="addGameForm">
           <form [formGroup]="addGameForm">
             <ng-template matStepLabel>Platform</ng-template>
@@ -124,8 +127,7 @@
                     <mat-card-subtitle>Company</mat-card-subtitle>
 
                   </mat-card-header>
-                  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                    alt="Photo of a Shiba Inu"> -->
+
                   <mat-card-content class="d-flex">
                     <div>
                       <p>
