@@ -90,6 +90,13 @@ namespace FortGames.API.Controller
             var games = await _fortGamesService.GetGames();
             return Ok(games);
         }
+
+        [HttpGet("games/list")]
+        public async Task<IActionResult> GetGamesList( string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Game.Title), string? sortDir = "")
+        {
+            var games = await _fortGamesService.GetGamesList(search, index, size, sortBy, sortDir);
+            return Ok(games);
+        }
         #endregion
 
         #region Post

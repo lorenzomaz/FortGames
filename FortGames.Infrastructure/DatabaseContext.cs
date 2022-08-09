@@ -1,5 +1,6 @@
 ﻿using FortGames.Domain.Entities;
 using FortGames.Domain.Extensions;
+using FortGames.Domain.Models;
 using FortGames.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
