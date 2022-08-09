@@ -21,7 +21,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AppDateAdapter } from './models/classes/app-date-adapter';
 
 const modules = [
   MatCardModule,
@@ -45,6 +47,7 @@ const modules = [
   MatRadioModule,
   MatExpansionModule,
   MatCheckboxModule,
+  MatNativeDateModule,
   MatDatepickerModule
 ];
 
@@ -58,8 +61,7 @@ const modules = [
   ],
   providers: [
     {
-      provide: MatDialogRef,
-      useValue: {}
+      provide: DateAdapter, useClass: AppDateAdapter, deps: [MAT_DATE_LOCALE]
     }
   ],
 })
