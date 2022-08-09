@@ -1,17 +1,20 @@
 <app-toolbar [drawer]="drawer"></app-toolbar>
 <mat-drawer-container class="sidenav-container" autosize>
   <mat-drawer #drawer class="sidenav text-center" mode="over" [disableClose]="false">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
       <li class="nav-item py-2">
         <a class="nav-link" routerLink="/" (click)="drawer.close()">Home</a>
       </li>
       <li class="nav-item py-2" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/users" (click)="drawer.close()">Users</a>
       </li>
+      <li class="nav-item py-2">
+        <a class="nav-link" routerLink="/advanced_search" (click)="drawer.close()">Advanced Search</a>
+      </li>
     </ul>
   </mat-drawer>
   <div class="sidenav-content">
-     <div class="container py-3 px-5">
+     <div class="container py-3 px-2">
        <router-outlet></router-outlet>
      </div>
   </div>

@@ -76,7 +76,7 @@
           <div class="col-md-9 d-flex align-items-center">
             <div class="card-body">
               <h2 class="card-title mb-0">{{ game.title }}</h2>
-              <p class="card-text"><small class="text-muted">{{game.release}} </small></p>
+              <p class="card-text"><small class="text-muted">{{game.release | date:'mediumDate'}} </small></p>
             </div>
           </div>
         </div>

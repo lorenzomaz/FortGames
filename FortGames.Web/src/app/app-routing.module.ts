@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) },
   { path: 'account', loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard] },
   { path: 'users', loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule), canActivate: [AuthGuard] },
+  { path: 'advanced_search', loadChildren: () => import('./components/advanced-search/advanced-search.module').then(m => m.AdvancedSearchModule) },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 

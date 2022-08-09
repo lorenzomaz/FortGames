@@ -6,6 +6,7 @@ using FortGames.Services.Abstracts;
 using FortGames.Shared.Extensions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace FortGames.Services
 {
@@ -32,9 +33,9 @@ namespace FortGames.Services
 
         public async Task<Game> AddGame(Game game)
         {
-            _databaseContext.Genres.AttachRange(game.Genres);
-            _databaseContext.Modes.AttachRange(game.Modes);
-            _databaseContext.Platforms.AttachRange(game.Platforms);
+            if (game.Genres != null) _databaseContext.Genres.AttachRange(game.Genres);
+            if (game.Modes != null) _databaseContext.Modes.AttachRange(game.Modes);
+            if (game.Platforms != null) _databaseContext.Platforms.AttachRange(game.Platforms);
 
             var result = await _databaseContext.Games.AddAsync(game);
 
@@ -123,6 +124,27 @@ namespace FortGames.Services
         {
             var games = await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).ToListAsync();
             return _mapper.Map<IEnumerable<GameModel>>(games);
+        }
+
+        public async Task<PagedResponse<GameModel>> GetGamesList(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Game, bool>> predicate = g => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = g => g.Title.Contains(search);
+            }
+
+            //var query = _databaseContext.Games.Filter(predicate);
+            var query = _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).Filter(predicate);
+            var count = await query.CountAsync();
+            var games = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<GameModel>>(games), Total = count };
         }
 
         public async Task<IEnumerable<GenreModel>> GetGenres()
@@ -267,8 +289,6 @@ namespace FortGames.Services
 
         public async Task<Game> UpdateGame(GameModel model)
         {
-            //await ClearGameRelationships(model.Id);
-
             var game = await _databaseContext.Games
                 .Include(g => g.Genres)
                 .Include(g => g.Modes)
@@ -293,6 +313,7 @@ namespace FortGames.Services
             game.Modes = currentModes;
             game.Platforms = currentPlatforms;
 
+
             _databaseContext.Games.Update(game);
 
             await _databaseContext.SaveChangesAsync();
@@ -301,22 +322,5 @@ namespace FortGames.Services
 
         #endregion
 
-        private async Task<int> ClearGameRelationships(int id)
-        {
-            using var context = await _dbContextFactory.CreateDbContextAsync();
-
-            var game = await context.Games
-
-                .Include(g => g.Genres)
-                .Include(g => g.Modes)
-                .Include(g => g.Platforms)
-                .FirstOrDefaultAsync(g => g.Id == id);
-
-            game.Genres.Clear();
-            game.Modes.Clear();
-            game.Platforms.Clear();
-
-            return await context.SaveChangesAsync();
-        }
     }
 }

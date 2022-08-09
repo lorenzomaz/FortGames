@@ -1,5 +1,6 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, takeUntil } from 'rxjs';
+import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { Game } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
 
@@ -8,23 +9,35 @@ import { GamesService } from 'src/app/providers/services/games.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends UnsubscriptionHandler implements OnInit {
 
   games: Array<Game> = new Array<Game>();
 
-  constructor(private gamesService: GamesService, private httpParams: HttpParams) { }
+  constructor(private gamesService: GamesService) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.getGames();
+    // this.getGames();
+    const games = this.gamesService.getGames();
+    const genres = this.gamesService.getGenres();
+    const companies = this.gamesService.getCompanies();
+    const platforms = this.gamesService.getPlatforms();
+
+    forkJoin([games, genres, companies, platforms]).pipe(takeUntil(this.destroy$)).subscribe({
+      next: results => {
+        this.games = results[0];
+      }
+    });
   }
 
-  getGames() {
-    this.gamesService.getGames().subscribe({
-      next: (r: Game[]) => {
-        this.games = r;
-      }
-    })
-  }
+  // getGames() {
+  //   this.gamesService.getGames().subscribe({
+  //     next: (r: Game[]) => {
+  //       this.games = r;
+  //     }
+  //   })
+  // }
 
   // getGame(game: Game) {
   //   this.gamesService.getGame(game.id).subscribe({

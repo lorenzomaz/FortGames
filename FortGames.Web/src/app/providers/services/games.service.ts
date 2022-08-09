@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Company, Game, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
+import { PagedResponse } from 'src/app/models/interfaces/paged-response';
+import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,8 +17,29 @@ export class GamesService {
   getGames(): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/games`);
   }
+
   getGame(id: number): Observable<Game> {
-    return this.http.get<Game>(`${environment.baseUrlApi}/fortgames/games/` + { id });
+    return this.http.get<Game>(`${environment.baseUrlApi}/fortgames/games/${id}`);
+  }
+
+  getGamesList(params: TableParameters): Observable<PagedResponse<Game>> {
+    let parameters = new HttpParams({
+      fromObject: {
+        'index': params.index,
+        'size': params.size
+      }
+    });
+
+    if (params.search) {
+      parameters = parameters.set('search', params.search);
+    }
+
+    if (params.sortDir && params.sortBy) {
+      parameters = parameters.set('sortBy', params.sortBy);
+      parameters = parameters.set('sortDir', params.sortDir);
+    }
+
+    return this.http.get<PagedResponse<Game>>(`${environment.baseUrlApi}/fortgames/games/list`, { params: parameters });
   }
 
   addGame(game: Game): Observable<Game> {
@@ -28,7 +51,7 @@ export class GamesService {
   }
 
   deleteGame(id: number): Observable<Game> {
-    return this.http.delete<Game>(`${environment.baseUrlApi}/fortgames/game/` + { id });
+    return this.http.delete<Game>(`${environment.baseUrlApi}/fortgames/game/${id}`);
   }
   //#endregion
 
@@ -37,12 +60,16 @@ export class GamesService {
     return this.http.get<Company[]>(`${environment.baseUrlApi}/fortgames/companies`);
   }
 
+  getCompanyRelatedGames(id: number): Observable<Game[]> {
+    return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/companies/${id}`);
+  }
+
   updateCompany(company: Company): Observable<Company> {
     return this.http.put<Company>(`${environment.baseUrlApi}/fortgames/companies`, company);
   }
 
   deleteCompany(id: number): Observable<Company> {
-    return this.http.delete<Company>(`${environment.baseUrlApi}/fortgames/company` + { id });
+    return this.http.delete<Company>(`${environment.baseUrlApi}/fortgames/company/${id}`);
   }
   //#endregion
 
@@ -51,12 +78,16 @@ export class GamesService {
     return this.http.get<Genre[]>(`${environment.baseUrlApi}/fortgames/genres`);
   }
 
+  getGenreRelatedGames(id: number): Observable<Game[]> {
+    return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/genres/${id}`);
+  }
+
   updateGenre(genre: Genre): Observable<Genre> {
     return this.http.put<Genre>(`${environment.baseUrlApi}/fortgames/genres`, genre);
   }
 
   deleteGenre(id: number): Observable<Genre> {
-    return this.http.delete<Genre>(`${environment.baseUrlApi}/fortgames/genre` + { id });
+    return this.http.delete<Genre>(`${environment.baseUrlApi}/fortgames/genre/${id}`);
   }
   //#endregion
 
@@ -65,12 +96,16 @@ export class GamesService {
     return this.http.get<Mode[]>(`${environment.baseUrlApi}/fortgames/modes`);
   }
 
+  getModeRelatedGames(id: number): Observable<Game[]> {
+    return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/modes/${id}`);
+  }
+
   updateMode(mode: Mode): Observable<Mode> {
     return this.http.put<Mode>(`${environment.baseUrlApi}/fortgames/modes`, mode);
   }
 
   deleteMode(id: number): Observable<Mode> {
-    return this.http.delete<Mode>(`${environment.baseUrlApi}/fortgames/mode` + { id });
+    return this.http.delete<Mode>(`${environment.baseUrlApi}/fortgames/mode/${id}`);
   }
   //#endregion
 
@@ -79,12 +114,16 @@ export class GamesService {
     return this.http.get<Platform[]>(`${environment.baseUrlApi}/fortgames/platforms`);
   }
 
+  getPlatformRelatedGames(id: number): Observable<Game[]> {
+    return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/platforms/${id}`);
+  }
+
   updatePlatform(platform: Platform): Observable<Platform> {
     return this.http.put<Platform>(`${environment.baseUrlApi}/fortgames/platforms`, platform);
   }
 
   deletePlatform(id: number): Observable<Platform> {
-    return this.http.delete<Platform>(`${environment.baseUrlApi}/fortgames/platform` + { id });
+    return this.http.delete<Platform>(`${environment.baseUrlApi}/fortgames/platform/${id}`);
   }
   //#endregion
 }
