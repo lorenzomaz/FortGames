@@ -12,6 +12,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatMenuModule} from '@angular/material/menu';
+
+
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
@@ -20,6 +25,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
+>>>>>>> lorenzo-dev
 
 const modules = [
   MatCardModule,
@@ -34,6 +42,9 @@ const modules = [
   MatSortModule,
   MatPaginatorModule,
   MatDialogModule,
+  MatTabsModule,
+  MatChipsModule,
+  MatMenuModule,
   MatStepperModule,
   MatSelectModule,
   MatSliderModule,

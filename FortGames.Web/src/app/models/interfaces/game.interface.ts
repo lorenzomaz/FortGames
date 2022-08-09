@@ -1,3 +1,5 @@
+import { DatePipe } from "@angular/common";
+
 export interface Company {
   id: number;
   name: string;

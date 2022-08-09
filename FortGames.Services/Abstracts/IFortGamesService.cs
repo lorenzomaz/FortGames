@@ -16,6 +16,7 @@ namespace FortGames.Services.Abstracts
         Task<IEnumerable<PlatformModel>> GetPlatforms();
         Task<IEnumerable<GameModel>>GetPlatformRelatedGames(int id);
         Task<IEnumerable<GameModel>> GetGames();
+        Task<PagedResponse<GameModel>> GetGamesList(string search, int index, int size, string sortBy, string sortDir);
         Task<Game> GetGame(int id);
 
         Task<Company> AddCompany(Company company);

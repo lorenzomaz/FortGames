@@ -6,6 +6,7 @@ using FortGames.Services.Abstracts;
 using FortGames.Shared.Extensions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace FortGames.Services
 {
@@ -126,6 +127,27 @@ namespace FortGames.Services
         {
             var games = await _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).ToListAsync();
             return _mapper.Map<IEnumerable<GameModel>>(games);
+        }
+
+        public async Task<PagedResponse<GameModel>> GetGamesList(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Game, bool>> predicate = g => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = g => g.Title.Contains(search);
+            }
+
+            //var query = _databaseContext.Games.Filter(predicate);
+            var query = _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).Filter(predicate);
+            var count = await query.CountAsync();
+            var games = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<GameModel>>(games), Total = count };
         }
 
         public async Task<IEnumerable<GenreModel>> GetGenres()
