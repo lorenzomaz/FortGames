@@ -1,82 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h1>Welcome Admin in the Add-Game section!</h1>
-      <h2>Here you can add every game you like</h2>
-      <h3>Be sure they exist first</h3>
-      <h4>Thank you for your collaboration</h4>
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Preview
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <mat-card class="card">
-            <mat-card-header>
-              <img mat-card-avatar class="card-header-image">
-              <mat-card-title>Game Title</mat-card-title>
-              <mat-card-subtitle>Release Date</mat-card-subtitle>
-              <mat-card-subtitle>Company</mat-card-subtitle>
-
-            </mat-card-header>
-            <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-              alt="Photo of a Shiba Inu"> -->
-            <mat-card-content class="d-flex">
-              <div>
-                <p>
-                  Genre
-                </p>
-                <p>
-                  Platforms
-                </p>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                  bred for hunting.
-                </p>
-              </div>
-              <div>
-                Rating
-              </div>
-            </mat-card-content>
-            <mat-card-actions class="text-center">
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
-    <div class="col-md-6">
+    <h1>Welcome Admin in the Add-Game section!</h1>
+    <h2>Here you can add every game you like</h2>
+    <div class="col">
       <mat-vertical-stepper [linear]="false" #stepper [animationDuration]="animationDuration">
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Game Title</ng-template>
+        <mat-step [stepControl]="formStep1">
+          <form [formGroup]="formStep1">
+            <ng-template matStepLabel>Game Info</ng-template>
+
             <mat-form-field>
-              <input matInput placeholder="Super Mario Bros." formControlName="firstCtrl" required>
+              <input matInput placeholder="Super Mario Bros." formControlName="title">
             </mat-form-field>
-            <div>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Logo</ng-template>
+
             <mat-form-field>
-              <input matInput placeholder="https://source.unsplash.com/1280x720/?nintendo" formControlName="secondCtrl">
+              <textarea matInput placeholder="The King of Videogames..." formControlName="description"></textarea>
             </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Release Date</ng-template>
+
             <mat-form-field>
               <!-- <mat-form-field appearance="fill">
                 <mat-label>Choose a date</mat-label>
@@ -85,105 +24,77 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field> -->
-              <input type="date" matInput placeholder="ex: 20/05/1996" formControlName="secondCtrl" required>
+              <input matInput placeholder="ex: 20/05/1996" formControlName="secondCtrl" type="date" formControlName="release">
             </mat-form-field>
+
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <h3>From 1 to 10</h3>
+              <mat-slider class="mt-2 w-100" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="1" min="0"
+                max="10" aria-label="units" formControlName="rating">
+              </mat-slider>
             </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Description</ng-template>
+
             <mat-form-field>
-              <textarea matInput placeholder="The King of Videogames..." formControlName="secondCtrl"
-                required></textarea>
+              <mat-label>Favorite food</mat-label>
+              <mat-select formControlName="companyId">
+                <mat-option *ngFor="let company of companies" [value]="company.id">
+                  {{company.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+
+
+          </form>
+          </mat-step>
+        <mat-step [stepControl]="formStep2">
+          <form [formGroup]="formStep2">
+            <ng-template matStepLabel>Logo</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="https://source.unsplash.com/1280x720/?nintendo" formControlName="logo">
             </mat-form-field>
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Rating</ng-template>
-            <h3>From 1 to 10</h3>
-            <mat-slider class="mt-2 w-100" thumbLabel [displayWith]="formatLabel" tickInterval="1" step="0.1" min="0"
-              max="10" aria-label="units">
-            </mat-slider>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Company</ng-template>
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Select a Company
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    You can choose only one Company
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <mat-radio-group value="1">
-                  <mat-radio-button class="p-3" *ngFor="let company of companies">{{company.name}}</mat-radio-button>
-                </mat-radio-group>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Genre</ng-template>
 
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Select a Genre
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    You can choose one or more Genres
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <section class="checkbox-section">
-                  <mat-checkbox class="checkbox-margin" *ngFor="let genre of genres">{{genre.name}}</mat-checkbox>
-                </section>
-              </mat-expansion-panel>
-            </mat-accordion>
+        <mat-step [stepControl]="formStep3">
+          <form [formGroup]="formStep3">
+            <ng-template matStepLabel>Other Info</ng-template>
+
+            <mat-form-field>
+              <mat-label>Genre</mat-label>
+              <mat-select formControlName="genres" multiple>
+                <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Mode</mat-label>
+              <mat-select formControlName="modes" multiple>
+                <mat-option *ngFor="let mode of modes" [value]="mode">{{mode.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Platform</mat-label>
+              <mat-select formControlName="platforms" multiple>
+                <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Mode</ng-template>
-
-            <section class="checkbox-section">
-              <!-- <h3>Type</h3> -->
-              <mat-checkbox class="checkbox-margin" *ngFor="let mode of modes">{{mode.name}}</mat-checkbox>
-            </section>
-
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
+        <!-- <mat-step [stepControl]="addGameForm">
+          <form [formGroup]="addGameForm">
             <ng-template matStepLabel>Platform</ng-template>
             <mat-chip-list aria-label="Dog selection" class="p-3" selectable multiple>
-              <mat-chip #c="matChip" *ngFor="let platform of platforms" (click)="togglePlatform(c)">
+              <mat-chip #c="matChip" *ngFor="let platform of platforms" (click)="togglePlatform(c)" formControlName="platform">
                 <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
                   alt="Photo of a pc" /> <mat-icon *ngIf="c.selected">check</mat-icon>
                 {{platform.name}}
@@ -192,17 +103,59 @@
             </mat-chip-list>
 
             <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
             </div>
           </form>
-        </mat-step>
+        </mat-step> -->
         <mat-step>
           <ng-template matStepLabel>Done</ng-template>
-          You are now done.
+          You are almost done now
+
+          <div class="col-md-6">
+            <h3>Check your preview</h3>
+            <h4>Thank you for your collaboration</h4>
+
+                <mat-card class="card">
+                  <mat-card-header>
+                    <img mat-card-avatar class="card-header-image">
+                    <mat-card-title>Game Title</mat-card-title>
+                    <mat-card-subtitle>Release Date</mat-card-subtitle>
+                    <mat-card-subtitle>Company</mat-card-subtitle>
+
+                  </mat-card-header>
+                  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                    alt="Photo of a Shiba Inu"> -->
+                  <mat-card-content class="d-flex">
+                    <div>
+                      <p>
+                        Genre
+                      </p>
+                      <p>
+                        Platforms
+                      </p>
+                      <p>
+                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                        bred for hunting.
+                      </p>
+                    </div>
+                    <div>
+                      Rating
+                    </div>
+                  </mat-card-content>
+                  <mat-card-actions class="text-center">
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                  </mat-card-actions>
+                </mat-card>
+          </div>
+
+
+
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" (click)="stepper.reset()" class="mx-3">Submit</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()" class="mx-3">Submit</button>
             <button mat-raised-button color="warn" (click)="stepper.reset()">Reset</button>
           </div>
         </mat-step>

@@ -32,9 +32,12 @@ namespace FortGames.Services
 
         public async Task<Game> AddGame(Game game)
         {
-            _databaseContext.Genres.AttachRange(game.Genres);
-            _databaseContext.Modes.AttachRange(game.Modes);
-            _databaseContext.Platforms.AttachRange(game.Platforms);
+            if (game.Genres != null)
+                _databaseContext.Genres.AttachRange(game.Genres);
+            if (game.Modes != null)
+                _databaseContext.Modes.AttachRange(game.Modes);
+            if (game.Platforms != null)
+                _databaseContext.Platforms.AttachRange(game.Platforms);
 
             var result = await _databaseContext.Games.AddAsync(game);
 
@@ -267,8 +270,6 @@ namespace FortGames.Services
 
         public async Task<Game> UpdateGame(GameModel model)
         {
-            //await ClearGameRelationships(model.Id);
-
             var game = await _databaseContext.Games
                 .Include(g => g.Genres)
                 .Include(g => g.Modes)
@@ -300,23 +301,5 @@ namespace FortGames.Services
         }
 
         #endregion
-
-        private async Task<int> ClearGameRelationships(int id)
-        {
-            using var context = await _dbContextFactory.CreateDbContextAsync();
-
-            var game = await context.Games
-
-                .Include(g => g.Genres)
-                .Include(g => g.Modes)
-                .Include(g => g.Platforms)
-                .FirstOrDefaultAsync(g => g.Id == id);
-
-            game.Genres.Clear();
-            game.Modes.Clear();
-            game.Platforms.Clear();
-
-            return await context.SaveChangesAsync();
-        }
     }
 }

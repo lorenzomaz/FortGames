@@ -54,7 +54,7 @@ namespace FortGames.API.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),
             };
 

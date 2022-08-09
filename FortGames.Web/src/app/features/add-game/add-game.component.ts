@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatChip } from '@angular/material/chips';
+import { forkJoin, takeUntil } from 'rxjs';
+import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { Company, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
 
@@ -10,17 +12,36 @@ import { GamesService } from 'src/app/providers/services/games.service';
   styleUrls: ['./add-game.component.scss']
 })
 
-export class AddGameComponent implements OnInit {
+export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
 
   genres: Genre[] = [];
   companies: Company[] = [];
   platforms: Platform[] = [];
   modes: Mode[] = [];
 
-  constructor(private _formBuilder: FormBuilder, private gamesService: GamesService) { }
-  firstFormGroup: FormGroup = this._formBuilder.group({ firstCtrl: [''] });
-  secondFormGroup: FormGroup = this._formBuilder.group({ secondCtrl: [''] });
   animationDuration: string = "1000";
+
+  formStep1 = this._fb.group({
+    title: new FormControl(null, [Validators.required]),
+    release: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required]),
+    rating: new FormControl(null, [Validators.required]),
+    companyId: new FormControl(null, [Validators.required])
+  });
+
+  formStep2 = this._fb.group({
+    logo: new FormControl(null, [Validators.required])
+  });
+
+  formStep3 = this._fb.group({
+    genres: new FormControl(null, [Validators.required]),
+    modes: new FormControl(null, [Validators.required]),
+    platforms: new FormControl(null, [Validators.required])
+  });
+
+  constructor(private _fb: FormBuilder, private gamesService: GamesService) {
+    super();
+  }
 
   formatLabel(value: number) {
     if (value >= 10) {
@@ -32,33 +53,25 @@ export class AddGameComponent implements OnInit {
 
   togglePlatform(chip: MatChip) {
     chip.toggleSelected();
- }
+  }
 
   ngOnInit(): void {
-    this.getGenres();
-    this.getCompanies();
-    this.getModes();
-    this.getPlatforms();
+    const genres = this.gamesService.getGenres();
+    const companies = this.gamesService.getCompanies();
+    const modes = this.gamesService.getModes();
+    const platforms = this.gamesService.getPlatforms();
+
+    forkJoin([genres, companies, modes, platforms]).pipe(takeUntil(this.destroy$)).subscribe({
+      next: results => {
+        this.genres = results[0];
+        this.companies = results[1];
+        this.modes = results[2];
+        this.platforms = results[3];
+      }
+    });
   }
 
-  getGenres() {
-    this.gamesService.getGenres().subscribe({
-      next: (r: Genre[]) => (this.genres = r)
-    })
-  }
-  getCompanies() {
-    this.gamesService.getCompanies().subscribe({
-      next: (r: Company[]) => (this.companies = r)
-    })
-  }
-  getModes() {
-    this.gamesService.getModes().subscribe({
-      next: (r: Mode[]) => (this.modes = r)
-    })
-  }
-  getPlatforms() {
-    this.gamesService.getPlatforms().subscribe({
-      next: (r: Platform[]) => (this.platforms = r)
-    })
+  onSubmit() {
+    console.log({...this.formStep1.value, ...this.formStep2.value, ...this.formStep3.value})
   }
 }
