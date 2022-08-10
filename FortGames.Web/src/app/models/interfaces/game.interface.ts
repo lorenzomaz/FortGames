@@ -1,5 +1,3 @@
-import { DatePipe } from "@angular/common";
-
 export interface Company {
   id: number;
   name: string;
@@ -29,14 +27,14 @@ export interface Genre {
 }
 
 export interface Game {
-  id: number;
-  logo: string;
+  id?: number;
+  logo?: string;
   title: string;
   release: Date;
   description: string;
   rating: number;
   companyId: number;
-  company: Company;
+  company?: Company;
   modes: Mode[];
   platforms: Platform[];
   genres: Genre[];

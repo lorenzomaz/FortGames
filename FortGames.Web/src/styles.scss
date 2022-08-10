@@ -1,13 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
 
-:root{
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+:root {
   --toolbar-height: 64px;
 }
 
-.mat-drawer-backdrop.mat-drawer-shown{
+.mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgb(131 134 169 / 60%);
 }
 
@@ -28,7 +35,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // mat-label focused style
 .mat-form-field.mat-focused .mat-form-field-label {
-  color: whitesmoke!important;
+  color: whitesmoke !important;
   font-size: 1rem;
   font-weight: 500;
+}
+
+
+.mat-selected {
+  color: #e19aff !important;
 }
