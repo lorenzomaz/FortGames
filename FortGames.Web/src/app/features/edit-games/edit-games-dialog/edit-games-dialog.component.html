@@ -1,0 +1,71 @@
+<form [formGroup]="editGameForm" novalidate>
+
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput placeholder="Super Mario" formControlName="title">
+    <mat-icon matSuffix color="text-disable">person</mat-icon>
+    <mat-hint>Write the Title</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Release</mat-label>
+    <input matInput placeholder="MM/DD/YYYY" formControlName="release">
+    <mat-icon matSuffix color="text-disable">person</mat-icon>
+    <mat-hint>Choose a Date</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput placeholder="The King of Videogames..." formControlName="description">
+    <mat-icon matSuffix color="text-disable">person</mat-icon>
+    <mat-hint>Write a Description</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Rating</mat-label>
+    <input matInput placeholder="5" hint="From 1 to 10" formControlName="rating" type="number">
+    <mat-icon matSuffix color="text-disable">person</mat-icon>
+    <mat-hint>Write a Rating</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Company</mat-label>
+    <mat-select formControlName="companyId">
+      <mat-option *ngFor="let company of companies" [value]="company.id">
+        {{company.name}}
+      </mat-option>
+      <!-- <mat-error>Company is REQUIRED</mat-error> -->
+    </mat-select><mat-hint>Choose a Company</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Modes</mat-label>
+    <mat-option *ngFor="let mode of modes" [value]="mode">
+      {{mode.name}}
+    </mat-option>
+    <mat-icon matSuffix color="text-disable">person</mat-icon>
+    <mat-hint>Choose the Modes</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Platforms</mat-label>
+    <mat-select formControlName="platforms" multiple>
+      <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform.name}}</mat-option>
+      <!-- <mat-error>Platform is REQUIRED</mat-error> -->
+    </mat-select>
+    <mat-hint>Choose the Platforms</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Genres</mat-label>
+    <mat-select formControlName="genres" multiple>
+      <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+      <!-- <mat-error>Genre is REQUIRED</mat-error> -->
+    </mat-select>
+    <mat-hint>Choose the Genres</mat-hint>
+  </mat-form-field>
+
+  <div class="text-center"><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
+
+
+</form>

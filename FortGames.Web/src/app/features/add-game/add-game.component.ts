@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material/chips';
+// import { MatChip } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { forkJoin, takeUntil } from 'rxjs';
 import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
@@ -57,12 +57,11 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
     return value;
   }
 
-  togglePlatform(chip: MatChip) {
-    chip.toggleSelected();
-  }
+  // togglePlatform(chip: MatChip) {
+  //   chip.toggleSelected();
+  // }
 
   ngOnInit(): void {
-
 
     const genres = this.gamesService.getGenres();
     const companies = this.gamesService.getCompanies();

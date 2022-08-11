@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { RouterModule } from '@angular/router';
 
-import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { EditGamesDialogComponent } from './edit-games-dialog/edit-games-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditGamesComponent } from './edit-games.component';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     EditGamesComponent,
-    EditDialogComponent,
-    DialogComponent
+    EditGamesDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,

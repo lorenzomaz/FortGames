@@ -71,7 +71,7 @@
             <ng-template matStepLabel>Other Info</ng-template>
 
             <mat-form-field class="p-3">
-              <mat-label>Genre</mat-label>
+              <mat-label>Genres</mat-label>
               <mat-select formControlName="genres" multiple>
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
                 <mat-error>Genre is REQUIRED</mat-error>

@@ -5,8 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { Company, Game, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
+import { EditGamesDialogComponent } from './edit-games-dialog/edit-games-dialog.component';
 
 @Component({
   selector: 'app-edit-games',
@@ -36,6 +38,7 @@ export class EditGamesComponent implements OnInit {
     this.getGames();
   }
 
+  //#region Calls
   getGames() {
     this.gamesService.getGames().subscribe({ //se non funziona, provare con getGamesList
       next: (r: Game[]) => {
@@ -65,6 +68,44 @@ export class EditGamesComponent implements OnInit {
       return platforms.map((p: Platform) => p.name).join(', ');
     }
     return null;
+  }
+  //#endregion
+
+  removeGame(game: Game){
+    this.dialog.open(ConfirmDialogComponent,{
+      data: {
+        title: 'Delete Game',
+        message: 'Would you like to delete this game from the list?'
+      }
+    }).afterClosed().subscribe(
+      result => {
+        if(result) {
+          this.gamesService.deleteGame(game.id!).subscribe({
+            next: () => {
+              this.getGames();
+            },
+            error: (error: Error) => console.log(error)
+          })
+        }
+      }
+    )
+  }
+
+  editGame(game: Game) {
+    this.dialog.open(EditGamesDialogComponent, {
+      data: {...game }
+    }).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.gamesService.updateGame(result).subscribe({
+            next: () => {
+              this.getGames()
+            },
+            error: (error: Error) => console.log(error)
+          })
+        }
+      }
+    )
   }
 
   announceSortChange(sortState: Sort) {
