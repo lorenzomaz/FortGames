@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'users', loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule), canActivate: [AuthGuard] },
   { path: 'advanced_search', loadChildren: () => import('./components/advanced-search/advanced-search.module').then(m => m.AdvancedSearchModule) },
   { path: 'add-game', loadChildren: () => import('./features/add-game/add-game.module').then(m => m.AddGameModule), canActivate: [AuthGuard] },
+  { path: 'edit-games', loadChildren: () => import ('./features/edit-games/edit-games.module').then( m => m.EditGamesModule), canActivate: [AuthGuard]},
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 

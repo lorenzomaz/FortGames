@@ -117,7 +117,7 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
       description: this.formStep1.value.description!,
       rating: this.formStep1.value.rating!,
       companyId: this.formStep1.value.companyId!,
-      // logo: this.formStep2.value.logo!,
+      // logo: this.formStep2.value.logo!, //NO!
       genres: this.formStep3.value.genres!,
       modes: this.formStep3.value.modes!,
       platforms: this.formStep3.value.platforms!

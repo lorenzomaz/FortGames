@@ -11,6 +11,9 @@
       <li class="nav-item py-2" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/add-game" (click)="drawer.close()">Add Game</a>
       </li>
+      <li class="nav-item py-2" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/edit-games" (click)="drawer.close()">Edit Games</a>
+      </li>
       <li class="nav-item py-2">
         <a class="nav-link" routerLink="/advanced_search" (click)="drawer.close()">Advanced Search</a>
       </li>
