@@ -90,13 +90,6 @@ namespace FortGames.API.Controller
             var games = await _fortGamesService.GetGames();
             return Ok(games);
         }
-
-        [HttpGet("games/list")]
-        public async Task<IActionResult> GetGamesList( string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Game.Title), string? sortDir = "")
-        {
-            var games = await _fortGamesService.GetGamesList(search, index, size, sortBy, sortDir);
-            return Ok(games);
-        }
         #endregion
 
         #region Post
@@ -128,6 +121,15 @@ namespace FortGames.API.Controller
         public async Task<IActionResult> AddGame(Game game)
         {
             return Ok(await _fortGamesService.AddGame(game));
+        }
+
+        [HttpPost("games/list")]
+        public async Task<IActionResult> GetGamesList(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Game.Title), string? sortDir = "", [FromBody] IEnumerable<FilterGameModel>? filters = default)
+        {
+
+            var games = await _fortGamesService.GetGamesList(search, index, size, sortBy, sortDir, filters);
+
+            return Ok(games);
         }
         #endregion
 
@@ -170,7 +172,7 @@ namespace FortGames.API.Controller
 
         #region Patch
         [HttpPatch("company/{id}")]
-        public async Task<IActionResult> EditCompany(int id,[FromBody] JsonPatchDocument company)
+        public async Task<IActionResult> EditCompany(int id, [FromBody] JsonPatchDocument company)
         {
             return Ok(await _fortGamesService.EditCompany(id, company));
         }
