@@ -1,14 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'sass/variables';
+@import 'sass/mixins';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Boostrap */
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
 
-:root{
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// CUSTOM CONTAINER
+.main-container {
+  @include make-container();
+  @extend .container;
+  max-width: 1600px;
+ }
+
+// TOOLBAR
+:root {
   --toolbar-height: 64px;
 }
 
-.mat-drawer-backdrop.mat-drawer-shown{
-  background-color: rgb(131 134 169 / 60%);
+// ICON
+.filled {
+  @include fill;
 }
 
 .mat-card {
@@ -28,7 +59,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // mat-label focused style
 .mat-form-field.mat-focused .mat-form-field-label {
-  color: whitesmoke!important;
+  color: whitesmoke !important;
   font-size: 1rem;
   font-weight: 500;
 }

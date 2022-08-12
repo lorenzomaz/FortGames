@@ -137,6 +137,19 @@ export class AdvancedSearchComponent extends UnsubscriptionHandler implements On
     this.getGamesList();
   }
 
+  removeChips(){
+
+    for (let i = 0; i < this.chips.length; i++) {
+      const element = this.chips[i];
+      element.toggleSelected();
+
+    }
+    this.paginator.firstPage();
+    this.chips = [];
+    this.getGamesList();
+
+  }
+
   viewEvent() {
     this.status = !this.status;
   }
