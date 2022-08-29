@@ -13,12 +13,14 @@ import { MatDialog } from '@angular/material/dialog';
 export class ToolbarComponent implements OnInit {
 
   isAuthenticated = false;
+  userName!: string | null;
   @Input() drawer!: MatDrawer;
 
   constructor(private authService: AuthenticationService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe(r => this.isAuthenticated = r)
+    this.authService.isAuthenticated$.subscribe(r => this.isAuthenticated = r);
+    this.authService.userName$.subscribe(r => this.userName = r);
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Register } from 'src/app/models/interfaces/register.interface';
 import { AuthenticationService } from 'src/app/providers/services/authentication.service';
 
@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfo();
+
   }
 
   getInfo() {
@@ -22,4 +23,9 @@ export class AccountComponent implements OnInit {
       next: (r: Register) => this.details = r
     });
   }
+
+  name() {
+    this.authService.userName = 'ciccio';
+  }
+
 }

@@ -21,7 +21,7 @@ namespace FortGames.API
 
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
             // Add services to the container.
-            builder.Services.AddDbContextFactory<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContextFactory<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {

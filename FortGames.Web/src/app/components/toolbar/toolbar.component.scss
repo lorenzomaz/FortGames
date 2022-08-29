@@ -3,6 +3,20 @@
 }
 
 #toolbar {
-  box-shadow: 20px #3f51b5;
-  // $box-shadow: 0 .5rem 1rem rgba($black, .15);
+  box-shadow:
+  0px 4px 9px rgba(0, 0, 0, 0.12);
+  z-index: 666;
+}
+
+#menu {
+  z-index: 999;
+}
+
+::ng-deep .mat-menu-panel {
+  width: 300px;
+  background: #212121;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-bottom: 0px !important;
 }

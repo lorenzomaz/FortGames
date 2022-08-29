@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { Company, Game, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
 import { PagedResponse } from 'src/app/models/interfaces/paged-response';
 import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
@@ -22,7 +22,7 @@ export class GamesService {
     return this.http.get<Game>(`${environment.baseUrlApi}/fortgames/games/${id}`);
   }
 
-  getGamesList(params: TableParameters): Observable<PagedResponse<Game>> {
+  getGamesList(params: TableParameters, filters: Array<any>): Observable<PagedResponse<Game>> {
     let parameters = new HttpParams({
       fromObject: {
         'index': params.index,
@@ -39,7 +39,7 @@ export class GamesService {
       parameters = parameters.set('sortDir', params.sortDir);
     }
 
-    return this.http.get<PagedResponse<Game>>(`${environment.baseUrlApi}/fortgames/games/list`, { params: parameters });
+    return this.http.post<PagedResponse<Game>>(`${environment.baseUrlApi}/fortgames/games/list`, filters, { params: parameters });
   }
 
   addGame(game: Game): Observable<Game> {

@@ -9,9 +9,10 @@ namespace FortGames.Domain.Entities
 
         [StringLength(100)]
         public string Title { get; set; }
+
         public DateTime Release { get; set; }
         public string Description { get; set; }
-        public int Rating { get; set; }
+        public float Rating { get; set; }
         public int CompanyId { get; set; }
         public Company Company { get; set; }
         public ICollection<Mode> Modes { get; set; }

@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'sass/variables';
+@import 'sass/mixins';
+
+/* Boostrap */
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -10,8 +25,21 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+// CUSTOM CONTAINER
+.main-container {
+  @include make-container();
+  @extend .container;
+  max-width: 1600px;
+}
+
+// TOOLBAR
 :root {
   --toolbar-height: 64px;
+}
+
+// ICON
+.filled {
+  @include fill;
 }
 
 .mat-drawer-backdrop.mat-drawer-shown {
@@ -43,4 +71,11 @@ body {
 
 .mat-selected {
   color: #e19aff !important;
+}
+
+.mat-header-cell {
+  background-color: #7b1fa2;
+  color: whitesmoke;
+  font-size: 1rem;
+  font-weight: 500;
 }

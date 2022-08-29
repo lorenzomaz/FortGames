@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatChip } from '@angular/material/chips';
+// import { MatChip } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { forkJoin, takeUntil } from 'rxjs';
 import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
@@ -50,19 +50,21 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
   }
 
   formatLabel(value: number) {
-    if (value >= 10) {
-      return Math.round(value) + '!';
+    if (value <= 10) {
+      return value + '/10'
+    } else {
+      // return Math.round(value) + '!';
+      return value + '!';
     }
 
     return value;
   }
 
-  togglePlatform(chip: MatChip) {
-    chip.toggleSelected();
-  }
+  // togglePlatform(chip: MatChip) {
+  //   chip.toggleSelected();
+  // }
 
   ngOnInit(): void {
-
 
     const genres = this.gamesService.getGenres();
     const companies = this.gamesService.getCompanies();
@@ -117,7 +119,7 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
       description: this.formStep1.value.description!,
       rating: this.formStep1.value.rating!,
       companyId: this.formStep1.value.companyId!,
-      // logo: this.formStep2.value.logo!,
+      // logo: this.formStep2.value.logo!, //NO!
       genres: this.formStep3.value.genres!,
       modes: this.formStep3.value.modes!,
       platforms: this.formStep3.value.platforms!

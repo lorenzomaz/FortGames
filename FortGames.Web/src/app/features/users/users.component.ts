@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { EditDialogComponent } from 'src/app/features/users/edit-dialog/edit-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { User } from 'src/app/models/interfaces/users.interface';
 import { UsersService } from 'src/app/providers/services/users.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
   }
 
   removeUser(user: User) {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete User',
         message: 'Would you like to delete this user account?'
