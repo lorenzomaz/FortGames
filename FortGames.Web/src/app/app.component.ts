@@ -34,6 +34,7 @@ export class AppComponent {
   loggedMenu = [
     { name: 'Users', link: 'users', icon: 'group' },
     { name: 'Add Game', link: 'add-game', icon: 'add' },
+    { name: 'Edit Games', link: 'edit-games', icon: 'edit' }
   ]
 
   constructor(private authService: AuthenticationService) { }
