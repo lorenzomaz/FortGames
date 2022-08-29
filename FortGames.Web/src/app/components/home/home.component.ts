@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin, takeUntil } from 'rxjs';
 import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
@@ -10,18 +10,18 @@ import { GamesService } from 'src/app/providers/services/games.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends UnsubscriptionHandler implements OnInit {
+export class HomeComponent extends UnsubscriptionHandler implements OnInit, AfterViewInit {
+
+  loading: boolean = true;
 
   games: Array<Game> = new Array<Game>();
-  // game: Game[] = [];
-  // id?: number;
 
   constructor(private gamesService: GamesService, private router: Router) {
     super();
   }
 
   ngOnInit(): void {
-    // this.getGames();
+
     const games = this.gamesService.getGames();
     const genres = this.gamesService.getGenres();
     const companies = this.gamesService.getCompanies();
@@ -32,23 +32,10 @@ export class HomeComponent extends UnsubscriptionHandler implements OnInit {
         this.games = results[0];
       }
     });
-
   }
 
-  // getGames() {
-  //   this.gamesService.getGames().subscribe({
-  //     next: (r: Game[]) => {
-  //       this.games = r;
-  //     }
-  //   })
-  // }
-
-  // getGame(game: Game) {
-  //   this.gamesService.getGame(this.game.id).subscribe({
-  //     next: () => {
-  //       this.getGames();
-  //     }
-  //   })
-  // }
+  ngAfterViewInit() {
+      this.loading = false;
+  }
 
 }

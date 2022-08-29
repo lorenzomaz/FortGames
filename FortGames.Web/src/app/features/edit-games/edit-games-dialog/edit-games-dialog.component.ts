@@ -51,6 +51,7 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
     const modes = this.gamesService.getModes();
     const platforms = this.gamesService.getPlatforms();
 
+
     forkJoin([genres, companies, modes, platforms]).pipe(takeUntil(this.destroy$)).subscribe({
       next: results => {
         this.genres = results[0];
@@ -59,6 +60,8 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
         this.platforms = results[3];
       }
     });
+
+    console.log(this.data.genres.length);
   }
 
   onSubmit() {

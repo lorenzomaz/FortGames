@@ -4,15 +4,15 @@
     <mat-form-field>
       <mat-label>Title</mat-label>
       <input matInput placeholder="Super Mario Bros." formControlName="title" #title>
-      <mat-error>Title is REQUIRED</mat-error>
       <mat-hint>Write the Title</mat-hint>
+      <mat-error>Title is REQUIRED</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Release Date</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="release">
-      <mat-error>Release Date is REQUIRED</mat-error>
       <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-error>Release Date is REQUIRED</mat-error>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -20,8 +20,8 @@
     <mat-form-field>
       <mat-label>Description</mat-label>
       <input matInput placeholder="The King of Videogames..." formControlName="description">
-      <mat-error>Description is REQUIRED</mat-error>
       <mat-hint>Write a Description</mat-hint>
+      <mat-error>Description is REQUIRED</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -36,8 +36,8 @@
         <mat-option *ngFor="let company of companies" [value]="company.id">
           {{company.name}}
         </mat-option>
-        <mat-error>Company is REQUIRED</mat-error>
       </mat-select>
+      <mat-error>Company is REQUIRED</mat-error>
       <mat-hint>Choose a Company</mat-hint>
     </mat-form-field>
 
@@ -49,8 +49,8 @@
       <mat-label>Mode</mat-label>
       <mat-select formControlName="modes" multiple>
         <mat-option *ngFor="let mode of modes" [value]="mode">{{mode.name}}</mat-option>
-        <mat-error>Mode is REQUIRED</mat-error>
       </mat-select>
+      <mat-error>Mode is REQUIRED</mat-error>
       <mat-hint>Choose the Modes</mat-hint>
     </mat-form-field>
 
@@ -58,8 +58,8 @@
       <mat-label>Platforms</mat-label>
       <mat-select formControlName="platforms" multiple>
         <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform.name}}</mat-option>
-        <mat-error>Genre is REQUIRED</mat-error>
       </mat-select>
+      <mat-error>Genre is REQUIRED</mat-error>
       <mat-hint>Choose the Platforms</mat-hint>
     </mat-form-field>
 
@@ -67,8 +67,8 @@
       <mat-label>Genres</mat-label>
       <mat-select formControlName="genres" multiple>
         <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
-        <!-- <mat-error>Genre is REQUIRED</mat-error> -->
       </mat-select>
+      <mat-error>Genre is REQUIRED</mat-error>
       <mat-hint>Choose the Genres</mat-hint>
     </mat-form-field>
     <div class="text-center"><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
