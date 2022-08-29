@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { forkJoin, takeUntil } from 'rxjs';
 import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { Game } from 'src/app/models/interfaces/game.interface';
@@ -12,8 +13,10 @@ import { GamesService } from 'src/app/providers/services/games.service';
 export class HomeComponent extends UnsubscriptionHandler implements OnInit {
 
   games: Array<Game> = new Array<Game>();
+  // game: Game[] = [];
+  // id?: number;
 
-  constructor(private gamesService: GamesService) {
+  constructor(private gamesService: GamesService, private router: Router) {
     super();
   }
 
@@ -29,6 +32,7 @@ export class HomeComponent extends UnsubscriptionHandler implements OnInit {
         this.games = results[0];
       }
     });
+
   }
 
   // getGames() {
@@ -40,7 +44,7 @@ export class HomeComponent extends UnsubscriptionHandler implements OnInit {
   // }
 
   // getGame(game: Game) {
-  //   this.gamesService.getGame(game.id).subscribe({
+  //   this.gamesService.getGame(this.game.id).subscribe({
   //     next: () => {
   //       this.getGames();
   //     }

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/interfaces/users.interface';
-import { ResetPassword } from 'src/app/models/interfaces/reset-password.interface';
 
 @Injectable({
   providedIn: 'root'

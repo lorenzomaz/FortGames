@@ -5,6 +5,9 @@
       <li class="nav-item py-2">
         <a class="nav-link" routerLink="/" (click)="drawer.close()">Home</a>
       </li>
+      <li class="nav-item py-2">
+        <a class="nav-link" routerLink="/advanced_search" (click)="drawer.close()">Advanced Search</a>
+      </li>
       <li class="nav-item py-2" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/users" (click)="drawer.close()">Users</a>
       </li>
@@ -14,14 +17,11 @@
       <li class="nav-item py-2" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/edit-games" (click)="drawer.close()">Edit Games</a>
       </li>
-      <li class="nav-item py-2">
-        <a class="nav-link" routerLink="/advanced_search" (click)="drawer.close()">Advanced Search</a>
-      </li>
     </ul>
   </mat-drawer>
   <div class="sidenav-content">
-     <div class="container py-3 px-2">
-       <router-outlet></router-outlet>
-     </div>
+    <div class="container py-3 px-2">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </mat-drawer-container>

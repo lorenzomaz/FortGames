@@ -50,8 +50,11 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
   }
 
   formatLabel(value: number) {
-    if (value >= 10) {
-      return Math.round(value) + '!';
+    if (value <= 10) {
+      return value + '/10'
+    } else {
+      // return Math.round(value) + '!';
+      return value + '!';
     }
 
     return value;
