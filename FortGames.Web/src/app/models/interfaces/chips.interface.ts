@@ -1,3 +1,6 @@
+import { MatChip } from "@angular/material/chips";
+
 export interface Chip {
-  name: string;
+  value: any;
+  chip: MatChip;
 }

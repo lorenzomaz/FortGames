@@ -126,10 +126,10 @@ namespace FortGames.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{userName}")]
-        public async Task<IActionResult> GetUser(string userName)
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetUser(string email)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByEmailAsync(email);
             return Ok(_mapper.Map<UserModel>(user));
         }
 

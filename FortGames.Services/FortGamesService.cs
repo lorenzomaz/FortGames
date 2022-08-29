@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FortGames.Domain.Entities;
+using FortGames.Domain.Enums;
 using FortGames.Domain.Models;
 using FortGames.Infrastructure;
 using FortGames.Services.Abstracts;
@@ -129,7 +130,7 @@ namespace FortGames.Services
             return _mapper.Map<IEnumerable<GameModel>>(games);
         }
 
-        public async Task<PagedResponse<GameModel>> GetGamesList(string search, int index, int size, string sortBy, string sortDir)
+        public async Task<PagedResponse<GameModel>> GetGamesList(string search, int index, int size, string sortBy, string sortDir, IEnumerable<FilterGameModel> filters)
         {
             Expression<Func<Game, bool>> predicate = g => true;
 
@@ -138,8 +139,22 @@ namespace FortGames.Services
                 predicate = g => g.Title.Contains(search);
             }
 
-            //var query = _databaseContext.Games.Filter(predicate);
             var query = _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).Filter(predicate);
+
+            if (filters.Any())
+            {
+                var platforms = filters.Where(p => p.Type == GameFilterType.Platforms).Select(p => p.Id).ToList();
+                var genres = filters.Where(g => g.Type == GameFilterType.Genres).Select(g => g.Id).ToList();
+                var modes = filters.Where(m => m.Type == GameFilterType.Modes).Select(m => m.Id).ToList();
+                var companies = filters.Where(c => c.Type == GameFilterType.Companies).Select(c => c.Id).ToList();
+
+                query = query.Where(g =>
+                    g.Platforms.Select(p => p.Id).Any(id => platforms.Contains(id)) ||
+                    g.Genres.Select(g => g.Id).Any(id => genres.Contains(id)) ||
+                    g.Modes.Select(m => m.Id).Any(id => modes.Contains(id)) ||
+                    companies.Contains(g.CompanyId));
+            }
+
             var count = await query.CountAsync();
             var games = await query
                 .OrderBy(sortBy, sortDir)

@@ -13,14 +13,26 @@ import { TokenService } from './token.service';
 export class AuthenticationService implements OnDestroy {
 
   private authSub = new BehaviorSubject<boolean>(false);
+  private usernameSub = new BehaviorSubject<string | null>(null);
+
+  public get userName$(): Observable<string | null> {
+    return this.usernameSub.asObservable();
+  }
+
+  public set userName(v : string) {
+    this.usernameSub.next(v);
+  }
 
   public get isAuthenticated$(): Observable<boolean> {
     return this.authSub.asObservable();
   }
 
-
   constructor(private http: HttpClient, private tokenService: TokenService) {
-    this.authSub.next(!this.tokenService.isTokenExpired()) //in fase iniziale viene passato questo valore
+    this.authSub.next(!this.tokenService.isTokenExpired()); //in fase iniziale viene passato questo valore
+
+    if (!this.tokenService.isTokenExpired()) {
+      this.usernameSub.next(this.tokenService.getDecodeToken().username);
+    }
   }
 
   // isTokenExpired = (): boolean => {
@@ -41,7 +53,7 @@ export class AuthenticationService implements OnDestroy {
 
   account(): Observable<any> {
     const token = this.tokenService.getDecodeToken();
-    return this.http.get<any>(`${environment.baseUrlApi}/account/${token.username}`);
+    return this.http.get<any>(`${environment.baseUrlApi}/account/${token.email}`);
   }
 
   isAdmin(): boolean {
@@ -56,15 +68,20 @@ export class AuthenticationService implements OnDestroy {
   handleLogin(login: LoginResponse): void {
     this.tokenService.setToken(login.token);
     this.authSub.next(true);
+    this.usernameSub.next(this.tokenService.getDecodeToken().username);
   }
 
   logout(): void {
     this.tokenService.removeToken();
     this.authSub.next(false);
+    this.usernameSub.next(this.tokenService.getDecodeToken().username);
   }
 
   ngOnDestroy(): void {
     this.authSub.next(false);
     this.authSub.complete();
+
+    this.usernameSub.next(null);
+    this.usernameSub.complete();
   }
 }
