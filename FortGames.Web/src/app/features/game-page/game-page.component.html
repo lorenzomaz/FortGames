@@ -1,0 +1,16 @@
+<h1>Here's the game you selected</h1>
+<div class="container" *ngIf="details">
+  {{details.title}}
+  <hr>
+  {{details.release}}
+  <hr>
+  {{details.rating}}
+  <hr>
+  {{details.company?.name}}
+  <hr>
+  {{getGenres(details.genres)}}
+  <hr>
+  {{getModes(details.modes)}}
+  <hr>
+  {{getPlatforms(details.platforms)}}
+</div>

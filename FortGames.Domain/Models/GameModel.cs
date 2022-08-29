@@ -7,7 +7,7 @@
         public string Title { get; set; }
         public DateTime Release { get; set; }
         public string Description { get; set; }
-        public int Rating { get; set; }
+        public float Rating { get; set; }
         public int CompanyId { get; set; }
         public CompanyModel Company { get; set; }
         public IEnumerable<GenreModel> Genres { get; set; }
