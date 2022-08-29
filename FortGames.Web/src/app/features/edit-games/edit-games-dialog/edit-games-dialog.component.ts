@@ -44,13 +44,11 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
   }
 
   ngOnInit(): void {
-    this.editGameForm.setValue(this.data);
 
     const genres = this.gamesService.getGenres();
     const companies = this.gamesService.getCompanies();
     const modes = this.gamesService.getModes();
     const platforms = this.gamesService.getPlatforms();
-
 
     forkJoin([genres, companies, modes, platforms]).pipe(takeUntil(this.destroy$)).subscribe({
       next: results => {
@@ -58,10 +56,20 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
         this.companies = results[1];
         this.modes = results[2];
         this.platforms = results[3];
+      },
+      complete: () => {
+        const genresIds = this.data.genres.map(g => g.id);
+        const modesIds = this.data.modes.map(m => m.id);
+        const platformsIds = this.data.platforms.map(p => p.id);
+
+        this.data.genres = this.genres.filter(g => genresIds.includes(g.id));
+        this.data.modes = this.modes.filter(m => modesIds.includes(m.id));
+        this.data.platforms = this.platforms.filter(p => platformsIds.includes(p.id));
+
+        this.editGameForm.setValue(this.data); //metterlo dopo lo statement perchè i file non sono ancora caricati. Va fatto dopo aver finito. Dev'essere l'istanza non la chiamata
       }
     });
 
-    console.log(this.data.genres.length);
   }
 
   onSubmit() {
