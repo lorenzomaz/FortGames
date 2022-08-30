@@ -1,13 +1,23 @@
 <h1>Welcome back</h1>
-<div class="container py-5" *ngIf="details">
+<div class="container py-4" *ngIf="details">
   {{details.userName!}}
-  <button (click)="name()">clic</button>
   <hr>
   {{details.firstName!}}
   <hr>
   {{details.lastName!}}
   <hr>
   {{details.email!}}
-  <hr>
-  {{details.password!}}
 </div>
+
+<button mat-flat-button (click)="editName(details)">Edit</button>
+
+<!--
+  CAMPI NECESSARI
+   immagine profilo;
+   lista di giochi preferiti dal 6 in su;
+   lista dei giochi già giocati (non è necessario il voto);
+
+  CAMPI OPZIONALI
+   creazione avatar tipo reddit;
+   preferenze wishlist con prezzi in offerta;
+-->

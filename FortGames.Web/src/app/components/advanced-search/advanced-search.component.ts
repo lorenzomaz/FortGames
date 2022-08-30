@@ -1,15 +1,14 @@
-import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GamesService } from 'src/app/providers/services/games.service';
 import { Game, Platform, Genre, Company, Mode } from 'src/app/models/interfaces/game.interface';
-import { MatChip, MatChipInputEvent } from '@angular/material/chips';
-import { Chip } from 'src/app/models/interfaces/chips.interface';
+import { MatChip } from '@angular/material/chips';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
 import { debounceTime, distinctUntilChanged, forkJoin, Subject, takeUntil } from 'rxjs';
 import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
+import { base64Image } from 'src/app/models/utilities';
 
 
 @Component({
@@ -22,6 +21,7 @@ export class AdvancedSearchComponent extends UnsubscriptionHandler implements On
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   games: Game[] = [];
+  gameLogo = base64Image;
   platforms: Platform[] = [];
   genres: Genre[] = [];
   modes: Mode[] = [];

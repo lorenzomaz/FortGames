@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from 'src/app/providers/services/authentication.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
   }
 
   logout(){
-    this.authService.logout();
     this.router.navigate(['/']);
+    this.authService.logout();
   }
 }

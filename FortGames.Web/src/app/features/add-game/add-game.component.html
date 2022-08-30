@@ -4,6 +4,10 @@
     <h2>Here you can add every game you like</h2>
     <div class="col">
       <mat-vertical-stepper [linear]="false" #stepper [animationDuration]="animationDuration">
+
+        <ng-template matStepperIcon="edit">
+          <mat-icon class="material-symbols-rounded filled"></mat-icon>
+        </ng-template>
         <mat-step [stepControl]="formStep1">
           <form [formGroup]="formStep1">
             <ng-template matStepLabel>Game Info</ng-template>
@@ -57,7 +61,6 @@
             <ng-template matStepLabel>Logo</ng-template>
             <mat-form-field>
               <input matInput placeholder="https://source.unsplash.com/1280x720/?nintendo" formControlName="logo">
-              <mat-error>Logo is REQUIRED</mat-error>
             </mat-form-field>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>

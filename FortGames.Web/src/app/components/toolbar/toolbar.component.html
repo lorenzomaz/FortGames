@@ -12,7 +12,9 @@
       <mat-icon class="material-symbols-rounded ">account_circle</mat-icon> <span class="mx-2">SIGN IN</span>
     </button>
     <div class="d-flex align-items-center gap-3">
-      <div class="mat-body">{{userName}}</div>
+      <div *ngIf="userName" class="mat-body">{{userName}}</div>
+      <div *ngIf="currentUser" class="mat-body"><span class="text-muted">userName:</span> {{currentUser.userName!}}</div>
+      <div *ngIf="currentUser" class="mat-body"><span class="text-muted">firstName:</span> {{currentUser.firstName!}}</div>
       <div [matMenuTriggerFor]="accountMenu" *ngIf="isAuthenticated" style="cursor: pointer;">
         <img src="../../../assets/mario.jpg" class="rounded-circle border border-2" width="35px" height="35px" alt="">
       </div>
