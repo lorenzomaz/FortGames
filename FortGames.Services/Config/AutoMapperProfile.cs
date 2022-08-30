@@ -13,14 +13,14 @@ namespace FortGames.Services.Config
 
             CreateMap<ApplicationUser, UserModel>();
 
-            CreateMap<Game, GameModel>()
-                .ForMember(d => d.Logo, opt => opt.MapFrom(src => Convert.ToBase64String(src.Logo)));
+            CreateMap<Game, GameModel>();
+            //.ForMember(d => d.Logo, opt => opt.MapFrom(src => Convert.ToBase64String(src.Logo)));
             //.ForMember(d => d.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Id)))
             //.ForMember(d => d.Modes, opt => opt.MapFrom(src => src.Modes.Select(m => m.Id)))
             //.ForMember(d => d.Platforms, opt => opt.MapFrom(src => src.Platforms.Select(p => p.Id)));
 
-            CreateMap<GameModel, Game>()
-                .ForMember(d => d.Logo, opt => opt.MapFrom(src => Convert.FromBase64String(src.Logo)));
+            CreateMap<GameModel, Game>();
+                //.ForMember(d => d.Logo, opt => opt.MapFrom(src => Convert.FromBase64String(src.Logo)));
 
             CreateMap<Genre, GenreModel>().ReverseMap();
             CreateMap<Mode, ModeModel>().ReverseMap();

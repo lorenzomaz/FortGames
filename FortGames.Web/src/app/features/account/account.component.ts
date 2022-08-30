@@ -1,6 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Register } from 'src/app/models/interfaces/register.interface';
+import { User } from 'src/app/models/interfaces/users.interface';
 import { AuthenticationService } from 'src/app/providers/services/authentication.service';
+import { UsersService } from 'src/app/providers/services/users.service';
+import { EditDialogComponent } from '../users/edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-account',
@@ -11,11 +15,13 @@ export class AccountComponent implements OnInit {
 
   details!: Register;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private userService: UsersService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInfo();
-
   }
 
   getInfo() {
@@ -26,6 +32,24 @@ export class AccountComponent implements OnInit {
 
   name() {
     this.authService.userName = 'ciccio';
+  }
+
+  editName(user: Register) {
+    this.dialog.open(EditDialogComponent, {
+      data: { ...user}
+    }).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.userService.editUser(result).subscribe({
+            next: () => {
+              this.getInfo();
+            },
+            error: (error: Error) => console.log(error)
+          })
+          this.authService.userName = result.userName;
+        }
+      }
+    )
   }
 
 }

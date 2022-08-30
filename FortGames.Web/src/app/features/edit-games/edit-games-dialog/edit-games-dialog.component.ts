@@ -30,7 +30,7 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
 
     this.editGameForm = new FormGroup({
       id: new FormControl({ value: null, disabled: true }, [Validators.required]),
-      logo: new FormControl({ value: null, disabled: true }, [Validators.required]),
+      logo: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required]),
       release: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),

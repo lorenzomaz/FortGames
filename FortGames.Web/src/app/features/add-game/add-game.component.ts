@@ -36,7 +36,7 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
   });
 
   formStep2 = this._fb.group({
-    logo: new FormControl(null, [Validators.required])
+    logo: new FormControl(null)
   });
 
   formStep3 = this._fb.group({
@@ -119,7 +119,7 @@ export class AddGameComponent extends UnsubscriptionHandler implements OnInit {
       description: this.formStep1.value.description!,
       rating: this.formStep1.value.rating!,
       companyId: this.formStep1.value.companyId!,
-      // logo: this.formStep2.value.logo!, //NO!
+      logo: this.formStep2.value.logo!,
       genres: this.formStep3.value.genres!,
       modes: this.formStep3.value.modes!,
       platforms: this.formStep3.value.platforms!

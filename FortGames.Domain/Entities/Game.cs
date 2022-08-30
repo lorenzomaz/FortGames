@@ -5,7 +5,7 @@ namespace FortGames.Domain.Entities
     public class Game
     {
         public int Id { get; set; }
-        public byte[] Logo { get; set; }
+        public string Logo { get; set; }
 
         [StringLength(100)]
         public string Title { get; set; }
