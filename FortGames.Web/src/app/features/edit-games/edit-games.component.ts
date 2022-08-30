@@ -32,7 +32,7 @@ export class EditGamesComponent implements OnInit {
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
-   }
+  }
 
   ngOnInit(): void {
     this.getGames();
@@ -71,15 +71,15 @@ export class EditGamesComponent implements OnInit {
   }
   //#endregion
 
-  removeGame(game: Game){
-    this.dialog.open(ConfirmDialogComponent,{
+  removeGame(game: Game) {
+    this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete Game',
         message: 'Would you like to delete this game from the list?'
       }
     }).afterClosed().subscribe(
       result => {
-        if(result) {
+        if (result) {
           this.gamesService.deleteGame(game.id!).subscribe({
             next: () => {
               this.getGames();
@@ -93,7 +93,7 @@ export class EditGamesComponent implements OnInit {
 
   editGame(game: Game) {
     this.dialog.open(EditGamesDialogComponent, {
-      data: {...game }
+      data: { ...game }
     }).afterClosed().subscribe(
       result => {
         if (result) {

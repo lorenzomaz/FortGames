@@ -35,7 +35,8 @@ export class AppComponent {
     { name: 'Users', link: 'users', icon: 'group' },
     { name: 'Add Game', link: 'add-game', icon: 'add' },
     { name: 'Edit Games', link: 'edit-games', icon: 'edit' },
-    { name: 'Add Company', link: 'add-company', icon: 'add' }
+    { name: 'Add Company', link: 'add-company', icon: 'add' },
+    { name: 'Edit Companies', link: 'edit-companies', icon: 'edit'}
   ]
 
   constructor(private authService: AuthenticationService) { }

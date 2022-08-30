@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'add-company', loadChildren: () => import('./features/add-company/add-company.module').then(m => m.AddCompanyModule), canActivate: [AuthGuard] },
   { path: 'home', redirectTo: '' },
   { path: 'edit-games', loadChildren: () => import('./features/edit-games/edit-games.module').then(m => m.EditGamesModule), canActivate: [AuthGuard] },
+  { path: 'edit-companies', loadChildren: () => import('./features/edit-companies/edit-companies.module').then(m => m.EditCompaniesModule), canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
