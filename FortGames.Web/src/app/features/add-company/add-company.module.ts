@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddCompanyComponent } from './add-company.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/material.module';
 
+import { AddCompanyComponent } from './add-company.component';
 
 
 @NgModule({
@@ -9,7 +12,12 @@ import { AddCompanyComponent } from './add-company.component';
     AddCompanyComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      { path: '', component: AddCompanyComponent }
+    ]),
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class AddCompanyModule { }

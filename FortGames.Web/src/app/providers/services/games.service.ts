@@ -66,7 +66,7 @@ export class GamesService {
 
   // Aggiunto ora l'addCompany - DA TESTARE
   addCompany(company: Company): Observable<Company> {
-    return this.http.post<Company>(`${environment.baseUrlApi}/fortgames/companie`, company);
+    return this.http.post<Company>(`${environment.baseUrlApi}/fortgames/company`, company);
   }
 
   updateCompany(company: Company): Observable<Company> {
