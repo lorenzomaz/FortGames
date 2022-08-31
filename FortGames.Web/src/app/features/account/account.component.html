@@ -1,15 +1,43 @@
 <h1>Welcome back</h1>
-<div class="container py-4" *ngIf="details">
-  {{details.userName!}}
-  <hr>
-  {{details.firstName!}}
-  <hr>
-  {{details.lastName!}}
-  <hr>
-  {{details.email!}}
+<div class="py-4" *ngIf="details">
+  <div class="row">
+    <div class="col">
+      <img [src]="photo(details.profilePicture!)">
+    </div>
+    <div class="col">
+      <div>
+        <p class="mat-body-2 text-muted m-0">Username</p>
+        <p class="mat-body">{{details.userName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">First Name</p>
+        <p>{{details.firstName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">Last Name</p>
+        <p>{{details.lastName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">E-mail</p>
+        <p>{{details.email!}}</p>
+      </div>
+      <button mat-flat-button (click)="editName(details)">Edit</button>
+    </div>
+  </div>
 </div>
 
-<button mat-flat-button (click)="editName(details)">Edit</button>
+<div>
+  <form [formGroup]="pictureForm" (ngSubmit)="editPhoto()">
+    <mat-form-field appearance="outline">
+      <mat-label>base64</mat-label>
+      <input matInput formControlName="profilePicture">
+    </mat-form-field>
+  </form>
+  <!-- <button mat-flat-button (click)="editPhoto()">edit picture</button> -->
+</div>
 
 <!--
   CAMPI NECESSARI

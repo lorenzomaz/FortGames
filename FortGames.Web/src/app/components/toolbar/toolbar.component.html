@@ -12,16 +12,14 @@
       <mat-icon class="material-symbols-rounded ">account_circle</mat-icon> <span class="mx-2">SIGN IN</span>
     </button>
     <div class="d-flex align-items-center gap-3">
-      <div *ngIf="userName" class="mat-body">{{userName}}</div>
-      <div *ngIf="currentUser" class="mat-body"><span class="text-muted">userName:</span> {{currentUser.userName!}}</div>
-      <div *ngIf="currentUser" class="mat-body"><span class="text-muted">firstName:</span> {{currentUser.firstName!}}</div>
+      <div *ngIf="isAuthenticated" class="mat-body">{{user?.userName}}</div>
       <div [matMenuTriggerFor]="accountMenu" *ngIf="isAuthenticated" style="cursor: pointer;">
-        <img src="../../../assets/mario.jpg" class="rounded-circle border border-2" width="35px" height="35px" alt="">
+        <img [src]="user?.profilePicture ? photo(user?.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle border border-2" width="35px" height="35px" alt="">
       </div>
     </div>
-    <button mat-icon-button *ngIf="isAuthenticated" (click)="openDialog('200ms', '100ms'); drawer.close()">
+    <!-- <button mat-icon-button *ngIf="isAuthenticated" (click)="openDialog('200ms', '100ms'); drawer.close()">
       <mat-icon class="material-symbols-rounded">logout</mat-icon>
-    </button>
+    </button> -->
   </div>
 </mat-toolbar>
 
@@ -29,11 +27,11 @@
 <mat-menu id="menu" #accountMenu="matMenu" class="mt-1">
   <div class="d-flex align-items-center text-light px-3 py-3 gap-4">
     <div>
-      <img src="../../../assets/mario.jpg" class="rounded-circle border border-2" width="45px" height="45px" alt="">
+      <img [src]="user?.profilePicture ? photo(user?.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle border border-2" width="45px" height="45px" alt="">
     </div>
 
     <div>
-      <div class="mat-h3 m-0">{{userName}}</div>
+      <div class="mat-h3 m-0">{{user?.userName}}</div>
       <a routerLink="/account" class="text-decoration-none" style="color: #84edb2">Account settings</a>
     </div>
   </div>

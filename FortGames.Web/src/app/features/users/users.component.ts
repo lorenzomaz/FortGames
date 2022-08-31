@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confir
 import { User } from 'src/app/models/interfaces/users.interface';
 import { UsersService } from 'src/app/providers/services/users.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AuthenticationService } from 'src/app/providers/services/authentication.service';
 
 @Component({
   selector: 'app-users',
@@ -26,7 +27,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private userService: UsersService, public dialog: MatDialog) {
+  constructor(private _liveAnnouncer: LiveAnnouncer, private userService: UsersService, public dialog: MatDialog, private authService: AuthenticationService) {
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
@@ -73,7 +74,7 @@ export class UsersComponent implements OnInit {
         if (result) {
           this.userService.editUser(result).subscribe({
             next: () => {
-              this.getUsers()
+              this.getUsers();
             },
             error: (error: Error) => console.log(error)
           })

@@ -74,7 +74,7 @@
     </mat-chip-list>
   </div>
   <div class="fs-6 total-number">
-   <span class="text-muted">{{total}} games</span>
+    <span class="text-muted">{{total}} games</span>
     <button mat-icon-button (click)="removeChips()">
       <mat-icon class="material-symbols-rounded">close</mat-icon>
     </button>
@@ -101,9 +101,7 @@
   <div *ngFor="let game of filteredData; let i=index" [ngClass]="status ? ['col-lg-12'] : ['col-xxl-3']"
     class="col-lg-6 g-4">
     <div class="card bg-dark game-card" [ngClass]="status ? ['col-lg-6','mx-auto'] : ['w-100']">
-
-        <img [src]="gameLogo(game.logo!)" class="img-fluid game-img-card">
-
+      <img [src]="gameLogo(game.logo!)" class="img-fluid game-img-card">
       <div class="card-body">
         <div class="d-flex justify-content-between">
           <div class="d-flex">

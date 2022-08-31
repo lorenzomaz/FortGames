@@ -10,5 +10,6 @@ namespace FortGames.Domain.Entities
 
         [StringLength(100)]
         public string LastName { get; set; }
+        public string ProfilePicture { get; set; }
     }
 }
