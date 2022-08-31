@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from 'src/app/models/interfaces/login.interface';
 import { LoginResponse } from 'src/app/models/interfaces/login_response';
 import { Register } from 'src/app/models/interfaces/register.interface';
+import { User } from 'src/app/models/interfaces/users.interface';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
 
@@ -13,14 +14,16 @@ import { TokenService } from './token.service';
 export class AuthenticationService implements OnDestroy {
 
   private authSub = new BehaviorSubject<boolean>(false);
-  private usernameSub = new BehaviorSubject<string | null>(null);
+  private userSub = new BehaviorSubject<User | null>(null);
+  private loggedInUser!: User | null;
 
-  public get userName$(): Observable<string | null> {
-    return this.usernameSub.asObservable();
+  public get user$(): Observable<User | null> {
+    return this.userSub.asObservable();
   }
 
-  public set userName(v : string) {
-    this.usernameSub.next(v);
+  public set user(v : User | null) {
+    this.loggedInUser = v;
+    this.userSub.next(v);
   }
 
   public get isAuthenticated$(): Observable<boolean> {
@@ -31,7 +34,7 @@ export class AuthenticationService implements OnDestroy {
     this.authSub.next(!this.tokenService.isTokenExpired()); //in fase iniziale viene passato questo valore
 
     if (!this.tokenService.isTokenExpired()) {
-      this.usernameSub.next(this.tokenService.getDecodeToken().username);
+      this.userSub.next(this.loggedInUser);
     }
   }
 
@@ -64,20 +67,20 @@ export class AuthenticationService implements OnDestroy {
   handleLogin(login: LoginResponse): void {
     this.tokenService.setToken(login.token);
     this.authSub.next(true);
-    this.usernameSub.next(this.tokenService.getDecodeToken().username);
+    this.user = login.user;
   }
 
   logout(): void {
     this.tokenService.removeToken();
     this.authSub.next(false);
-    this.usernameSub.next(this.tokenService.getDecodeToken().username);
+    this.user = null;
   }
 
   ngOnDestroy(): void {
     this.authSub.next(false);
     this.authSub.complete();
 
-    this.usernameSub.next(null);
-    this.usernameSub.complete();
+    this.userSub.next(null);
+    this.userSub.complete();
   }
 }

@@ -6,7 +6,7 @@ export function getApiValidationErrors(errors: any): Array<any> {
   return messages;
 }
 
-export function base64Image(img: string): string | undefined {
+export function base64Image(img: string): string | undefined | null {
   if (img) {
     const identifier = img.charAt(0);
     let extension = '';

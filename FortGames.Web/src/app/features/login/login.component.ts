@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   private returnUrl: string;
   public errorMessage = '';
   public loading = false;
+  hide = true;
 
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),

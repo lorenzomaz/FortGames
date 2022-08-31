@@ -17,10 +17,11 @@ export class EditDialogComponent implements OnInit {
   ) {
     this.editUserForm = new FormGroup({
       id: new FormControl(null, [Validators.required]),
-      userName: new FormControl(null, [Validators.required]),
+      userName: new FormControl(null, [Validators.required, Validators.pattern(/^[a-zA-Z0-9_\-\.]+$/)]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       email: new FormControl({value: null, disabled: true}, [Validators.required]),
+      profilePicture: new FormControl({value: null, disabled: false}),
     })
   }
 
