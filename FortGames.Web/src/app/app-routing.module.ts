@@ -16,10 +16,14 @@ const routes: Routes = [
   { path: 'add-game', loadChildren: () => import('./features/add-game/add-game.module').then(m => m.AddGameModule), canActivate: [AuthGuard] },
   { path: 'add-company', loadChildren: () => import('./features/add-company/add-company.module').then(m => m.AddCompanyModule), canActivate: [AuthGuard] },
   { path: 'add-genre', loadChildren: () => import('./features/add-genre/add-genre.module').then(m => m.AddGenreModule), canActivate: [AuthGuard] },
+  { path: 'add-mode', loadChildren: () => import('./features/add-mode/add-mode.module').then(m => m.AddModeModule), canActivate: [AuthGuard] },
+  { path: 'add-platform', loadChildren: () => import('./features/add-platform/add-platform.module').then(m => m.AddPlatformModule), canActivate: [AuthGuard] },
   { path: 'home', redirectTo: '' },
   { path: 'edit-games', loadChildren: () => import('./features/edit-games/edit-games.module').then(m => m.EditGamesModule), canActivate: [AuthGuard] },
   { path: 'edit-companies', loadChildren: () => import('./features/edit-companies/edit-companies.module').then(m => m.EditCompaniesModule), canActivate: [AuthGuard] },
   { path: 'edit-genres', loadChildren: () => import('./features/edit-genres/edit-genres.module').then(m => m.EditGenresModule), canActivate: [AuthGuard] },
+  { path: 'edit-modes', loadChildren: () => import('./features/edit-modes/edit-modes.module').then(m => m.EditModesModule), canActivate: [AuthGuard] },
+  { path: 'edit-platforms', loadChildren: () => import('./features/edit-platforms/edit-platforms.module').then(m => m.EditPlatformsModule), canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 

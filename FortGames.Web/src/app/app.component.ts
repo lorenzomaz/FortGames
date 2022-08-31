@@ -38,7 +38,11 @@ export class AppComponent {
     { name: 'Add Company', link: 'add-company', icon: 'add' },
     { name: 'Edit Companies', link: 'edit-companies', icon: 'edit'},
     { name: 'Add Genre', link: 'add-genre', icon: 'add' },
-    { name: 'Edit Genres', link: 'edit-genres', icon: 'edit'}
+    { name: 'Edit Genres', link: 'edit-genres', icon: 'edit'},
+    { name: 'Add Mode', link: 'add-mode', icon: 'add' },
+    { name: 'Edit Modes', link: 'edit-modes', icon: 'edit'},
+    { name: 'Add Platform', link: 'add-platform', icon: 'add' },
+    { name: 'Edit Platforms', link: 'edit-platforms', icon: 'edit'},
   ]
 
   constructor(private authService: AuthenticationService) { }

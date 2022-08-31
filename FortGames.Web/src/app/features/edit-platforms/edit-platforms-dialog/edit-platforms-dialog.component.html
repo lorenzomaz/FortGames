@@ -1,1 +1,13 @@
-<p>edit-platform-dialog works!</p>
+<div class="container">
+  <form [formGroup]="editPlatForm" novalidate>
+    <mat-form-field>
+      <mat-label>Platform Name</mat-label>
+      <input matInput placeholder="Gameboy SP" formControlName="name" #name>
+      <mat-hint>Write the Platform's new Name</mat-hint>
+      <mat-error>Name is REQUIRED</mat-error>
+    </mat-form-field>
+
+    <div class="text-center"><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
+  </form>
+</div>
+

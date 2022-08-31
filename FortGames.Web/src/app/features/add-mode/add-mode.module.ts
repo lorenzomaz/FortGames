@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddModeComponent } from './add-mode.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from 'src/app/material.module';
 
+import { AddModeComponent } from './add-mode.component';
 
 
 @NgModule({
@@ -9,7 +12,12 @@ import { AddModeComponent } from './add-mode.component';
     AddModeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      { path: '', component: AddModeComponent }
+    ]),
+    ReactiveFormsModule,
+    MaterialModule
   ]
 })
 export class AddModeModule { }
