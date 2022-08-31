@@ -107,7 +107,7 @@ namespace FortGames.Services
         #endregion
 
         #region Get
-        public async Task<IEnumerable<CompanyModel>> GetCompanies()
+        public async Task<IEnumerable<CompanyModel>> GetCompanies() //Da MODIFICARE seguendo GameList per il pagination backend
         {
             var companies = await _databaseContext.Companies.ToListAsync();
             return _mapper.Map<IEnumerable<CompanyModel>>(companies);
@@ -138,7 +138,7 @@ namespace FortGames.Services
             {
                 predicate = g => g.Title.Contains(search);
             }
-
+            // posso omettere l'include
             var query = _databaseContext.Games.Include(g => g.Company).Include(g => g.Genres).Include(g => g.Modes).Include(g => g.Platforms).Filter(predicate);
 
             if (filters.Any())
@@ -147,7 +147,7 @@ namespace FortGames.Services
                 var genres = filters.Where(g => g.Type == GameFilterType.Genres).Select(g => g.Id).ToList();
                 var modes = filters.Where(m => m.Type == GameFilterType.Modes).Select(m => m.Id).ToList();
                 var companies = filters.Where(c => c.Type == GameFilterType.Companies).Select(c => c.Id).ToList();
-
+                //Per le altre pagination, servirà sicuramente il where
                 query = query.Where(g =>
                     g.Platforms.Select(p => p.Id).Any(id => platforms.Contains(id)) ||
                     g.Genres.Select(g => g.Id).Any(id => genres.Contains(id)) ||
