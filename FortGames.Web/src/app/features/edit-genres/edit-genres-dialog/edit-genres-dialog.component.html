@@ -1,0 +1,20 @@
+<div class="container">
+  <form [formGroup]="editGenreForm" novalidate>
+    <mat-form-field>
+      <mat-label>Genre Name</mat-label>
+      <input matInput placeholder="Casual" formControlName="name" #name>
+      <mat-hint>Write the Genre's new Name</mat-hint>
+      <mat-error>Name is REQUIRED</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Genre Description</mat-label>
+      <input matInput placeholder="Just to spend some time" formControlName="description" #description>
+      <mat-hint>Write the Genre's new Description</mat-hint>
+      <mat-error>Description is REQUIRED</mat-error>
+    </mat-form-field>
+
+    <div class="text-center"><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
+  </form>
+</div>
+

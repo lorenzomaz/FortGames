@@ -1,0 +1,27 @@
+<div class="container">
+  <mat-card class="mx-auto my-2">
+    <mat-card-header>
+      <mat-card-title>Add Genre</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="genreForm" (ngSubmit)="addGenre()" autocomplete="off">
+
+        <mat-form-field class="w-100 py-1">
+          <input matInput placeholder="Genre Name" formControlName="name">
+          <mat-error>Genre is REQUIRED</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 py-1">
+          <input matInput placeholder="Description" formControlName="description">
+          <mat-error>Description is REQUIRED</mat-error>
+        </mat-form-field>
+
+        <mat-error *ngFor="let error of errorMessages">{{error.message}}</mat-error>
+
+        <button mat-raised-button class="mt-2" color="primary" [disabled]="!genreForm.valid">
+          <span>Confirm</span>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -64,6 +64,11 @@ export class GamesService {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/companies/${id}`);
   }
 
+  // Aggiunto ora l'addCompany - DA TESTARE
+  addCompany(company: Company): Observable<Company> {
+    return this.http.post<Company>(`${environment.baseUrlApi}/fortgames/company`, company);
+  }
+
   updateCompany(company: Company): Observable<Company> {
     return this.http.put<Company>(`${environment.baseUrlApi}/fortgames/companies`, company);
   }
@@ -80,6 +85,11 @@ export class GamesService {
 
   getGenreRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/genres/${id}`);
+  }
+
+  // Aggiunto ora l'addGenre - DA TESTARE
+  addGenre(genre: Genre): Observable<Genre> {
+    return this.http.post<Genre>(`${environment.baseUrlApi}/fortgames/genre`, genre);
   }
 
   updateGenre(genre: Genre): Observable<Genre> {
@@ -100,6 +110,11 @@ export class GamesService {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/modes/${id}`);
   }
 
+  // Aggiunto ora l'addMode - DA TESTARE
+  addMode(mode: Mode): Observable<Mode> {
+    return this.http.post<Mode>(`${environment.baseUrlApi}/fortgames/mode`, mode);
+  }
+
   updateMode(mode: Mode): Observable<Mode> {
     return this.http.put<Mode>(`${environment.baseUrlApi}/fortgames/modes`, mode);
   }
@@ -116,6 +131,11 @@ export class GamesService {
 
   getPlatformRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/platforms/${id}`);
+  }
+
+  // Aggiunto ora l'addPlatform - DA TESTARE
+  addPlatform(platform: Platform): Observable<Platform> {
+    return this.http.post<Platform>(`${environment.baseUrlApi}/fortgames/platform`, platform);
   }
 
   updatePlatform(platform: Platform): Observable<Platform> {
