@@ -12,6 +12,7 @@ import { GamesService } from 'src/app/providers/services/games.service';
   styleUrls: ['./edit-games-dialog.component.scss']
 })
 export class EditGamesDialogComponent extends UnsubscriptionHandler implements OnInit {
+
   public errorMessages: Array<any> = [];
 
   editGameForm: FormGroup;
@@ -44,7 +45,6 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
   }
 
   ngOnInit(): void {
-    this.editGameForm.setValue(this.data);
 
     const genres = this.gamesService.getGenres();
     const companies = this.gamesService.getCompanies();
@@ -57,8 +57,20 @@ export class EditGamesDialogComponent extends UnsubscriptionHandler implements O
         this.companies = results[1];
         this.modes = results[2];
         this.platforms = results[3];
+      },
+      complete: () => {
+        const genresIds = this.data.genres.map(g => g.id);
+        const modesIds = this.data.modes.map(m => m.id);
+        const platformsIds = this.data.platforms.map(p => p.id);
+
+        this.data.genres = this.genres.filter(g => genresIds.includes(g.id));
+        this.data.modes = this.modes.filter(m => modesIds.includes(m.id));
+        this.data.platforms = this.platforms.filter(p => platformsIds.includes(p.id));
+
+        this.editGameForm.setValue(this.data); //metterlo dopo lo statement perchè i file non sono ancora caricati. Va fatto dopo aver finito. Dev'essere l'istanza non la chiamata
       }
     });
+
   }
 
   onSubmit() {

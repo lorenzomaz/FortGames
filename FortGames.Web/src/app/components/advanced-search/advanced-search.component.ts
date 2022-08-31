@@ -39,7 +39,7 @@ export class AdvancedSearchComponent extends UnsubscriptionHandler implements On
   filteredData: Game[] = [];
   value = '';
   status: boolean = false;
-  icon: string = 'view_day'
+  icon: string = 'view_day';
 
   constructor(private gamesService: GamesService) {
     super();

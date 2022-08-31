@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { Company, Game, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
+
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { EditGamesDialogComponent } from './edit-games-dialog/edit-games-dialog.component';
 
 @Component({
@@ -19,6 +20,14 @@ export class EditGamesComponent implements OnInit {
   displayedColumns: Array<string> = ['title', 'release', 'description', 'rating', 'companyId', 'modes', 'platforms', 'genres', 'actions'];
   dataSource!: MatTableDataSource<Game>;
   form: FormGroup;
+
+  // params: TableParameters = { index: 0, size: 25};
+  // filter$ = new Subject<string>();
+  // total: number = 0;
+  // filteredData: Game[] = [];
+  // value = '';
+  // status: boolean = false;
+  // icon: string = 'view_day'
 
   genres: Genre[] = [];
   companies: Company[] = [];
@@ -32,7 +41,7 @@ export class EditGamesComponent implements OnInit {
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
-   }
+  }
 
   ngOnInit(): void {
     this.getGames();
@@ -48,6 +57,10 @@ export class EditGamesComponent implements OnInit {
       }
     })
   }
+
+  // getGamesList() {
+  //   this.gamesService.getGamesList(this.params, this.filter$)
+  // }
 
   getGenres(genres: any) {
     if (Array.isArray(genres)) {
@@ -71,15 +84,15 @@ export class EditGamesComponent implements OnInit {
   }
   //#endregion
 
-  removeGame(game: Game){
-    this.dialog.open(ConfirmDialogComponent,{
+  removeGame(game: Game) {
+    this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete Game',
         message: 'Would you like to delete this game from the list?'
       }
     }).afterClosed().subscribe(
       result => {
-        if(result) {
+        if (result) {
           this.gamesService.deleteGame(game.id!).subscribe({
             next: () => {
               this.getGames();
@@ -93,7 +106,7 @@ export class EditGamesComponent implements OnInit {
 
   editGame(game: Game) {
     this.dialog.open(EditGamesDialogComponent, {
-      data: {...game }
+      data: { ...game }
     }).afterClosed().subscribe(
       result => {
         if (result) {

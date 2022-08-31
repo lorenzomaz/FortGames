@@ -13,8 +13,10 @@ import { GamesService } from 'src/app/providers/services/games.service';
 
 export class HomeComponent extends UnsubscriptionHandler implements OnInit {
 
-  games: Array<Game> = new Array<Game>();
   loading: boolean = false;
+
+  games: Array<Game> = new Array<Game>();
+
 
   constructor(private gamesService: GamesService, private router: Router) {
     super();
@@ -26,10 +28,13 @@ export class HomeComponent extends UnsubscriptionHandler implements OnInit {
     const companies = this.gamesService.getCompanies();
     const platforms = this.gamesService.getPlatforms();
 
+    this.loading = true;
+
     forkJoin([games, genres, companies, platforms]).pipe(takeUntil(this.destroy$)).subscribe({
       next: results => {
         this.games = results[0];
-      }
+      },
+      complete: () => this.loading = false
     });
   }
 }
