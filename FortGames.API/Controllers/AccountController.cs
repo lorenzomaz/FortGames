@@ -99,7 +99,7 @@ namespace FortGames.API.Controllers
             }
             await _userManager.ResetAccessFailedCountAsync(user);
 
-            return Ok(new { token = await GenerateToken(user) });
+            return Ok(new { token = await GenerateToken(user), user = _mapper.Map<UserModel>(user) });
         }
 
         [HttpPost("register")]
@@ -165,7 +165,7 @@ namespace FortGames.API.Controllers
             }
         }
 
-        [Authorize(Roles = Identity.Roles.Admin)]
+        //[Authorize(Roles = Identity.Roles.Admin)]
         [HttpPut("users")]
         public async Task<IActionResult> Edit(UserModel model)
         {

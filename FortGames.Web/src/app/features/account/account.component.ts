@@ -1,7 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Register } from 'src/app/models/interfaces/register.interface';
+import { takeUntil } from 'rxjs';
+import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { User } from 'src/app/models/interfaces/users.interface';
+import { base64Image } from 'src/app/models/utilities';
 import { AuthenticationService } from 'src/app/providers/services/authentication.service';
 import { UsersService } from 'src/app/providers/services/users.service';
 import { EditDialogComponent } from '../users/edit-dialog/edit-dialog.component';
@@ -11,45 +14,64 @@ import { EditDialogComponent } from '../users/edit-dialog/edit-dialog.component'
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent extends UnsubscriptionHandler implements OnInit {
 
-  details!: Register;
+  details!: User;
+  photo = base64Image;
+  pictureForm = new FormGroup({
+    profilePicture: new FormControl('')
+  })
 
   constructor(
     private authService: AuthenticationService,
     private userService: UsersService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getInfo();
   }
 
   getInfo() {
-    this.authService.account().subscribe({
-      next: (r: Register) => this.details = r
+    this.authService.account().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (r: User) => {
+        this.details = r;
+        this.authService.user = r;
+      }
     });
   }
 
-  name() {
-    this.authService.userName = 'ciccio';
+
+  editPhoto() {
+    this.details.profilePicture = this.pictureForm.value.profilePicture!;
+
+    this.userService.editUser(this.details).pipe(takeUntil(this.destroy$)).subscribe({
+      next: () => {
+        console.log(this.details);
+        this.authService.user = this.details;
+      },
+      error: (err: Error) => console.log(err)
+
+    })
   }
 
-  editName(user: Register) {
+  editName(user: User) {
     this.dialog.open(EditDialogComponent, {
-      data: { ...user}
+      data: { ...user }
     }).afterClosed().subscribe(
       result => {
+        console.log(result);
+
         if (result) {
-          this.userService.editUser(result).subscribe({
+          this.userService.editUser(result).pipe(takeUntil(this.destroy$)).subscribe({
             next: () => {
               this.getInfo();
             },
             error: (error: Error) => console.log(error)
           })
-          this.authService.userName = result.userName;
         }
       }
     )
   }
-
 }

@@ -26,6 +26,7 @@ namespace FortGames.Infrastructure
             //builder.Entity<GameGenre>(entity => entity.HasKey(e => new { e.GenreId, e.GameId })); //fluent API => PK implicita (se ID nome proprietà)
 
             builder.Entity<Game>(entity => entity.Property(e => e.Logo).HasConversion(v => Convert.FromBase64String(v), v => Convert.ToBase64String(v)));
+            builder.Entity<ApplicationUser>(entity => entity.Property(e => e.ProfilePicture).HasConversion(v => Convert.FromBase64String(v), v => Convert.ToBase64String(v)));
 
             builder.Seed();
         }
