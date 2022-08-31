@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Company } from 'src/app/models/interfaces/game.interface';
 
 @Component({
   selector: 'app-edit-companies-dialog',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditCompaniesDialogComponent implements OnInit {
 
-  constructor() { }
+  public errorMessages: Array<any> = [];
 
-  ngOnInit(): void {
+  editCompanyForm: FormGroup;
+
+  constructor(
+    private dialogRef: MatDialogRef<EditCompaniesDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Company
+  ) {
+
+    this.editCompanyForm = new FormGroup({
+      id: new FormControl({ value: null, disabled: true }, [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      website: new FormControl(null, [Validators.required])
+    })
   }
 
+  ngOnInit(): void {
+    this.editCompanyForm.setValue(this.data);
+  }
+
+  onSubmit() {
+    if (this.editCompanyForm.valid) {
+      this.dialogRef.close(this.editCompanyForm.getRawValue());
+    }
+  }
 }

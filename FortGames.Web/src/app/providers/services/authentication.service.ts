@@ -35,10 +35,6 @@ export class AuthenticationService implements OnDestroy {
     }
   }
 
-  // isTokenExpired = (): boolean => {
-  //   return this.isTokenExpired();
-  // } //metodo creato fuori dal costruttore invece che dentro
-
   isTokenExpired(): boolean {
     return this.tokenService.isTokenExpired();
   }

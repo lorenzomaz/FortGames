@@ -36,7 +36,9 @@ export class AppComponent {
     { name: 'Add Game', link: 'add-game', icon: 'add' },
     { name: 'Edit Games', link: 'edit-games', icon: 'edit' },
     { name: 'Add Company', link: 'add-company', icon: 'add' },
-    { name: 'Edit Companies', link: 'edit-companies', icon: 'edit'}
+    { name: 'Edit Companies', link: 'edit-companies', icon: 'edit'},
+    { name: 'Add Genre', link: 'add-genre', icon: 'add' },
+    { name: 'Edit Genres', link: 'edit-genres', icon: 'edit'}
   ]
 
   constructor(private authService: AuthenticationService) { }

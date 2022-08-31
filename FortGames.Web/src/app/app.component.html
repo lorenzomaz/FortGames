@@ -27,19 +27,21 @@
         <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="item.link">
           <div class="d-flex align-items-center gap-4">
             <div>
-              <mat-icon class="material-symbols-rounded w-auto h-auto" routerLinkActive="filled" style="font-size:28px;" [routerLinkActiveOptions]="{exact: true}">{{item.icon}}</mat-icon>
+              <mat-icon class="material-symbols-rounded w-auto h-auto" routerLinkActive="filled" style="font-size:28px;"
+                [routerLinkActiveOptions]="{exact: true}">{{item.icon}}</mat-icon>
             </div>
             <div>{{item.name}}</div>
           </div>
         </a>
       </div>
       <div *ngIf="isAdmin" class="d-grid gap-1">
-      <hr class="my-1 text-muted">
+        <hr class="my-1 text-muted">
         <div *ngFor="let item of loggedMenu">
           <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="item.link">
             <div class="d-flex align-items-center gap-4">
               <div>
-                <mat-icon class="material-symbols-rounded" routerLinkActive="filled" [routerLinkActiveOptions]="{exact: true}">{{item.icon}}</mat-icon>
+                <mat-icon class="material-symbols-rounded" routerLinkActive="filled"
+                  [routerLinkActiveOptions]="{exact: true}">{{item.icon}}</mat-icon>
               </div>
               <div>{{item.name}}</div>
             </div>
@@ -55,4 +57,3 @@
     </div>
   </div>
 </mat-sidenav-container>
-<!-- </mat-drawer-container> -->

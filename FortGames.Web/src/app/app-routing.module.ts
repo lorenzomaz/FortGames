@@ -15,9 +15,11 @@ const routes: Routes = [
   { path: 'advanced_search', loadChildren: () => import('./components/advanced-search/advanced-search.module').then(m => m.AdvancedSearchModule) },
   { path: 'add-game', loadChildren: () => import('./features/add-game/add-game.module').then(m => m.AddGameModule), canActivate: [AuthGuard] },
   { path: 'add-company', loadChildren: () => import('./features/add-company/add-company.module').then(m => m.AddCompanyModule), canActivate: [AuthGuard] },
+  { path: 'add-genre', loadChildren: () => import('./features/add-genre/add-genre.module').then(m => m.AddGenreModule), canActivate: [AuthGuard] },
   { path: 'home', redirectTo: '' },
   { path: 'edit-games', loadChildren: () => import('./features/edit-games/edit-games.module').then(m => m.EditGamesModule), canActivate: [AuthGuard] },
   { path: 'edit-companies', loadChildren: () => import('./features/edit-companies/edit-companies.module').then(m => m.EditCompaniesModule), canActivate: [AuthGuard] },
+  { path: 'edit-genres', loadChildren: () => import('./features/edit-genres/edit-genres.module').then(m => m.EditGenresModule), canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 

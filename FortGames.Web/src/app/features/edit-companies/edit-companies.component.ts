@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { Company } from 'src/app/models/interfaces/game.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
+import { EditCompaniesDialogComponent } from './edit-companies-dialog/edit-companies-dialog.component';
 
 @Component({
   selector: 'app-edit-companies',
@@ -27,7 +28,7 @@ export class EditCompaniesComponent implements OnInit {
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
-   }
+  }
 
   ngOnInit(): void {
     this.getCompanies();
@@ -63,7 +64,7 @@ export class EditCompaniesComponent implements OnInit {
   }
 
   editCompany(company: Company) {
-    this.dialog.open(EditCompaniesComponent, {
+    this.dialog.open(EditCompaniesDialogComponent, {
       data: { ...company }
     }).afterClosed().subscribe(result => {
       if (result) {
@@ -84,5 +85,4 @@ export class EditCompaniesComponent implements OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-
 }

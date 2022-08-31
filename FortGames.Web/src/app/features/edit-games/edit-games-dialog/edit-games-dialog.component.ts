@@ -12,6 +12,7 @@ import { GamesService } from 'src/app/providers/services/games.service';
   styleUrls: ['./edit-games-dialog.component.scss']
 })
 export class EditGamesDialogComponent extends UnsubscriptionHandler implements OnInit {
+
   public errorMessages: Array<any> = [];
 
   editGameForm: FormGroup;
