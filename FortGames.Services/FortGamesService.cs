@@ -107,10 +107,31 @@ namespace FortGames.Services
         #endregion
 
         #region Get
-        public async Task<IEnumerable<CompanyModel>> GetCompanies() //Da MODIFICARE seguendo GameList per il pagination backend
+        public async Task<IEnumerable<CompanyModel>> GetCompanies()
         {
             var companies = await _databaseContext.Companies.ToListAsync();
             return _mapper.Map<IEnumerable<CompanyModel>>(companies);
+        }
+
+        public async Task<PagedResponse<CompanyModel>> GetCompanies(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Company, bool>> predicate = c => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = c => c.Name.Contains(search); //predicato che cercherà il film, verifica che search abbia un valore altrimenti non parte
+            }
+
+            var query = _databaseContext.Companies.Filter(predicate);
+
+            var count = await query.CountAsync();
+            var companies = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<CompanyModel>>(companies), Total = count };
         }
 
         public async Task<IEnumerable<GameModel>> GetCompanyRelatedGames(int id)

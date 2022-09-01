@@ -60,6 +60,26 @@ export class GamesService {
     return this.http.get<Company[]>(`${environment.baseUrlApi}/fortgames/companies`);
   }
 
+  getCompanyList(params: TableParameters): Observable<PagedResponse<Company>> {
+    let parameters = new HttpParams({
+      fromObject: {
+        'index': params.index,
+        'size': params.size
+      }
+    });
+
+    if (params.search) {
+      parameters = parameters.set('search', params.search);
+    }
+
+    if (params.sortDir && params.sortBy) {
+      parameters = parameters.set('sortBy', params.sortBy);
+      parameters = parameters.set('sortDir', params.sortDir);
+    }
+
+    return this.http.get<PagedResponse<Company>>(`${environment.baseUrlApi}/fortgames/companies/list`, { params: parameters });
+  }
+
   getCompanyRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/companies/${id}`);
   }

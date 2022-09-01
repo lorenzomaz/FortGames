@@ -8,6 +8,7 @@ namespace FortGames.Services.Abstracts
     {
         // TODO: di cambiare Task<Model> e Service
         Task<IEnumerable<CompanyModel>> GetCompanies();
+        Task<PagedResponse<CompanyModel>> GetCompanies(string search, int index, int size, string sortBy, string sortDir);
         Task<IEnumerable<GameModel>> GetCompanyRelatedGames(int id);
         Task<IEnumerable<GenreModel>> GetGenres();
         Task<IEnumerable<GameModel>> GetGenreRelatedGames(int id);
