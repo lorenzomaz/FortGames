@@ -1,7 +1,9 @@
 <div class="container py-5">
   <h1>Hi Admin, here you can see, edit and delete Games</h1>
   <h2>Have fun!</h2>
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+
+  <input matInput type="search" placeholder="Search..." (keyup)="searchFilter($event)">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)"
     class="mat-elevation-z8 w-100">
 
     <ng-container matColumnDef="title" class="p-5 m-5">
@@ -59,8 +61,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-
+      <mat-paginator [pageSize]="params.size" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalGames" (page)="pageChanged($event)" showFirstLastButtons></mat-paginator>
 
   </table>
 </div>

@@ -103,11 +103,30 @@ export class GamesService {
     return this.http.get<Genre[]>(`${environment.baseUrlApi}/fortgames/genres`);
   }
 
+  getGenreList(params: TableParameters): Observable<PagedResponse<Genre>> {
+    let parameters = new HttpParams({
+      fromObject: {
+        'index': params.index,
+        'size': params.size
+      }
+    });
+
+    if (params.search) {
+      parameters = parameters.set('search', params.search);
+    }
+
+    if (params.sortDir && params.sortBy) {
+      parameters = parameters.set('sortBy', params.sortBy);
+      parameters = parameters.set('sortDir', params.sortDir);
+    }
+
+    return this.http.get<PagedResponse<Genre>>(`${environment.baseUrlApi}/fortgames/genres/list`, { params: parameters });
+  }
+
   getGenreRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/genres/${id}`);
   }
 
-  // Aggiunto ora l'addGenre - DA TESTARE
   addGenre(genre: Genre): Observable<Genre> {
     return this.http.post<Genre>(`${environment.baseUrlApi}/fortgames/genre`, genre);
   }
@@ -126,11 +145,30 @@ export class GamesService {
     return this.http.get<Mode[]>(`${environment.baseUrlApi}/fortgames/modes`);
   }
 
+  getModeList(params: TableParameters): Observable<PagedResponse<Mode>> {
+    let parameters = new HttpParams({
+      fromObject: {
+        'index': params.index,
+        'size': params.size
+      }
+    });
+
+    if (params.search) {
+      parameters = parameters.set('search', params.search);
+    }
+
+    if (params.sortDir && params.sortBy) {
+      parameters = parameters.set('sortBy', params.sortBy);
+      parameters = parameters.set('sortDir', params.sortDir);
+    }
+
+    return this.http.get<PagedResponse<Mode>>(`${environment.baseUrlApi}/fortgames/modes/list`, { params: parameters });
+  }
+
   getModeRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/modes/${id}`);
   }
 
-  // Aggiunto ora l'addMode - DA TESTARE
   addMode(mode: Mode): Observable<Mode> {
     return this.http.post<Mode>(`${environment.baseUrlApi}/fortgames/mode`, mode);
   }
@@ -149,11 +187,30 @@ export class GamesService {
     return this.http.get<Platform[]>(`${environment.baseUrlApi}/fortgames/platforms`);
   }
 
+  getPlatformList(params: TableParameters): Observable<PagedResponse<Platform>> {
+    let parameters = new HttpParams({
+      fromObject: {
+        'index': params.index,
+        'size': params.size
+      }
+    });
+
+    if (params.search) {
+      parameters = parameters.set('search', params.search);
+    }
+
+    if (params.sortDir && params.sortBy) {
+      parameters = parameters.set('sortBy', params.sortBy);
+      parameters = parameters.set('sortDir', params.sortDir);
+    }
+
+    return this.http.get<PagedResponse<Platform>>(`${environment.baseUrlApi}/fortgames/platforms/list`, { params: parameters });
+  }
+
   getPlatformRelatedGames(id: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${environment.baseUrlApi}/fortgames/platforms/${id}`);
   }
 
-  // Aggiunto ora l'addPlatform - DA TESTARE
   addPlatform(platform: Platform): Observable<Platform> {
     return this.http.post<Platform>(`${environment.baseUrlApi}/fortgames/platform`, platform);
   }

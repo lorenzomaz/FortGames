@@ -186,22 +186,64 @@ namespace FortGames.Services
             return new() { Results = _mapper.Map<IEnumerable<GameModel>>(games), Total = count };
         }
 
-        public async Task<IEnumerable<GenreModel>> GetGenres()
-        {
-            var genres = await _databaseContext.Genres.ToListAsync();
-            return _mapper.Map<IEnumerable<GenreModel>>(genres);
-        }
-
         public async Task<IEnumerable<GameModel>> GetGenreRelatedGames(int id)
         {
             var genre = await _databaseContext.Genres.Include(g => g.Games).ThenInclude(g => g.Company).FirstOrDefaultAsync(g => g.Id == id);
             return _mapper.Map<IEnumerable<GameModel>>(genre.Games);
         }
 
+        public async Task<IEnumerable<GenreModel>> GetGenres()
+        {
+            var genres = await _databaseContext.Genres.ToListAsync();
+            return _mapper.Map<IEnumerable<GenreModel>>(genres);
+        }
+
+        public async Task<PagedResponse<GenreModel>> GetGenres(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Genre, bool>> predicate = c => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = c => c.Name.Contains(search); 
+            }
+
+            var query = _databaseContext.Genres.Filter(predicate);
+
+            var count = await query.CountAsync();
+            var genres = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<GenreModel>>(genres), Total = count };
+        }
+
         public async Task<IEnumerable<ModeModel>> GetModes()
         {
             var modes = await _databaseContext.Modes.ToListAsync();
             return _mapper.Map<IEnumerable<ModeModel>>(modes);
+        }
+
+        public async Task<PagedResponse<ModeModel>> GetModes(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Mode, bool>> predicate = c => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = c => c.Name.Contains(search);
+            }
+
+            var query = _databaseContext.Modes.Filter(predicate);
+
+            var count = await query.CountAsync();
+            var modes = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<ModeModel>>(modes), Total = count };
         }
 
         public async Task<IEnumerable<GameModel>> GetModeRelatedGames(int id)
@@ -214,6 +256,27 @@ namespace FortGames.Services
         {
             var platforms = await _databaseContext.Platforms.ToListAsync();
             return _mapper.Map<IEnumerable<PlatformModel>>(platforms);
+        }
+
+        public async Task<PagedResponse<PlatformModel>> GetPlatforms(string search, int index, int size, string sortBy, string sortDir)
+        {
+            Expression<Func<Platform, bool>> predicate = c => true;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                predicate = c => c.Name.Contains(search);
+            }
+
+            var query = _databaseContext.Platforms.Filter(predicate);
+
+            var count = await query.CountAsync();
+            var platforms = await query
+                .OrderBy(sortBy, sortDir)
+                .Skip(index * size)
+                .Take(size)
+                .ToListAsync();
+
+            return new() { Results = _mapper.Map<IEnumerable<PlatformModel>>(platforms), Total = count };
         }
 
         public async Task<IEnumerable<GameModel>> GetPlatformRelatedGames(int id)
