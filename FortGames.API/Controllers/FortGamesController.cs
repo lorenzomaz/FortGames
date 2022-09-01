@@ -28,6 +28,13 @@ namespace FortGames.API.Controller
             return Ok(companies);
         }
 
+        [HttpGet("companies/list")]
+        public async Task<IActionResult> GetCompanies(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Company.Name), string? sortDir = "")
+        {
+            var companies = await _fortGamesService.GetCompanies(search, index, size, sortBy, sortDir);
+            return Ok(companies);
+        }
+
         [HttpGet("companies/{id}")]
         public async Task<IActionResult> GetCompanyRelatedGames(int id)
         {
