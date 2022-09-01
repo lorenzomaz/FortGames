@@ -24,7 +24,7 @@ export class EditGamesComponent extends UnsubscriptionHandler implements OnInit 
   displayedColumns: Array<string> = ['title', 'release', 'description', 'rating', 'companyId', 'modes', 'platforms', 'genres', 'actions'];
   dataSource!: MatTableDataSource<Game>;
   totalGames: number = 0;
-  params: TableParameters = { index: 0, size: 10};
+  params: TableParameters = { index: 0, size: 10 };
   filter$ = new Subject<string>();
   form: FormGroup;
 

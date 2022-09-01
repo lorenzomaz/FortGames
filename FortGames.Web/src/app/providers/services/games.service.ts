@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Company, Game, Genre, Mode, Platform } from 'src/app/models/interfaces/game.interface';
 import { PagedResponse } from 'src/app/models/interfaces/paged-response';
 import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';

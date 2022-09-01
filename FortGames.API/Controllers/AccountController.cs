@@ -142,6 +142,17 @@ namespace FortGames.API.Controllers
             return Ok(_mapper.Map<IEnumerable<UserModel>>(users));
         }
 
+        #region TestUserList
+        //[Authorize(Roles = Identity.Roles.Admin)]
+        [HttpGet("users/list")]
+        public async Task<IActionResult> GetUsers(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(ApplicationUser.FirstName), string? sortDir = "")
+        {
+            var users = await GetUsers(search, index, size, sortBy, sortDir);
+            return Ok(users);
+        }
+
+        #endregion
+
         [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("users/{email}")]
         public async Task<IActionResult> Delete(string email)
