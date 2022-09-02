@@ -5,6 +5,6 @@ namespace FortGames.Services.Abstracts
 {
     public interface IAccountService
     {
-        Task<PagedResponse<UserModel>> GetUsers(string search, int index, int size, string sortBy, string sortDir);
+        Task<PagedResponse<UserModel>> GetUsers(string userId, string search, int index, int size, string sortBy, string sortDir);
     }
 }
