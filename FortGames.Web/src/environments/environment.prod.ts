@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrlApi: 'https://fortgames.azurewebsites.net/api',
+  baseUrlApi: 'https://fortgames-api.azurewebsites.net/api',
   tokenName: 'token'
 };
