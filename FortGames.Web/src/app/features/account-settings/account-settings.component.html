@@ -1,0 +1,48 @@
+<h1>Welcome back</h1>
+<div class="py-4" *ngIf="userDetails">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-center pb-4">
+        <img [src]="userDetails.profilePicture! ? photo(userDetails.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle" width="200px" height="200px">
+      </div>
+      <div class="d-flex align-items-center justify-content-center gap-2">
+        <input type="file" accept=".png, .jpg, .jpeg" id="uploadPhoto" (change)="uploadPhoto($event)" hidden>
+        <button mat-flat-button class="p-0"><label mat-flat-button for="uploadPhoto" class="px-3"
+            style="cursor: pointer;">Upload File</label></button>
+
+        <div *ngIf="userDetails?.profilePicture">
+          <button mat-icon-button type="button" (click)="removePhoto()">
+            <mat-icon class="material-symbols-rounded">close</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div>
+        <p class="mat-body-2 text-muted m-0">Username</p>
+        <p class="mat-body">{{userDetails.userName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">First Name</p>
+        <p>{{userDetails.firstName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">Last Name</p>
+        <p>{{userDetails.lastName!}}</p>
+      </div>
+
+      <div>
+        <p class="mat-body-2 text-muted m-0">E-mail</p>
+        <p>{{userDetails.email!}}</p>
+      </div>
+      <button mat-flat-button (click)="editName(userDetails)">Edit</button>
+    </div>
+  </div>
+</div>
+
+<div>
+  <button mat-flat-button color="accent" type="button" (click)="saveChanges()">Save changes</button>
+</div>

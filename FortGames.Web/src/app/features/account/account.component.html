@@ -1,47 +1,65 @@
-<h1>Welcome back</h1>
-<div class="py-4" *ngIf="details">
-  <div class="row">
-    <div class="col">
-      <img [src]="photo(details.profilePicture!)">
+<div class="py-2 account-container" *ngIf="userDetails">
+  <div class="d-flex justify-content-between align-items-center py-4">
+    <div class="d-flex align-items-center gap-4">
+      <div>
+        <h1 class="mat-display-2 mb-0 fw-bold">{{userDetails.userName}}</h1>
+        <p class="text-muted py-2 m-0">{{userDetails.email!}}</p>
+      </div>
+      <div>
+        <img [src]="userDetails.profilePicture! ? photo(userDetails.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle" width="75px" height="75px">
+      </div>
     </div>
-    <div class="col">
-      <div>
-        <p class="mat-body-2 text-muted m-0">Username</p>
-        <p class="mat-body">{{details.userName!}}</p>
-      </div>
-
-      <div>
-        <p class="mat-body-2 text-muted m-0">First Name</p>
-        <p>{{details.firstName!}}</p>
-      </div>
-
-      <div>
-        <p class="mat-body-2 text-muted m-0">Last Name</p>
-        <p>{{details.lastName!}}</p>
-      </div>
-
-      <div>
-        <p class="mat-body-2 text-muted m-0">E-mail</p>
-        <p>{{details.email!}}</p>
-      </div>
-      <button mat-flat-button (click)="editName(details)">Edit</button>
+    <div>
+      <button mat-mini-fab type="button" routerLink="/settings"><mat-icon class="material-symbols-rounded filled">settings</mat-icon></button>
     </div>
   </div>
-</div>
 
-<div>
-  <form [formGroup]="pictureForm" (ngSubmit)="editPhoto()">
-    <mat-form-field appearance="outline">
-      <mat-label>base64</mat-label>
-      <input matInput formControlName="profilePicture">
-    </mat-form-field>
-  </form>
-  <!-- <button mat-flat-button (click)="editPhoto()">edit picture</button> -->
+  <mat-tab-group animationDuration="0" color="accent" mat-align-tabs="center" class="py-3">
+    <mat-tab label="Overview">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Overview profilo</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Library">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Lista giochi</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Wishlist">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Tabella con lista giochi</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <div class="py-5">
+    <div>
+      <p class="mat-body-2 text-muted m-0">Username</p>
+      <p class="mat-body">{{userDetails.userName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">First Name</p>
+      <p>{{userDetails.firstName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">Last Name</p>
+      <p>{{userDetails.lastName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">E-mail</p>
+      <p>{{userDetails.email!}}</p>
+    </div>
+  </div>
+
 </div>
 
 <!--
   CAMPI NECESSARI
-   immagine profilo;
+   [x] immagine profilo;
    lista di giochi preferiti dal 6 in su;
    lista dei giochi già giocati (non è necessario il voto);
 
