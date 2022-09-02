@@ -107,6 +107,13 @@ namespace FortGames.API
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+
+            using(var scope = app.Services.CreateScope()) // con scope -> dammi servizi iniettati sopra, fuori scope chiude il dbContext
+            {
+                var dbContext = scope.ServiceProvider.GetService<DatabaseContext>();
+                dbContext?.Database.Migrate();
+            }
+
             app.Run();
         }
     }
