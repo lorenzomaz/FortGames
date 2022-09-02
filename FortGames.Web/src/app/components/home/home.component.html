@@ -1,0 +1,121 @@
+<div class="py-3">
+  <h1 class="mat-display-1 mb-2">Welcome to the guiding star in your world of gaming</h1>
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur, eius. Molestias.</p>
+</div>
+
+<ng-template #test>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+<div *ngIf="!loading; else test">
+
+  <div class="py-4">
+    <p class="mat-headline">New Games</p>
+    <hr class="w-25">
+    <div class="row">
+      <div *ngFor="let game of games | slice:0:3" class="col-lg-4">
+        <a [routerLink]="['game-page', game.id]">
+          <div class="card my-3" style="border: 0;">
+            <img src="https://source.unsplash.com/1280x720/?{{game.title}}" class="card-img" alt="...">
+            <div class="card-img-overlay overlay d-flex align-items-end justify-content-between">
+              <div>
+                <h1 class="card-title mb-1">{{ game.title }}</h1>
+                <p *ngFor="let genres of game.genres; let i = index" class="card-text mat-caption">{{
+                  game.genres[i].name
+                  }}
+                </p>
+              </div>
+              <div>
+                <h1 class="card-text mb-1">{{ game.rating }}%</h1>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-4">
+    <p class="mat-headline">Popular Games</p>
+    <hr class="w-25">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-8">
+        <div class="card my-2" style="border: 0;">
+          <img src="https://source.unsplash.com/1280x720/?pokemon" class="card-img" alt="...">
+          <div class="card-img-overlay overlay d-flex align-items-end">
+            <div>
+              <h1 class="card-title mb-1">Title</h1>
+              <p class="card-text">Genre </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card my-3" style="border: 0;">
+          <img src="https://source.unsplash.com/1280x720/?nintendo" class="card-img" alt="...">
+          <div class="card-img-overlay overlay d-flex align-items-end">
+            <div>
+              <h1 class="card-title mb-1">Title</h1>
+              <p class="card-text">Genre </p>
+            </div>
+          </div>
+        </div>
+        <div class="card my-3" style="border: 0;">
+          <img src="https://source.unsplash.com/1280x720/?playstation" class="card-img" alt="...">
+          <div class="card-img-overlay overlay d-flex align-items-end">
+            <div>
+              <h1 class="card-title mb-1">Title</h1>
+              <p class="card-text">Genre </p>
+            </div>
+          </div>
+          <div class="card my-3" style="border: 0;">
+            <img src="https://source.unsplash.com/1280x720/?playstation" class="card-img" alt="...">
+            <div class="card-img-overlay overlay d-flex align-items-end">
+              <div>
+                <h1 class="card-title mb-1">Title</h1>
+                <p class="card-text">Genre </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-4">
+    <p class="mat-headline">Top Games</p>
+    <hr class="w-25">
+    <div class="row">
+      <div class="col-lg-4">
+        <div *ngFor="let game of games" class="card bg-dark my-3 border-0">
+          <a [routerLink]="['game-page', game.id]">
+            <div class="row g-0">
+              <div class="col-md-3">
+                <img src="https://source.unsplash.com/150x150/?{{game.title}}" class="img-fluid rounded-start"
+                  alt="...">
+              </div>
+              <div class="col-md-9 d-flex align-items-center">
+                <div class="card-body">
+                  <h2 class="card-title mb-0">{{ game.title }}</h2>
+                  <p class="card-text"><small class="text-muted">{{game.release | date:'mediumDate'}} </small></p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card my-2" style="border: 0;">
+          <img src="https://source.unsplash.com/1280x720/?pokemon" class="card-img" alt="...">
+          <div class="card-img-overlay overlay d-flex align-items-end">
+            <div>
+              <h1 class="card-title mb-1">Title</h1>
+              <p class="card-text">Genre </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

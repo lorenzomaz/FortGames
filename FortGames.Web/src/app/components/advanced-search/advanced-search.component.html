@@ -1,0 +1,154 @@
+<div class="py-3">
+  <h1 class="mat-display-2 mb-0" style="font-weight: 700;">Find your game</h1>
+</div>
+
+<!-- SEARCH FIELD -->
+<mat-form-field appearance="standard" class="w-100 fs-5 pb-3">
+  <mat-label>Search</mat-label>
+
+  <input matInput autocomplete="off" placeholder="Enter a search term here" type="text" [(ngModel)]="value"
+    (keyup)="searchFilter($event)" #input>
+  <div matPrefix class="pe-2">
+
+    <mat-icon class="material-symbols-rounded w-100 h-100">search</mat-icon>
+
+  </div>
+  <div *ngIf="value" matSuffix class="d-flex align-items-center gap-3">
+    <button mat-icon-button (click)="value=''; searchFilter($event)">
+      <mat-icon class="material-symbols-rounded">close</mat-icon>
+    </button>
+    <p class="text-muted mb-0">Found {{ total }} items</p>
+  </div>
+</mat-form-field>
+
+<!-- FILTER TAB -->
+<mat-tab-group animationDuration="0" color="accent">
+  <mat-tab label="Platforms">
+    <div class="py-4 filter-elements px-3 mb-3">
+      <mat-chip-list multiple>
+        <mat-chip #c="matChip" *ngFor="let platform of platforms" (click)="toggle(c)" [value]="platform">
+          {{ platform.name }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Genre">
+    <div class="py-4 filter-elements px-3 mb-3">
+      <mat-chip-list multiple>
+        <mat-chip #c="matChip" *ngFor="let genre of genres" (click)="toggle(c)" [value]="genre">
+          {{ genre.name }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Mode">
+    <div class="py-4 filter-elements px-3 mb-3">
+      <mat-chip-list multiple>
+        <mat-chip #c="matChip" *ngFor="let mode of modes" (click)="toggle(c)" [value]="mode">
+          {{ mode.name }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-tab>
+  <mat-tab label="Companies">
+    <div class="py-4 filter-elements px-3 mb-3">
+      <mat-chip-list multiple>
+        <mat-chip #c="matChip" *ngFor="let company of companies" (click)="toggle(c)" [value]="company">
+          {{ company.name }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- CHIPS[] FILTER RESULTS-->
+<div *ngIf="chips.length > 0" class="d-flex align-items-center gap-3">
+  <div class="chips-results">
+    <mat-chip-list>
+      <mat-chip *ngFor="let chip of chips" (removed)="toggle(chip)">
+        {{ chip.value.name }}
+        <button matChipRemove style="opacity: 100%;">
+          <mat-icon class="material-symbols-rounded">cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="fs-6 total-number">
+    <span class="text-muted">{{total}} games</span>
+    <button mat-icon-button (click)="removeChips()">
+      <mat-icon class="material-symbols-rounded">close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- SORT -->
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <div matSort (matSortChange)="sortChange($event)" class="d-flex gap-3">
+    <div mat-sort-header="Title">Title</div>
+    <div mat-sort-header="Release">Release</div>
+    <div mat-sort-header="Rating">Rating</div>
+  </div>
+  <div class="d-lg-flex align-items-center gap-3 d-none ">
+    <div class="text-muted">Display options:</div>
+    <button mat-mini-fab color="accent" (click)="viewEvent(); iconEvent()">
+      <mat-icon class="material-symbols-rounded filled">{{icon}}</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="row">
+  <div *ngFor="let game of filteredData; let i=index" [ngClass]="status ? ['col-lg-12'] : ['col-xxl-3']"
+    class="col-lg-6 g-4">
+    <div class="card bg-dark game-card" [ngClass]="status ? ['col-lg-6','mx-auto'] : ['w-100']">
+      <img [src]="gameLogo(game.logo!)" class="img-fluid game-img-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div *ngFor="let platforms of game.platforms; let i=index" class="game-platforms text-muted">
+              {{platforms.name}}{{i === game.platforms.length - 1 ? '' : '&nbsp;/&nbsp;'}}
+            </div>
+          </div>
+          <div
+            [ngClass]="(game.rating > 7 ) ? ['text-success', 'border-success'] : (game.rating > 5) ? ['text-warning','border-warning'] : ['text-danger','border-danger']"
+            class="rating d-flex align-items-center justify-content-center">{{ game.rating }}</div>
+        </div>
+        <h2 class="card-title">{{game.title}}</h2>
+        <div class="d-flex align-items-center gap-2 pb-2 ">
+          <button mat-flat-button>
+            <mat-icon class="material-symbols-rounded ">add</mat-icon>
+          </button>
+          <button mat-flat-button>
+            <mat-icon class="material-symbols-rounded">favorite</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
+          </button>
+        </div>
+        <div class="d-flex justify-content-between mat-caption">
+          <span class="text-muted">Release date: </span>
+          <div class="card-text">{{game.release | date:'mediumDate'}}</div>
+        </div>
+        <hr class="text-muted my-2">
+        <div class="d-flex justify-content-between mat-caption">
+          <span class="text-muted">Genres: </span>
+          <div>
+            <span class="card-text text-end" *ngFor="let genres of game.genres; let i=index"><a
+                routerLink="/advanced_search" class="text-light">{{genres.name}}</a>{{i ===
+              game.genres.length - 1 ? '' : ',&nbsp;'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NO ITEMS FOUND -->
+<div *ngIf="filteredData.length === 0" class="text-light">
+  <div class="py-5 lead text-muted">No games found "{{input.value}}"</div>
+</div>
+
+<!-- PAGINATOR -->
+<mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="params.size" [length]="total"
+  (page)="pageChanged($event)" color="accent" class="py-2">
+</mat-paginator>

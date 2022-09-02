@@ -1,0 +1,178 @@
+<div class="container">
+  <div class="row">
+    <h1>Welcome Admin in the Add-Game section!</h1>
+    <h2>Here you can add every game you like</h2>
+    <div class="col">
+      <mat-vertical-stepper [linear]="false" #stepper [animationDuration]="animationDuration">
+
+        <ng-template matStepperIcon="edit">
+          <mat-icon class="material-symbols-rounded filled"></mat-icon>
+        </ng-template>
+        <mat-step [stepControl]="formStep1">
+          <form [formGroup]="formStep1">
+            <ng-template matStepLabel>Game Info</ng-template>
+
+            <mat-form-field class="p-3">
+              <mat-label>Title</mat-label>
+              <input matInput placeholder="Super Mario Bros." formControlName="title" #title>
+              <mat-error>Title is REQUIRED</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="p-3">
+              <mat-label>Description</mat-label>
+              <input matInput placeholder="The King of Videogames..." formControlName="description" #desc>
+              <mat-error>Description is REQUIRED</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="p-3">
+              <mat-label>Release Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="release" #date>
+                <mat-error>Release Date is REQUIRED</mat-error>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div>
+              <mat-label>Rating</mat-label>
+              <h3>From 1 to 10</h3>
+              <mat-slider class="w-100" thumbLabel [displayWith]="formatLabel" tickInterval="0.1" step="0.1" min="0"
+                max="10" aria-label="units" formControlName="rating" #rating>
+              </mat-slider>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Company</mat-label>
+              <mat-select formControlName="companyId" #company>
+                <mat-option *ngFor="let company of companies" [value]="company.id">
+                  {{company.name}}
+                </mat-option>
+                <mat-error>Company is REQUIRED</mat-error>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+          </form>
+          </mat-step>
+
+        <mat-step [stepControl]="formStep2">
+          <form [formGroup]="formStep2">
+            <ng-template matStepLabel>Logo</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="https://source.unsplash.com/1280x720/?nintendo" formControlName="logo">
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="formStep3">
+          <form [formGroup]="formStep3">
+            <ng-template matStepLabel>Other Info</ng-template>
+
+            <mat-form-field class="p-3">
+              <mat-label>Genres</mat-label>
+              <mat-select formControlName="genres" multiple>
+                <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+                <mat-error>Genre is REQUIRED</mat-error>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="p-3">
+              <mat-label>Mode</mat-label>
+              <mat-select formControlName="modes" multiple #mode>
+                <mat-option *ngFor="let mode of modes" [value]="mode">{{mode.name}}</mat-option>
+                <mat-error>Mode is REQUIRED</mat-error>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="p-3">
+              <mat-label>Platform</mat-label>
+              <mat-select formControlName="platforms" multiple #platform>
+                <mat-option *ngFor="let platform of platforms" [value]="platform">{{platform.name}}</mat-option>
+                <mat-error>Platform is REQUIRED</mat-error>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- Feeling lucky? Try to replace mat-select for platforms with the chips -->
+
+        <!-- <mat-step [stepControl]="addGameForm">
+          <form [formGroup]="addGameForm">
+            <ng-template matStepLabel>Platform</ng-template>
+            <mat-chip-list aria-label="Dog selection" class="p-3" selectable multiple>
+              <mat-chip #c="matChip" *ngFor="let platform of platforms" (click)="togglePlatform(c)" formControlName="platform">
+                <img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                  alt="Photo of a pc" /> <mat-icon *ngIf="c.selected">check</mat-icon>
+                {{platform.name}}
+              </mat-chip>
+
+            </mat-chip-list>
+
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+          </form>
+        </mat-step> -->
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <h2>You are almost done now</h2>
+          <div class="col-md-6">
+            <h3>Check your preview</h3>
+            <h4>See if everything's to your likening</h4>
+            <h5>Thank you for your collaboration</h5>
+                <mat-card class="card">
+                  <mat-card-header>
+                    <img mat-card-avatar class="card-header-image">
+                    <mat-card-title>{{title.value}}</mat-card-title>
+                    <mat-card-subtitle>{{date.value}}</mat-card-subtitle>
+                    <mat-card-subtitle>Company: {{getCompany(company.value)}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div class="row">
+                      <div class="col-9 p-3">
+                        <div>
+                          <p>{{desc.value}}</p>
+                          <p>
+                            Genres: {{getGenres(formStep3.value.genres)}}
+                          </p>
+                          <p>
+                            Modes: {{getModes(formStep3.value.modes)}}
+                          </p>
+                          <p>
+                            Platforms: {{getPlatforms(formStep3.value.platforms)}}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-3 p-3">
+                        <div>
+                          Rating: {{rating.value}}
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                  <mat-card-actions class="text-center">
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                  </mat-card-actions>
+                </mat-card>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="onSubmit()" class="mx-3" [disabled]="((formStep1.valid==true) && (formStep2.valid==true) && (formStep3.valid==true))? false:true">Submit</button>
+            <button mat-raised-button color="warn" (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+  </div>
+</div>

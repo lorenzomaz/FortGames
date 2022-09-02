@@ -1,0 +1,19 @@
+<div class="container">
+  <form [formGroup]="editModeForm" novalidate>
+    <mat-form-field>
+      <mat-label>Mode Name</mat-label>
+      <input matInput placeholder="Some PS" formControlName="name" #name>
+      <mat-hint>Write the Mode's new Name</mat-hint>
+      <mat-error>Name is REQUIRED</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mode Description</mat-label>
+      <input matInput placeholder="Some kind of Perspective" formControlName="description" #description>
+      <mat-hint>Write the Mode's new Description</mat-hint>
+      <mat-error>Description is REQUIRED</mat-error>
+    </mat-form-field>
+
+    <div class="text-center"><button mat-button (click)="onSubmit()">Confirm Edit</button></div>
+  </form>
+</div>

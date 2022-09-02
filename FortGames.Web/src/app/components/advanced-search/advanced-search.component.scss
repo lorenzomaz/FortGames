@@ -1,0 +1,75 @@
+@import '~src/sass/variables';
+@import '~src/sass/mixins';
+
+.filter-elements {
+  overflow: hidden;
+  // background: rgba(34, 38, 42, 0.69420);
+  border-radius: 0px 0px 20px 20px;
+}
+
+.game-card {
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 5px 5px 0 rgb(0 0 0 / 7%);
+  transition: transform 300ms, box-shadow 300ms;
+}
+
+.game-card:hover {
+  transform: scale(103%);
+  box-shadow: 0 5px 10px 0 rgb(0 0 0 / 17%);
+}
+
+.game-img-card {
+  border-radius: 20px 20px 0 0;
+}
+
+.chips-results {
+  @include lg {
+    max-width: 70%;
+  }
+}
+
+.total-number {
+  display: none;
+
+  @include md {
+    display: block;
+  }
+}
+
+.rating {
+  border: 1px solid green;
+  border-radius: 5px;
+  width: 30px;
+  height: 25px;
+  font-weight: 700;
+}
+
+mat-paginator {
+  background-color: transparent;
+}
+
+::ng-deep .mat-sort-header-container:not(.mat-sort-header-sorted) .mat-sort-header-arrow {
+  opacity: 0.54 !important;
+  transform: translateY(0px) !important;
+}
+
+::ng-deep .mat-form-field {
+  .mat-input-element {
+    padding-bottom: 5px;
+  }
+
+  .mat-form-field-label {
+    padding-bottom: 5px;
+  }
+}
+
+::ng-deep .mat-form-field.mat-focused {
+  .mat-form-field-label {
+    padding-bottom: 5px;
+  }
+
+  .mat-input-element {
+    padding-bottom: 5px;
+  }
+}

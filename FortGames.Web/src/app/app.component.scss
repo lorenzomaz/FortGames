@@ -1,0 +1,42 @@
+@import '~src/sass/variables';
+@import '~src/sass/mixins';
+
+.sidenav-container {
+  height: calc(100vh - var(--toolbar-height));
+  background: #151515;
+}
+
+.sidenav {
+  width: 240px;
+  border: 0;
+  background: #212121;
+
+  div {
+    font-size: 14px;
+  }
+}
+
+// ACTIVE MENU SIDE NAV
+.active {
+  background-color: #2a2a2a;
+  font-weight: 500;
+}
+
+::ng-deep .mat-drawer-shown {
+  background: rgba(0, 0, 0, 0.5)!important;
+}
+
+
+// .sidenav .nav-item {
+//   border-radius: 2rem 0rem;
+//   padding: 50px;
+//   transition: 200ms;
+// }
+
+// .sidenav .nav-item:hover{
+//   border-radius: 3rem 0.2rem;
+//   font-weight: bold;
+//   background-color: #e91e62;
+//   color: whitesmoke;
+//   transition: 200ms;
+// }

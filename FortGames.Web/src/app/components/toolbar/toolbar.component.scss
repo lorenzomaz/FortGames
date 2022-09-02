@@ -1,0 +1,22 @@
+.toolbar-spacer {
+  flex: 1 1 auto; // shrink shrink spazio, automaticamente piglia e mette i pulsanti dall'altra parte
+}
+
+#toolbar {
+  box-shadow:
+  0px 4px 9px rgba(0, 0, 0, 0.12);
+  z-index: 666;
+}
+
+#menu {
+  z-index: 999;
+}
+
+::ng-deep .mat-menu-panel {
+  width: 300px;
+  background: #212121;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-bottom: 0px !important;
+}

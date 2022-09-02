@@ -1,0 +1,6 @@
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: whitesmoke!important;
+  font-size: 1.2rem;
+  font-weight: 500;
+}

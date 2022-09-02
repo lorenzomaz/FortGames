@@ -1,0 +1,69 @@
+<div class="py-2 account-container" *ngIf="userDetails">
+  <div class="d-flex justify-content-between align-items-center py-4">
+    <div class="d-flex align-items-center gap-4">
+      <div>
+        <h1 class="mat-display-2 mb-0 fw-bold">{{userDetails.userName}}</h1>
+        <p class="text-muted py-2 m-0">{{userDetails.email!}}</p>
+      </div>
+      <div>
+        <img [src]="userDetails.profilePicture! ? photo(userDetails.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle" width="75px" height="75px">
+      </div>
+    </div>
+    <div>
+      <button mat-mini-fab type="button" routerLink="/settings"><mat-icon class="material-symbols-rounded filled">settings</mat-icon></button>
+    </div>
+  </div>
+
+  <mat-tab-group animationDuration="0" color="accent" mat-align-tabs="center" class="py-3">
+    <mat-tab label="Overview">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Overview profilo</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Library">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Lista giochi</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Wishlist">
+      <div class="py-4 filter-elements px-3 mb-3">
+        <p>Tabella con lista giochi</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <div class="py-5">
+    <div>
+      <p class="mat-body-2 text-muted m-0">Username</p>
+      <p class="mat-body">{{userDetails.userName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">First Name</p>
+      <p>{{userDetails.firstName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">Last Name</p>
+      <p>{{userDetails.lastName!}}</p>
+    </div>
+
+    <div>
+      <p class="mat-body-2 text-muted m-0">E-mail</p>
+      <p>{{userDetails.email!}}</p>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  CAMPI NECESSARI
+   [x] immagine profilo;
+   lista di giochi preferiti dal 6 in su;
+   lista dei giochi già giocati (non è necessario il voto);
+
+  CAMPI OPZIONALI
+   creazione avatar tipo reddit;
+   preferenze wishlist con prezzi in offerta;
+-->
