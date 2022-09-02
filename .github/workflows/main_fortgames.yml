@@ -51,6 +51,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'fortgames'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_56AC4D5D62C447F98EFE7C23C324A108 }}
-          package: .
+          package: ./dist/FortGames
