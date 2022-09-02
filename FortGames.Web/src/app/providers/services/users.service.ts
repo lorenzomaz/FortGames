@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/models/interfaces/users.interface';
-import { Company } from 'src/app/models/interfaces/game.interface';
 import { PagedResponse } from 'src/app/models/interfaces/paged-response';
 import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
 
@@ -14,11 +13,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.baseUrlApi}/account/users`);
-  }
-
-  getUserList(params: TableParameters): Observable<PagedResponse<User>> {
+  getUsers(params: TableParameters): Observable<PagedResponse<User>> {
     let parameters = new HttpParams({
       fromObject: {
         'index': params.index,
@@ -35,7 +30,7 @@ export class UsersService {
       parameters = parameters.set('sortDir', params.sortDir);
     }
 
-    return this.http.get<PagedResponse<User>>(`${environment.baseUrlApi}/account/users/list`, { params: parameters });
+    return this.http.get<PagedResponse<User>>(`${environment.baseUrlApi}/account/users`, { params: parameters });
   }
 
   removeUser(email: string): Observable<string> {

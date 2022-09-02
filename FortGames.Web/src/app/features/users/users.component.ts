@@ -55,7 +55,7 @@ export class UsersComponent extends UnsubscriptionHandler implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUserList(this.params).pipe(takeUntil(this.destroy$)).subscribe({
+    this.userService.getUsers(this.params).pipe(takeUntil(this.destroy$)).subscribe({
       next: (result: PagedResponse<User>) => {
         this.dataSource = new MatTableDataSource<User>(result.results);
         this.totalUsers = result.total;

@@ -6,11 +6,11 @@ using FortGames.Shared.Constats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using FortGames.Services.Abstracts;
 
 namespace FortGames.API.Controllers
 {
@@ -18,12 +18,13 @@ namespace FortGames.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IAccountService _accountService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        //ricorda di aggiungere IMapper mapper nella firma del costruttore quando aggiungerai register, delete, get users e proprio account ('username')
-        public AccountController(UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
+        public AccountController(IAccountService accountService, UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
         {
+            _accountService = accountService;
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
@@ -135,23 +136,12 @@ namespace FortGames.API.Controllers
 
         [Authorize(Roles = Identity.Roles.Admin)]
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(ApplicationUser.UserName), string? sortDir = "")
         {
             var userId = User.GetUserId();
-            var users = await _userManager.Users.Where(u => u.Id != userId).ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<UserModel>>(users));
-        }
-
-        #region TestUserList
-        //[Authorize(Roles = Identity.Roles.Admin)]
-        [HttpGet("users/list")]
-        public async Task<IActionResult> GetUsers(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(ApplicationUser.FirstName), string? sortDir = "")
-        {
-            var users = await GetUsers(search, index, size, sortBy, sortDir);
+            var users = await _accountService.GetUsers(userId, search, index, size, sortBy, sortDir);
             return Ok(users);
         }
-
-        #endregion
 
         [Authorize(Roles = Identity.Roles.Admin)]
         [HttpDelete("users/{email}")]

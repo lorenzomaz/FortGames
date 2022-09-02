@@ -53,6 +53,8 @@ namespace FortGames.API
             });
 
             builder.Services.AddScoped<IFortGamesService, FortGamesService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+
 
             // Primo modo
 

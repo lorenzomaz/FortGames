@@ -12,6 +12,6 @@ namespace FortGames.Domain.Entities
         public string LastName { get; set; }
         public string ProfilePicture { get; set; }
 
-        public ICollection<ApplicationUser> Users { get; set; }
+        //public ICollection<ApplicationUser> Users { get; set; }
     }
 }
