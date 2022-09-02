@@ -14,7 +14,6 @@ namespace FortGames.Infrastructure
         public DbSet<Mode> Modes { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<Company> Companies { get; set; }
-        //public DbSet<ApplicationUser> UsersName { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options ) : base(options)
         {
