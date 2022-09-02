@@ -11,7 +11,5 @@ namespace FortGames.Domain.Entities
         [StringLength(100)]
         public string LastName { get; set; }
         public string ProfilePicture { get; set; }
-
-        //public ICollection<ApplicationUser> Users { get; set; }
     }
 }
