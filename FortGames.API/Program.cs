@@ -97,7 +97,7 @@ namespace FortGames.API
             // AddCors() backend e frontend nello stesso indirzzo
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowedOrigins", policy => policy.WithOrigins("https://localhost:4200"));
+                options.AddPolicy("AllowedOrigins", policy => policy.WithOrigins("https://localhost"));
             });
 
             var app = builder.Build();
