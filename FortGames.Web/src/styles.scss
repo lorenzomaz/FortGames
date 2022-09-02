@@ -23,16 +23,21 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-
-    // cursor: url(https://pbs.twimg.com/media/CzHLCP7XcAEPCeT.jpg), auto;
-
+  // cursor: url(./assets/cursor.cur), auto;
 }
 
-// CUSTOM CONTAINER
+// MAIN CONTAINER
 .main-container {
   @include make-container();
   @extend .container;
   max-width: 1600px;
+}
+
+// ACCOUNT CONTAINER
+.account-container {
+  @include make-container();
+  @extend .container;
+  max-width: 1000px;
 }
 
 // TOOLBAR

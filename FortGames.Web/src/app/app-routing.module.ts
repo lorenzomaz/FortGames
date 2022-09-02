@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: () => import('./features/register/register.module').then(m => m.RegisterModule) },
   { path: 'game-page', loadChildren: () => import('./features/game-page/game-page.module').then(m => m.GamePageModule) },
   { path: 'account', loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard] },
+  { path: 'settings', loadChildren: () => import('./features/account-settings/account-settings.module').then(m => m.AccountSettingsModule), canActivate: [AuthGuard]},
   { path: 'users', loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule), canActivate: [AuthGuard] },
   { path: 'advanced_search', loadChildren: () => import('./components/advanced-search/advanced-search.module').then(m => m.AdvancedSearchModule) },
   { path: 'add-game', loadChildren: () => import('./features/add-game/add-game.module').then(m => m.AddGameModule), canActivate: [AuthGuard] },

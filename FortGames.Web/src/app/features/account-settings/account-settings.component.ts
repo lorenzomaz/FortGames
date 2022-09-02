@@ -9,11 +9,11 @@ import { UsersService } from 'src/app/providers/services/users.service';
 import { EditDialogComponent } from '../users/edit-dialog/edit-dialog.component';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  selector: 'app-account-settings',
+  templateUrl: './account-settings.component.html',
+  styleUrls: ['./account-settings.component.scss']
 })
-export class AccountComponent extends UnsubscriptionHandler implements OnInit {
+export class AccountSettingsComponent extends UnsubscriptionHandler implements OnInit {
 
   userDetails!: User;
   photo = base64Image;
@@ -114,4 +114,5 @@ export class AccountComponent extends UnsubscriptionHandler implements OnInit {
       }
     )
   };
+
 }
