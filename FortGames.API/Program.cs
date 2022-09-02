@@ -94,6 +94,12 @@ namespace FortGames.API
 
             });
 
+            // AddCors() backend e frontend nello stesso indirzzo
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowedOrigins", policy => policy.WithOrigins("https://localhost:4200"));
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -106,9 +112,10 @@ namespace FortGames.API
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("AllowedOrigins");
             app.MapControllers();
 
-            using(var scope = app.Services.CreateScope()) // con scope -> dammi servizi iniettati sopra, fuori scope chiude il dbContext
+            using (var scope = app.Services.CreateScope()) // con scope -> dammi servizi iniettati sopra, fuori scope chiude il dbContext
             {
                 var dbContext = scope.ServiceProvider.GetService<DatabaseContext>();
                 dbContext?.Database.Migrate();
