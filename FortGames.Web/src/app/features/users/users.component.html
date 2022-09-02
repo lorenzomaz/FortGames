@@ -3,7 +3,9 @@
   <h1>Hi Admin, here you can see, edit and delete Users</h1>
   <h2>Have fun!</h2>
 
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+  <input matInput type="search" placeholder="Search..." (keyup)="searchFilter($event)">
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)"
     class="mat-elevation-z8 w-100">
 
     <ng-container matColumnDef="userName">
@@ -45,6 +47,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSize]="params.size" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalUsers"
+    (page)="pageChanged($event)" showFirstLastButtons></mat-paginator>
 
 </div>

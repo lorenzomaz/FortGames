@@ -1,7 +1,10 @@
 <div class="container py-5">
   <h1>Hi Admin, here you can see, edit and delete Companies</h1>
   <h2>Have fun!</h2>
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+
+  <input matInput type="search" placeholder="Search..." (keyup)="searchFilter($event)">
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortChange($event)"
     class="mat-elevation-z8 w-100">
 
     <ng-container matColumnDef="id" class="p-5 m-5">
@@ -41,5 +44,5 @@
 
   </table>
 
-  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSize]="params.size" [pageSizeOptions]="[5, 10, 25, 100]" [length]="totalCompanies" (page)="pageChanged($event)" showFirstLastButtons></mat-paginator>
 </div>

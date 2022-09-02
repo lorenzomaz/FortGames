@@ -1,12 +1,15 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { Genre } from 'src/app/models/interfaces/game.interface';
+import { PagedResponse } from 'src/app/models/interfaces/paged-response';
+import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
 import { EditGenresDialogComponent } from './edit-genres-dialog/edit-genres-dialog.component';
 
@@ -15,33 +18,65 @@ import { EditGenresDialogComponent } from './edit-genres-dialog/edit-genres-dial
   templateUrl: './edit-genres.component.html',
   styleUrls: ['./edit-genres.component.scss']
 })
-export class EditGenresComponent implements OnInit {
+export class EditGenresComponent extends UnsubscriptionHandler implements OnInit {
 
   displayedColumns: Array<string> = ['id', 'name', 'description', 'actions'];
   dataSource!: MatTableDataSource<Genre>;
+  totalGenres: number = 0;
+  params: TableParameters = { index: 0, size: 10 };
+  filter$ = new Subject<string>();
   form: FormGroup;
 
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private gamesService: GamesService, public dialog: MatDialog) {
+  constructor(private gamesService: GamesService, public dialog: MatDialog) {
+    super();
+
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
   }
 
   ngOnInit(): void {
+    this.filter$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      takeUntil(this.destroy$)
+    ).subscribe(value => {
+      this.params.search = value;
+      this.paginator.firstPage();
+      this.getGenres();
+    });
+
     this.getGenres();
   }
 
   getGenres() {
-    this.gamesService.getGenres().subscribe({
-      next: (r: Genre[]) => {
-        this.dataSource = new MatTableDataSource<Genre>(r);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+    this.gamesService.getGenreList(this.params).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (result: PagedResponse<Genre>) => {
+        this.dataSource = new MatTableDataSource<Genre>(result.results);
+        this.totalGenres = result.total;
       }
     })
+  }
+
+  sortChange(event: Sort) {
+    this.params.sortBy = event.active;
+    this.params.sortDir = event.direction;
+    this.getGenres();
+  }
+
+  pageChanged(event: PageEvent) {
+    this.params.index = event.pageIndex;
+    this.params.size = event.pageSize;
+    this.getGenres();
+  }
+
+  searchFilter(event: Event) {
+    const el = event.target as HTMLInputElement;
+    const value = el.value.trim().toLowerCase();
+    if (this.params.search !== value)
+      this.filter$.next(value);
   }
 
   removeGenre(genre: Genre) {
@@ -76,13 +111,5 @@ export class EditGenresComponent implements OnInit {
         })
       }
     })
-  }
-
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 }
