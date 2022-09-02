@@ -28,7 +28,7 @@ jobs:
         working-directory: ./FortGames.Web
         
       - run: dir
-        working-directory: ./FortGames.Web
+        working-directory: ./FortGames.Web/dist
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
