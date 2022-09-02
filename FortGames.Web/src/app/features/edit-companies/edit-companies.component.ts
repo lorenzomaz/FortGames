@@ -1,12 +1,15 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
+import { UnsubscriptionHandler } from 'src/app/models/classes/unsubscription-handler';
 import { Company } from 'src/app/models/interfaces/game.interface';
+import { PagedResponse } from 'src/app/models/interfaces/paged-response';
+import { TableParameters } from 'src/app/models/interfaces/table-paramenters.interface';
 import { GamesService } from 'src/app/providers/services/games.service';
 import { EditCompaniesDialogComponent } from './edit-companies-dialog/edit-companies-dialog.component';
 
@@ -15,33 +18,65 @@ import { EditCompaniesDialogComponent } from './edit-companies-dialog/edit-compa
   templateUrl: './edit-companies.component.html',
   styleUrls: ['./edit-companies.component.scss']
 })
-export class EditCompaniesComponent implements OnInit {
+export class EditCompaniesComponent extends UnsubscriptionHandler implements OnInit {
 
   displayedColumns: Array<string> = ['id', 'name', 'description', 'website', 'actions'];
   dataSource!: MatTableDataSource<Company>;
+  totalCompanies: number = 0;
+  params: TableParameters = { index: 0, size: 10 };
+  filter$ = new Subject<string>();
   form: FormGroup;
 
-  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private gamesService: GamesService, public dialog: MatDialog) {
+  constructor(private gamesService: GamesService, public dialog: MatDialog) {
+    super();
+
     this.form = new FormGroup({
       lCount: new FormControl(1, [Validators.required])
     });
   }
 
   ngOnInit(): void {
+    this.filter$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(), //capisce il valore del filtro, scatta solo se i valori sono diversi
+      takeUntil(this.destroy$)
+    ).subscribe(value => {
+      this.params.search = value;
+      this.paginator.firstPage();
+      this.getCompanies();
+    });
+
     this.getCompanies();
   }
 
   getCompanies() {
-    this.gamesService.getCompanies().subscribe({
-      next: (r: Company[]) => {
-        this.dataSource = new MatTableDataSource<Company>(r);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+    this.gamesService.getCompanyList(this.params).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (result: PagedResponse<Company>) => {
+        this.dataSource = new MatTableDataSource<Company>(result.results);
+        this.totalCompanies = result.total;
       }
     })
+  }
+
+  sortChange(event: Sort) {
+    this.params.sortBy = event.active;
+    this.params.sortDir = event.direction;
+    this.getCompanies();
+  }
+
+  pageChanged(event: PageEvent) {
+    this.params.index = event.pageIndex;
+    this.params.size = event.pageSize;
+    this.getCompanies();
+  }
+
+  searchFilter(event: Event) {
+    const el = event.target as HTMLInputElement;
+    const value = el.value.trim().toLowerCase();
+    if (this.params.search !== value)
+      this.filter$.next(value);
   }
 
   removeCompany(company: Company) {
@@ -76,13 +111,5 @@ export class EditCompaniesComponent implements OnInit {
         })
       }
     })
-  }
-
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 }

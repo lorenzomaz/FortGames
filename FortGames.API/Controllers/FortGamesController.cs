@@ -28,6 +28,13 @@ namespace FortGames.API.Controller
             return Ok(companies);
         }
 
+        [HttpGet("companies/list")]
+        public async Task<IActionResult> GetCompanies(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Company.Name), string? sortDir = "")
+        {
+            var companies = await _fortGamesService.GetCompanies(search, index, size, sortBy, sortDir);
+            return Ok(companies);
+        }
+
         [HttpGet("companies/{id}")]
         public async Task<IActionResult> GetCompanyRelatedGames(int id)
         {
@@ -39,6 +46,13 @@ namespace FortGames.API.Controller
         public async Task<IActionResult> GetGenres()
         {
             var genres = await _fortGamesService.GetGenres();
+            return Ok(genres);
+        }
+
+        [HttpGet("genres/list")]
+        public async Task<IActionResult> GetGenres(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Company.Name), string? sortDir = "")
+        {
+            var genres = await _fortGamesService.GetGenres(search, index, size, sortBy, sortDir);
             return Ok(genres);
         }
 
@@ -56,6 +70,13 @@ namespace FortGames.API.Controller
             return Ok(modes);
         }
 
+        [HttpGet("modes/list")]
+        public async Task<IActionResult> GetModes(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Company.Name), string? sortDir = "")
+        {
+            var modes = await _fortGamesService.GetModes(search, index, size, sortBy, sortDir);
+            return Ok(modes);
+        }
+
         [HttpGet("modes/{id}")]
         public async Task<IActionResult> GetModeRelatedGames(int id)
         {
@@ -67,6 +88,13 @@ namespace FortGames.API.Controller
         public async Task<IActionResult> GetPlatforms()
         {
             var platforms = await _fortGamesService.GetPlatforms();
+            return Ok(platforms);
+        }
+        
+        [HttpGet("platforms/list")]
+        public async Task<IActionResult> GetPlatforms(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Company.Name), string? sortDir = "")
+        {
+            var platforms = await _fortGamesService.GetPlatforms(search, index, size, sortBy, sortDir);
             return Ok(platforms);
         }
 
