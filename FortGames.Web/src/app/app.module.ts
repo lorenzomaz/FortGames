@@ -12,6 +12,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { LogoutComponent } from './features/logout/logout.component';
 import { environment } from 'src/environments/environment';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { environment } from 'src/environments/environment';
     HomeComponent,
     NotFoundComponent,
     ToolbarComponent,
-    LogoutComponent
+    LogoutComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

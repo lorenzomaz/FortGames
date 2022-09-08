@@ -44,17 +44,6 @@ export class AccountSettingsComponent extends UnsubscriptionHandler implements O
     });
   }
 
-  saveChanges() {
-    this.userService.editUser(this.userDetails).pipe(takeUntil(this.destroy$)).subscribe({
-      next: () => {
-        console.log(this.userDetails);
-        this.authService.user = this.userDetails;
-      },
-      error: (err: Error) => console.log(err)
-    });
-  }
-
-
   uploadPhoto($event: any) {
     this.readThis($event.target);
   };
@@ -72,13 +61,13 @@ export class AccountSettingsComponent extends UnsubscriptionHandler implements O
       this.userDetails.profilePicture = base64result;
       // this.userDetails.profilePicture = this.pictureForm.value.profilePicture!;
 
-      // this.userService.editUser(this.userDetails).pipe(takeUntil(this.destroy$)).subscribe({
-      //   next: () => {
-      //     console.log(this.userDetails);
-      //     this.authService.user = this.userDetails;
-      //   },
-      //   error: (err: Error) => console.log(err)
-      // });
+      this.userService.editUser(this.userDetails).pipe(takeUntil(this.destroy$)).subscribe({
+        next: () => {
+          console.log(this.userDetails);
+          this.authService.user = this.userDetails;
+        },
+        error: (err: Error) => console.log(err)
+      });
     }
   };
 
