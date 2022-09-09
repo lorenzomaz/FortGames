@@ -113,7 +113,7 @@
             [ngClass]="(game.rating > 7 ) ? ['text-success', 'border-success'] : (game.rating > 5) ? ['text-warning','border-warning'] : ['text-danger','border-danger']"
             class="rating d-flex align-items-center justify-content-center">{{ game.rating }}</div>
         </div>
-        <h2 class="card-title">{{game.title}}</h2>
+        <h2 class="card-title"><a class="text-light" [routerLink]="['/game-page', game.id]">{{game.title}}</a></h2>
         <div class="d-flex align-items-center gap-2 pb-2 ">
           <button mat-flat-button>
             <mat-icon class="material-symbols-rounded ">add</mat-icon>

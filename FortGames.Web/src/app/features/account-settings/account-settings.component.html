@@ -1,15 +1,16 @@
-<h1>Welcome back</h1>
+<div>
+  <button mat-button routerLink="/account"><mat-icon class="material-symbols-rounded">arrow_back</mat-icon> Account</button>
+</div>
 <div class="py-4" *ngIf="userDetails">
   <div class="row">
     <div class="col">
       <div class="d-flex justify-content-center pb-4">
         <img [src]="userDetails.profilePicture! ? photo(userDetails.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle" width="200px" height="200px">
       </div>
-      <div class="d-flex align-items-center justify-content-center gap-2">
+      <div class="d-flex align-items-center justify-content-center">
         <input type="file" accept=".png, .jpg, .jpeg" id="uploadPhoto" (change)="uploadPhoto($event)" hidden>
-        <button mat-flat-button class="p-0"><label mat-flat-button for="uploadPhoto" class="px-3"
+        <button mat-button class="p-0"><label mat-flat-button for="uploadPhoto" class="px-3"
             style="cursor: pointer;">Upload File</label></button>
-
         <div *ngIf="userDetails?.profilePicture">
           <button mat-icon-button type="button" (click)="removePhoto()">
             <mat-icon class="material-symbols-rounded">close</mat-icon>
@@ -41,8 +42,4 @@
       <button mat-flat-button (click)="editName(userDetails)">Edit</button>
     </div>
   </div>
-</div>
-
-<div>
-  <button mat-flat-button color="accent" type="button" (click)="saveChanges()">Save changes</button>
 </div>
