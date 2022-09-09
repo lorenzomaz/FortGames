@@ -28,7 +28,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     AppRoutingModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem(environment.tokenName)
+        tokenGetter: () => localStorage.getItem(environment.tokenName),
+        allowedDomains: environment.authAllowedDomains
       }
     }),
     HttpClientModule,
