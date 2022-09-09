@@ -121,36 +121,42 @@ namespace FortGames.API.Controller
         #endregion
 
         #region Post
+        [Authorize]
         [HttpPost("company")]
         public async Task<IActionResult> AddCompany(Company company)
         {
             return Ok(await _fortGamesService.AddCompany(company));
         }
 
+        [Authorize]
         [HttpPost("genre")]
         public async Task<IActionResult> AddGenre(Genre genre)
         {
             return Ok(await _fortGamesService.AddGenre(genre));
         }
 
+        [Authorize]
         [HttpPost("mode")]
         public async Task<IActionResult> AddMode(Mode mode)
         {
             return Ok(await _fortGamesService.AddMode(mode));
         }
 
+        [Authorize]
         [HttpPost("platform")]
         public async Task<IActionResult> AddPlatform(Platform platform)
         {
             return Ok(await _fortGamesService.AddPlatform(platform));
         }
 
+        [Authorize]
         [HttpPost("game")]
         public async Task<IActionResult> AddGame(Game game)
         {
             return Ok(await _fortGamesService.AddGame(game));
         }
 
+        [Authorize]
         [HttpPost("games/list")]
         public async Task<IActionResult> GetGamesList(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Game.Title), string? sortDir = "", [FromBody] IEnumerable<FilterGameModel>? filters = default)
         {

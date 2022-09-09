@@ -14,7 +14,12 @@
     <div *ngIf="isAuthenticated" class="d-flex align-items-center gap-3">
       <div class="mat-body">{{user?.userName}}</div>
       <div [matMenuTriggerFor]="accountMenu" style="cursor: pointer;">
-        <img [src]="user?.profilePicture ? photo(user?.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle border border-2" width="35px" height="35px">
+        <ng-container *ngIf="user?.profilePicture else noPic">
+          <img [src]="photo(user?.profilePicture!)" class="rounded-circle border border-2" width="35px" height="35px">
+        </ng-container>
+        <ng-template #noPic>
+          <img src="../../../assets/cover.png" class="rounded-circle border border-2" width="35px" height="35px">
+        </ng-template>
       </div>
     </div>
     <button mat-icon-button *ngIf="isAuthenticated" (click)="openDialog('200ms', '100ms'); drawer.close()">

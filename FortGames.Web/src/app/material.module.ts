@@ -24,7 +24,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DateAdapter, MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppDateAdapter } from './models/classes/app-date-adapter';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+
+
 
 
 const modules = [
@@ -52,6 +54,7 @@ const modules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatListModule
+
 ];
 
 @NgModule({
