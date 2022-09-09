@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   baseUrlApi: 'https://localhost:4200/api',
-  tokenName: 'token_dev'
+  tokenName: 'token_dev',
+  authAllowedDomains: ['localhost:4200']
 };
 
 /*
