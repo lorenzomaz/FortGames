@@ -4,7 +4,7 @@
 
 #toolbar {
   box-shadow:
-  0px 4px 9px rgba(0, 0, 0, 0.12);
+    0px 4px 9px rgba(0, 0, 0, 0.12);
   z-index: 666;
 }
 
@@ -19,4 +19,71 @@
 
 ::ng-deep .mat-menu-content:not(:empty) {
   padding-bottom: 0px !important;
+}
+
+/*Style Logo-Icon-Hamburger Animation*/
+
+.castleO{
+  cursor: pointer;
+
+  position: inherit;
+  top: -30%;
+  left: 50%;
+  background: transparent url('../assets/castle-Sheet_Rev.svg') 0 0 no-repeat;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%) scale(2);
+  margin: 0.5rem 0 0 1rem;
+}
+
+//CASTLE OPEN
+
+.castleOpen {
+
+  cursor: pointer;
+
+  position: inherit;
+  top: -30%;
+  left: 50%;
+  background: transparent url('../assets/castle-Sheet_Rev.svg') 0 0 no-repeat;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%) scale(2);
+  margin: 0.5rem 0 0 1rem;
+
+  animation: castleOpen 1s steps(6);
+  animation-direction: reverse;
+}
+
+@keyframes castleOpen {
+
+  100% {
+    background-position: -96px;
+  }
+}
+
+//CASTLE CLOSE
+
+.castleClose {
+
+  cursor: pointer;
+
+  position: inherit;
+  top: -30%;
+  left: 50%;
+  background: transparent url('../assets/castle-Sheet.svg') 0 0 no-repeat;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%) scale(2);
+  margin: 0.5rem 0 0 1rem;
+
+  animation: castleClose 1s steps(6);
+  animation-direction: reverse;
+}
+
+@keyframes castleClose {
+
+  100% {
+    background-position: -96px;
+  }
 }
