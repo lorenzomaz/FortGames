@@ -18,6 +18,8 @@ export class ToolbarComponent extends UnsubscriptionHandler implements OnInit {
   @Input() drawer!: MatDrawer;
 
   photo = base64Image;
+  pageLoaded = true;
+  toggleAnim = false;
   isAuthenticated = false;
   user!: User | null;
 
@@ -50,5 +52,14 @@ export class ToolbarComponent extends UnsubscriptionHandler implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+
+  castleAnim() {
+    this.pageLoaded = false;
+    this.toggleAnim = !this.toggleAnim;
+  }
+
+  pageLoading(){
+    this.pageLoaded = true;
   }
 }
