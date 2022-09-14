@@ -1,8 +1,8 @@
 <mat-toolbar class="sticky-top" id="toolbar">
   <div class="d-flex align-items-center gap-3">
-    <button mat-icon-button (click)="drawer.toggle()">
-      <mat-icon class="material-symbols-rounded">menu</mat-icon>
-    </button>
+    <a (click)="drawer.toggle()" (click)="castleAnim()">
+      <div [ngClass]="pageLoaded? 'castleO' : toggleAnim? 'castleClose' : 'castleOpen'"></div>
+    </a>
     <span><a routerLink="/" class="text-decoration-none text-light">FortGames</a></span>
   </div>
   <span class="toolbar-spacer"></span>
@@ -32,7 +32,8 @@
 <mat-menu id="menu" #accountMenu="matMenu" class="mt-1">
   <div class="d-flex align-items-center text-light px-3 py-3 gap-4">
     <div>
-      <img [src]="user?.profilePicture ? photo(user?.profilePicture!) : '../../../assets/cover.png'" class="rounded-circle border border-2" width="45px" height="45px" alt="">
+      <img [src]="user?.profilePicture ? photo(user?.profilePicture!) : '../../../assets/cover.png'"
+        class="rounded-circle border border-2" width="45px" height="45px" alt="">
     </div>
 
     <div>
