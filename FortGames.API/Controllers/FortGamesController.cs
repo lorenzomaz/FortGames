@@ -156,7 +156,6 @@ namespace FortGames.API.Controller
             return Ok(await _fortGamesService.AddGame(game));
         }
 
-        [Authorize]
         [HttpPost("games/list")]
         public async Task<IActionResult> GetGamesList(string? search = null, int index = 0, int size = 10, string? sortBy = nameof(Game.Title), string? sortDir = "", [FromBody] IEnumerable<FilterGameModel>? filters = default)
         {
