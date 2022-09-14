@@ -52,6 +52,7 @@
   margin: 0.5rem 0 0 1rem;
 
   animation: castleOpen 1s steps(6);
+  animation-delay: 0.01s;
   animation-direction: reverse;
 }
 
@@ -78,6 +79,7 @@
   margin: 0.5rem 0 0 1rem;
 
   animation: castleClose 1s steps(6);
+  animation-delay: 0.01s;
   animation-direction: reverse;
 }
 

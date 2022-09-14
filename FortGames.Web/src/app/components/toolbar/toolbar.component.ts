@@ -33,8 +33,6 @@ export class ToolbarComponent extends UnsubscriptionHandler implements OnInit {
     this.authService.isAuthenticated$.pipe(takeUntil(this.destroy$)).subscribe(r => this.isAuthenticated = r);
     this.authService.user$.pipe(takeUntil(this.destroy$)).subscribe(r => this.user = r);
     this.getAccount();
-
-    console.log(this.pageLoaded, this.toggleAnim)
   }
 
   getAccount() {
